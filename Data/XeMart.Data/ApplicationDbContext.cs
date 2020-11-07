@@ -24,6 +24,12 @@
         {
         }
 
+        public virtual DbSet<MainCategory> MainCategories { get; set; }
+
+        public virtual DbSet<Subcategory> Subcategories { get; set; }
+
+        public virtual DbSet<Product> Products { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
