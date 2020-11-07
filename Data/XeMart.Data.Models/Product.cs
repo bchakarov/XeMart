@@ -1,6 +1,7 @@
 ﻿namespace XeMart.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using XeMart.Data.Common.Models;
@@ -10,6 +11,9 @@
         public Product()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.Reviews = new HashSet<ProductReview>();
+            this.Images = new HashSet<ProductImage>();
+            this.FavouriteProducts = new HashSet<UserFavouriteProduct>();
         }
 
         [Required]
@@ -23,5 +27,11 @@
         public virtual Subcategory Subcategory { get; set; }
 
         public int SubcategoryId { get; set; }
+
+        public virtual ICollection<ProductReview> Reviews { get; set; }
+
+        public virtual ICollection<ProductImage> Images { get; set; }
+
+        public virtual ICollection<UserFavouriteProduct> FavouriteProducts { get; set; }
     }
 }

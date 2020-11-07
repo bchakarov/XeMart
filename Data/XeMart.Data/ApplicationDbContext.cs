@@ -30,6 +30,12 @@
 
         public virtual DbSet<Product> Products { get; set; }
 
+        public virtual DbSet<ProductReview> ProductReviews { get; set; }
+
+        public virtual DbSet<ProductImage> ProductImages { get; set; }
+
+        public virtual DbSet<UserFavouriteProduct> UserFavouriteProducts { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
