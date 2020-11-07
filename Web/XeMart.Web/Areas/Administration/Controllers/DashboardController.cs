@@ -1,8 +1,8 @@
 ﻿namespace XeMart.Web.Areas.Administration.Controllers
 {
-    using XeMart.Web.ViewModels.Administration.Dashboard;
-
     using Microsoft.AspNetCore.Mvc;
+
+    using XeMart.Web.ViewModels.Administration.Dashboard;
 
     public class DashboardController : AdministrationController
     {

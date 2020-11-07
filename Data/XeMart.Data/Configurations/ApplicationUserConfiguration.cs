@@ -1,8 +1,9 @@
 ﻿namespace XeMart.Data.Configurations
 {
-    using XeMart.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using XeMart.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

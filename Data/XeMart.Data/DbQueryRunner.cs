@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using XeMart.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+
+    using XeMart.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

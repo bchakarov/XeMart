@@ -5,6 +5,13 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using CommandLine;
+
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     using XeMart.Data;
     using XeMart.Data.Common;
     using XeMart.Data.Common.Repositories;
@@ -12,13 +19,6 @@
     using XeMart.Data.Repositories;
     using XeMart.Data.Seeding;
     using XeMart.Services.Messaging;
-
-    using CommandLine;
-
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
 
     public static class Program
     {

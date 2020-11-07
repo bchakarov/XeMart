@@ -3,9 +3,9 @@ namespace XeMart.Data.Models
 {
     using System;
 
-    using XeMart.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+
+    using XeMart.Data.Common.Models;
 
     public class ApplicationRole : IdentityRole, IAuditInfo, IDeletableEntity
     {

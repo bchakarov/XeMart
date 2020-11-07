@@ -2,9 +2,9 @@
 {
     using System.Diagnostics;
 
-    using XeMart.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+
+    using XeMart.Web.ViewModels;
 
     public class HomeController : BaseController
     {

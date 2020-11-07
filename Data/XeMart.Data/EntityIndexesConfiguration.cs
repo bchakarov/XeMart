@@ -2,9 +2,9 @@
 {
     using System.Linq;
 
-    using XeMart.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+
+    using XeMart.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

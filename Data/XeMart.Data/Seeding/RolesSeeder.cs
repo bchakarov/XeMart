@@ -4,11 +4,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using XeMart.Common;
-    using XeMart.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+
+    using XeMart.Common;
+    using XeMart.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {
