@@ -33,5 +33,7 @@
         public virtual ICollection<ProductImage> Images { get; set; }
 
         public virtual ICollection<UserFavouriteProduct> FavouriteProducts { get; set; }
+
+        public virtual ICollection<ShoppingCartProduct> ShoppingCartProducts { get; set; }
     }
 }

@@ -5,21 +5,23 @@
 
     using XeMart.Data.Common.Models;
 
-    public class UserFavouriteProduct : BaseDeletableModel<string>
+    public class ShoppingCartProduct : BaseDeletableModel<string>
     {
-        public UserFavouriteProduct()
+        public ShoppingCartProduct()
         {
             this.Id = Guid.NewGuid().ToString();
         }
 
-        public virtual ApplicationUser User { get; set; }
+        public virtual ShoppingCart ShoppingCart { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string ShoppingCartId { get; set; }
 
         public virtual Product Product { get; set; }
 
         [Required]
         public string ProductId { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

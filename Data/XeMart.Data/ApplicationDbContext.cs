@@ -36,6 +36,10 @@
 
         public virtual DbSet<UserFavouriteProduct> UserFavouriteProducts { get; set; }
 
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
+        public virtual DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
