@@ -4,7 +4,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
+@*<ul class="navbar-nav">
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="nav-item">
@@ -30,5 +30,28 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
+    }
+</ul>*@
+
+<ul class="list-unstyled list-inline">
+    @if (this.SignInManager.IsSignedIn(this.User))
+    {
+        <li class="list-inline-item"><a href=""><i class="fa fa-user" style="font-size:15px;margin-right: 5px;"></i>@(this.User.Identity.Name)</a></li>
+        <li class="list-inline-item"><a href=""><i class="fa fa-heart" style="font-size:15px;margin-right: 5px;"></i>Wishlist</a></li>
+        <li class="list-inline-item"><a href=""><i class="fa fa-arrow-alt-circle-right" style="font-size:15px;margin-right: 5px;"></i>Checkout</a></li>
+        if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+        {
+            <li class="list-inline-item"><a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin"><i class="fas fa-cogs" style="font-size:15px;margin-right: 5px;"></i>Admin</a></li>
+        }
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="list-inline-item"><a asp-area="Identity" asp-page="/Account/Register"><i class="fas fa-user-plus" style="font-size:15px;margin-right: 5px;"></i>Register</a></li>
+        <li class="list-inline-item"><a asp-area="Identity" asp-page="/Account/Login"><i class="fa fa-lock" style="font-size:15px;margin-right: 5px;"></i>Login</a></li>
     }
 </ul>

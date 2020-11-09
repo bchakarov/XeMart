@@ -1,0 +1,467 @@
+/* Responsive Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+@media only screen and (max-width: 1199px) {
+	.sticky-menu .main-menu {
+	    padding-left: 25px;
+	}
+	.sticky-menu .main-menu ul li {
+	    margin-right: 10px;
+	}
+	.service-area .service-box h6,
+	.category .product-box .tab-content .tab-pane .tab-item .tab-heading p a {
+		font-size: 15px;
+	}
+	.service-area .service-box .sr-img {
+		margin-right: 8px;
+	}
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box .effect h1 {
+		font-size: 35px;
+	}
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box .effect p {
+		font-size: 18px;
+	}
+	.feat-pro2 .ftr-product .tab-content .tab-pane .tab-slider .tab-item .tab-heading p a {
+		font-size: 14px;
+		font-weight: normal;
+	}
+	.sg-product .sg-content .pro-name p {
+		font-size: 22px;
+	}
+	.sg-product .sg-img .nav a.nav-item img {
+		max-width: 60px;
+	}
+	.shopping-cart .crt-sumry button.up-cart {
+		padding: 5px 15px;
+	}
+}
+
+@media only screen and (max-width: 991px) {
+	.logo-area .logo a img,
+	.logo-area2 .logo a img {
+	    max-width: 100%;
+	}
+	.logo-area .carts-area,
+	.logo-area2 .carts-area {
+	    padding-left: 0;
+	}
+	.menu-area .main-menu ul li.mega-menu .mega-box .m-slider,
+	.sticky-menu .main-menu ul li.mega-menu .mega-box .m-slider,
+	.menu-area2 .main-menu ul li.mega-menu .mega-box .m-slider,
+	.sticky-menu .carts-area .src-box,
+	.slider-area .menu-widget,
+	.menu-area2 .sidemenu,
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-content p {
+	    display: none;
+	}
+	.sticky-menu .main-menu {
+	    padding-left: 10px;
+	}
+	.sticky-menu .main-menu ul li {
+	    margin-right: 2px;
+	}
+	.sticky-menu .main-menu ul li.mega-menu .mega-box {
+	    width: calc(175% - 45px);
+	    left: -39.1%;
+	}
+	.slider-area .padding-fix-l20 {
+		padding-left: 15px;
+	}
+	.service-area .service-box .sr-img {
+		height: 100%;
+	}
+	.top-bar2 .top-left .lang-box,
+	.top-bar2 .top-left .mny-box,
+	.top-bar2 .top-left .call-us {
+		padding-right: 5px;
+	}
+	.top-bar2 .top-right ul li a {
+		padding: 9px 5px;
+	}
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box .effect h4,
+	.sg-product .sg-content .pro-price ul li:first-child {
+	    font-size: 20px;
+	}
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box .effect a {
+		font-size: 15px;
+    	padding: 8px 20px;
+	}
+	.slider-area2 .slider-wrapper .slider-item {
+	    height: 450px;
+	}
+	.best-ofr .bst-slider .bst-body .bst-items .bst-box .bst-content p a,
+	.f-blog .fb-slider .blog-item .blog-content p,
+	.about-us .wc-box p {
+	    font-size: 14px;
+	}
+	.f-blog .fb-slider .blog-item .blog-content h5 a,
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-heading .item-top p a,
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-heading .item-price ul.price li {
+		font-size: 16px;
+	}
+	.menu-area2 .main-menu ul li.mega-menu .mega-box {
+		width: calc(100% - 30px);
+    	left: 15px;
+	}
+	.about-us .wc-box a {
+		font-size: 14px;
+    	padding: 8px 20px;
+	}
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-heading {
+		display: inherit !important;
+	}
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-heading .item-price ul.price {
+		padding-top: 0;
+		margin-bottom: 10px;
+	}
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-content a.it-cart span {
+		padding: 5px 8px;
+	}
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-content a.it-cart label {
+		font-size: 13px;
+	}
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-content a.it-fav,
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-content a.it-comp {
+		padding: 6px 9px;
+	}
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-content {
+		padding-right: 0;
+		padding-left: 10px;
+    	padding-bottom: 15px;
+	}
+	.category .product-box .tab-content .tab-pane .tab-item2 .item-heading {
+		padding-right: 0;
+		padding-top: 5px;
+		padding-left: 10px;
+	}
+	.sg-product .sg-content .pro-name p,
+	.blog-details .blog-d-box .image-content h4 {
+		font-size: 20px;
+	}
+	.sg-product .sg-img .nav a.nav-item img {
+		margin-bottom: 8px;
+	}
+	.sg-product .ht-offer .ht-body .ht-item .ht-img ul.counter-box li {
+		width: 35px;
+	    height: 35px;
+	    margin: 0;
+		padding-top: 0;
+	}
+	.shopping-cart .crt-sumry {
+	    padding: 15px 22px 25px;
+	}
+	.shopping-cart .crt-sumry button.up-cart {
+		margin-bottom: 5px;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.sticky-menu.sticky,
+	.product-area .banner,
+	.product-area .banner-two,
+	.slider-area .slider-btm-box,
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell img,
+	.feat-pro2 .feat-box,
+	.banner3 .banner3-box img,
+	.f-banner .f-bnr-img img,
+	.about-us .his-mis .about-bnr img,
+	.category .product-box .cat-box .sortby,
+	.category .product-box .cat-box .show-item,
+	.category .add-box,
+	.sg-product .add-box,
+	.shopping-cart .cart-table .table thead tr th.t-qty,
+	.shopping-cart .cart-table .table tbody tr td.t-qty,
+	.shopping-cart .cart-table .table tbody tr td.t-add,
+	.blog3 .blog-banner,
+	.blog-details .blog-banner {
+	    display: none !important;
+	}
+	.slider-area .owl-slider,
+	.slider-area2,
+	.breadcrumb-area {
+	    margin-top: 60px;
+	}
+	.product-area .nw-ltr,
+	.footer-top .f-contact,
+	.footer-top .f-cat,
+	.footer-top .f-link,
+	.login .n-customer,
+	.blog3 .blog-tag {
+		margin-bottom: 30px;
+	}
+	.padding-fix-l20 {
+	    padding-left: 15px;
+	}
+	.footer-btm .col-md-6 {
+		text-align: center !important;
+	}
+	.footer-btm p {
+		margin-bottom: 15px;
+	}
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box {
+		padding-top: 0;
+	}
+	.service-area .service-box {
+		margin-bottom: 15px;
+	}
+	.feat-pro2 .ftr-product .tab-box.d-flex {
+		display: inherit !important;
+	}
+	.feat-pro2{
+		padding-bottom: 0;
+	}
+	.about-us .wc-box h4,
+	.team .sec-title h4,
+	.contact-area .contact-box-tp h4,
+	.contact-area .contact-form h4, {
+		font-size: 20px;
+	}
+	.about-us .wc-box,
+	.shopping-cart .cart-table,
+	.blog-details .blog-d-box .comment-form,
+	.contact-area #map,
+	.contact-area .social-link {
+		margin-bottom: 40px;
+	}
+	.about-us .his-mis .about-bnr {
+		margin-bottom: 0;
+	}
+	.about-us .his-mis {
+		padding-top: 40px;
+	}
+	.about-us .his-mis .history,
+	.sg-product .sg-img,
+	.sg-product .sim-pro,
+	.shopping-cart .shipping,
+	.shopping-cart .coupon {
+		padding-bottom: 20px;
+	}
+	.about-us {
+		padding-top: 35px;
+		padding-bottom: 0;
+	}
+	.category,
+	.sg-product,
+	.shopping-cart,
+	.checkout,
+	.login,
+	.compare-box,
+	.term-condition,
+	.faq,
+	.tr-order,
+	.blog1,
+	.blog2,
+	.blog3,
+	.blog-details,
+	.contact-area {
+	    padding: 35px 0;
+	}
+	.sg-product .sg-img .nav a.nav-item img {
+		max-width: 80px;
+	}
+	.sg-product .ht-offer {
+		margin-bottom: 0;
+	}
+	.shopping-cart .shipping form .post-box button,
+	.shopping-cart .coupon form button,
+	.shopping-cart .crt-sumry button.up-cart,
+	.shopping-cart .crt-sumry button.chq-out {
+		font-size: 14px;
+		padding: 4px 13px;
+	}
+	.compare-box .comp-table table.table tbody tr td {
+		padding: 15px;
+	}
+	.error-sec {
+		padding: 35px 0 115px;
+	}
+	.blog2 .blog-box {
+		max-width: 100%;
+	}
+}
+
+@media only screen and (max-width: 575px) {
+	.slider-area .owl-slider .slider-item .slider-box .slider-table .slider-tablecell h2,
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box .effect h1,
+	.error-sec .error-box h3 {
+		font-size: 24px;
+	}
+	.slider-area .owl-slider .slider-item .slider-box .slider-table .slider-tablecell h5,
+	.product-area .new-product .sec-title h5,
+	.product-area .top-slr .sec-title h5,
+	.product-area .hm-blog .sec-title h5,
+	.footer-top .f-contact h5,
+	.footer-top .f-cat h5,
+	.footer-top .f-sup h5,
+	.footer-top .f-link h5,
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box .effect h4,
+	.feat-pro2 .sec-title h5,
+	.f-blog .sec-title h5,
+	.sg-product .sim-pro .sec-title h5,
+	.checkout form h5,
+	.checkout .order-review h5,
+	.checkout .pay-meth h5,
+	.checkout .order-review .review-box ul li:last-child,
+	.login .n-customer h5,
+	.login .r-customer h5,
+	.register form h5,
+	.compare-box .comp-table table.table tbody tr td.col-name,
+	.error-sec .error-box p,
+	.tr-order .tr-box form h5,
+	.blog1 .blog-box .blog-content h5 a,
+	.blog2 .blog-box .blog-content h5 a,
+	.blog3 .blog-box .blog-content h5 a,
+	.blog-details .blog-d-box .image-content h4,
+	.blog-details .blog-d-box .blog-comment h4,
+	.blog-details .blog-d-box .comment-form h5,
+	.contact-area .contact-box-tp h4,
+	.contact-area .contact-form h4 {
+		font-size: 16px;
+	}
+	.slider-area .owl-slider .slider-item .slider-box .slider-table .slider-tablecell p,
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box .effect p,
+	.checkout .order-review .review-box ul li:first-child,
+	.checkout .order-review .review-box ul li:nth-child(6),
+	.checkout .order-review .review-box ul li:nth-child(7),
+	.shopping-cart .cart-table .table thead tr th,
+	.compare-box .comp-table table.table tbody tr.heading td a h6,
+	.term-condition .term-box div h6,
+	.faq .faq-box div h6,
+	.tr-order .tr-box form label,
+	.blog-details .blog-d-box .blog-comment .comment-box .comment-con ul li:nth-child(1) a,
+	.contact-area .contact-box .contact-content h6 {
+		font-size: 15px;
+	}
+	.slider-area .owl-slider .slider-item .slider-box .slider-table .slider-tablecell a,
+	.slider-area2 .slider-wrapper .slider-item .slider-table .slider-tablecell .slider-box .effect a {
+	    font-size: 14px;
+	    padding: 6px 18px;
+	}
+	.product-area .ftr-product .tab-box,
+	.blog-details .blog-d-box .blog-btns {
+		display: inherit !important;
+	}
+	.product-area .ftr-product .tab-box .sec-title h5 {
+		font-size: 16px;
+		margin-bottom: 10px;
+	}
+	.product-area .ftr-product .tab-box ul.nav li.nav-item a.nav-link,
+	.feat-pro2 .ftr-product .tab-box ul.nav li.nav-item a.nav-link,
+	.blog1 .blog-box .blog-content ul li,
+	.blog2 .blog-box .blog-content ul li,
+	.blog2 .blog-box .blog-content ul li i,
+	.blog2 .blog-box .blog-content ul li a,
+	.blog3 .blog-box .blog-content ul li i,
+	.blog3 .blog-box .blog-content ul li,
+	.blog3 .blog-box .blog-content ul li a,
+	.blog3 .blog-cat .cat-box ul li a,
+	.blog-details .blog-d-box .image-content ul li,
+	.blog-details .blog-d-box .image-content ul li a,
+	.blog-details .blog-d-box .image-content ul li i,
+	.blog-details .blog-d-box .blog-comment .comment-box .comment-con p,
+	.blog-details .blog-cat .cat-box ul li a {
+		font-size: 13px;
+	}
+	.best-ofr,
+	.banner3 {
+		margin-bottom: 0;
+	}
+	.best-ofr .bst-slider {
+		margin-bottom: 20px;
+	}
+	.slider-area2 .slider-wrapper .slider-item {
+		height: 350px;
+	}
+	.service-area {
+		margin-bottom: 25px;
+	}
+	.about-us .wc-box a,
+	.sg-product .sg-content .colo-siz .pro-btns a.cart,
+	.login .n-customer a,
+	.login .r-customer form button,
+	.register form button,
+	.compare-box .comp-table table.table tbody tr.add-cart td button,
+	.tr-order .tr-box form button,
+	.blog2 .blog-box .blog-content a.rd-btn,
+	.contact-area .contact-form form button {
+	    padding: 6px 18px;
+	}
+	.sg-product .sg-content .colo-siz .pro-btns a.fav-com,
+	.blog3 .blog-tag .tag-box a,
+	.blog3 .blog-box .blog-content a.rd-btn {
+		padding: 6px 9px;
+	}
+	.checkout button.ord-btn {
+		font-size: 16px;
+		height: 42px;
+	}
+	.checkout form div div label,
+	.checkout .pay-meth .pay-box ul li input[type="radio"] + label,
+	.register form label,
+	.shopping-cart .cart-table .table tbody tr td.t-pro .t-content p a,
+	.shopping-cart .cart-table .table tbody tr td.t-price,
+	.shopping-cart .cart-table .table tbody tr td.t-stk,
+	.compare-box .comp-table table.table tbody tr.desc td p,
+	.term-condition .term-box div p,
+	.faq .faq-box div p,
+	.blog1 .blog-box .blog-content p,
+	.blog2 .blog-box .blog-content p,
+	.blog2 .blog-box .blog-content a.rd-btn,
+	.blog3 .blog-box .blog-content p,
+	.blog-details .blog-d-box .image-content p,
+	.blog-details .blog-d-box .image-content p span,
+	.contact-area .contact-box .contact-content p {
+		font-size: 14px;
+	}
+	.shopping-cart .cart-table .table tbody tr td.t-pro .t-img a img {
+	    margin-right: 10px;
+	    max-width: 70px;
+	}
+	.term-condition .term-box div h6 i,
+	.faq .faq-box div h6 span {
+		font-size: 13px;
+	    width: 20px;
+	    height: 20px;
+	    padding-top: 3px;
+	}
+	.error-sec .error-box h1 {
+		font-size: 142px;
+	}
+	.error-sec .error-box a {
+		font-size: 15px;
+		padding: 10px 25px;
+	}
+	.blog-details .blog-d-box .blog-btns .share-btn ul li a i {
+		font-size: 13px;
+		width: 30px;
+		height: 30px;
+		padding-top: 8px;
+		margin-bottom: 15px;
+	}
+	.blog-details .blog-d-box .blog-btns .post-bfaf ul li a {
+		font-size: 13px;
+		width: 65px;
+	    height: 30px;
+		padding-top: 4px;
+	}
+	.blog-details .blog-d-box .blog-comment .comment-box .comment-img a img {
+		width: 75px;
+		margin-right: 5px;
+	}
+	.blog-details .blog-d-box .comment-form form button {
+		font-size: 15px;
+		width: 140px;
+    	height: 40px;
+	}
+	.contact-area .contact-box .contact-icon i {
+		font-size: 20px;
+		width: 55px;
+		height: 55px;
+		padding-top: 17px;
+	}
+	.contact-area .social-link ul li a i {
+		font-size: 13px;
+		width: 35px;
+		height: 35px;
+	}
+}

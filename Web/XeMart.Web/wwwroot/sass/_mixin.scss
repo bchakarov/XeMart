@@ -1,0 +1,27 @@
+@mixin border-radius($radius) {
+	-webkit-border-radius: $radius;
+	   -moz-border-radius: $radius;
+		-ms-border-radius: $radius;
+			border-radius: $radius;
+}
+
+@mixin transition($trans) {
+	-webkit-transition: $trans;
+	   -moz-transition: $trans;
+		-ms-transition: $trans;
+		 -o-transition: $trans;
+			transition: $trans;
+}
+
+@mixin input-placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}
+
+
+//http://engageinteractive.co.uk/blog/top-10-scss-mixins 
+
+//https://github.com/engageinteractive/front-end-baseplate/blob/master/src/scss/utility/_mixins.scss
