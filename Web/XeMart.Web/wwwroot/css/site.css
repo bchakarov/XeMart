@@ -49,6 +49,7 @@ CSS INDEX
 38. Blog
 39. Contact
 40. Footer Area
+41. Font Awesome Icons
 
 ==============================================*/
 /* ====================
@@ -9477,4 +9478,12 @@ input:focus, textarea:focus {
 
 .footer-btm .back-to-top:hover {
   background: #fff;
+}
+
+/* =======================================
+41. Font Awesome Icons
+======================================= */
+a > i {
+    font-size: 15px;
+    margin-right: 5px;
 }
