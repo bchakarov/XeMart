@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class ContactFormViewModel
+    public class ContactFormInputViewModel
     {
         [Required]
         [MinLength(5, ErrorMessage = "The subject must be at least 5 characters long.")]

@@ -23,7 +23,7 @@
         {
             if (this.User.Identity.IsAuthenticated)
             {
-                ContactFormViewModel model = new ContactFormViewModel
+                ContactFormInputViewModel model = new ContactFormInputViewModel
                 {
                     Email = this.User.Identity.Name,
                 };
@@ -35,7 +35,7 @@
         }
 
         [HttpPost]
-        public IActionResult Contact(ContactFormViewModel model)
+        public IActionResult Contact(ContactFormInputViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
