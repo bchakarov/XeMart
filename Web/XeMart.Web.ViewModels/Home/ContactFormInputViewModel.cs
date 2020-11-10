@@ -2,7 +2,10 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    public class ContactFormInputViewModel
+    using XeMart.Data.Models;
+    using XeMart.Services.Mapping;
+
+    public class ContactFormInputViewModel : IMapTo<UserMessage>
     {
         [Required]
         [MinLength(5, ErrorMessage = "The subject must be at least 5 characters long.")]

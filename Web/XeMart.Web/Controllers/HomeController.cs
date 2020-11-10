@@ -1,14 +1,24 @@
 ﻿namespace XeMart.Web.Controllers
 {
     using System.Diagnostics;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
+    using XeMart.Data.Models;
+    using XeMart.Services.Data;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Home;
 
     public class HomeController : BaseController
     {
+        private readonly IUserMessagesService userMessagesService;
+
+        public HomeController(IUserMessagesService userMessagesService)
+        {
+            this.userMessagesService = userMessagesService;
+        }
+
         public IActionResult Index()
         {
             return this.View();
@@ -35,7 +45,7 @@
         }
 
         [HttpPost]
-        public IActionResult Contact(ContactFormInputViewModel model)
+        public async Task<IActionResult> Contact(ContactFormInputViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -44,7 +54,12 @@
 
             this.TempData["Alert"] = "Thank you! Your request was sent successfully!";
 
-            // this.userMessagesService.Create(model.Title, model.Email, model.Content);
+            await this.userMessagesService.Add(new UserMessage
+            {
+                Subject = model.Subject,
+                Email = model.Email,
+                Message = model.Message,
+            });
 
             return this.RedirectToAction(nameof(this.Index));
         }

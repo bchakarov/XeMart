@@ -1,7 +1,7 @@
 ﻿namespace XeMart.Web
 {
     using System.Reflection;
-
+    using AutoMapper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -17,6 +17,7 @@
     using XeMart.Data.Models;
     using XeMart.Data.Repositories;
     using XeMart.Data.Seeding;
+    using XeMart.Services.Data;
     using XeMart.Services.Mapping;
     using XeMart.Services.Messaging;
     using XeMart.Web.ViewModels;
@@ -62,6 +63,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IUserMessagesService, UserMessagesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
