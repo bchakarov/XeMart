@@ -54,11 +54,13 @@
 
             this.TempData["Alert"] = "Thank you! Your request was sent successfully!";
 
+            var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
             await this.userMessagesService.Add(new UserMessage
             {
                 Subject = model.Subject,
                 Email = model.Email,
                 Message = model.Message,
+                IP = ip,
             });
 
             return this.RedirectToAction(nameof(this.Index));

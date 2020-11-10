@@ -24,6 +24,9 @@
         [MaxLength(2000)]
         public string Message { get; set; }
 
+        [Required]
+        public string IP { get; set; }
+
         public bool IsRead { get; set; }
     }
 }
