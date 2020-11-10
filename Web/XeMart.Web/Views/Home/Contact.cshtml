@@ -1,0 +1,94 @@
+﻿@model XeMart.Web.ViewModels.Home.ContactFormViewModel
+
+@{
+    this.ViewData["Title"] = "Contact Us";
+}
+
+<!-- Contact -->
+<section class="contact-area">
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-md-12">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2935.1870018670024!2d23.36759591575444!3d42.63619542561034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa85cb55668ae1%3A0x447f9dd693e57def!2sSoftUni!5e0!3m2!1sbg!2sbg!4v1604964307913!5m2!1sbg!2sbg" height="350" style="width:100%; border:0;" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-5">
+                <div class="contact-box-tp">
+                    <h4>Contact Info</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="contact-box d-flex">
+                            <div class="contact-icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h6>Our Location</h6>
+                                <p>795 South Park Avenue, Long Island, Newyork, NY 94107.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="contact-box d-flex">
+                            <div class="contact-icon">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h6>Email Address</h6>
+                                <p>enquery@domain.com <br>help@yourdomain.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="contact-box d-flex">
+                            <div class="contact-icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h6>Phone Number</h6>
+                                <p>+1 908 875 7678 <br>+1 908 875 7637</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-link">
+                    <ul class="list-unstyled list-inline">
+                        <li class="list-inline-item"><a href=""><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href=""><i class="fa fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href=""><i class="fa fa-linkedin"></i></a></li>
+                        <li class="list-inline-item"><a href=""><i class="fa fa-youtube"></i></a></li>
+                        <li class="list-inline-item"><a href=""><i class="fa fa-pinterest"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-7">
+                <div class="contact-form">
+                    <h4>Get In Touch</h4>
+                    <form asp-controller="Home" asp-action="Contact" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><input asp-for="Subject" placeholder="Subject"></p>
+                                <span asp-validation-for="Subject" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <p><input asp-for="Email" placeholder="Email"></p>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>                            
+                            <div class="col-md-12">
+                                <p><textarea asp-for="Message" placeholder="Message" rows="3"></textarea></p>
+                                <span asp-validation-for="Message" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+    </div>
+</section>
+<!-- End Contact -->
