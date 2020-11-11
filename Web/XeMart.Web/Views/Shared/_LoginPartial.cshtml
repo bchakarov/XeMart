@@ -40,7 +40,7 @@
         <li class="list-inline-item"><a href=""><i class="fa fa-arrow-alt-circle-right"></i>Checkout</a></li>
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
-            <li class="list-inline-item"><a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin"><i class="fas fa-cogs" style="font-size:15px;margin-right: 5px;"></i>Admin</a></li>
+            <li class="list-inline-item"><a target="_blank" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin"><i class="fas fa-cogs" style="font-size:15px;margin-right: 5px;"></i>Admin</a></li>
         }
         <li class="list-inline-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">

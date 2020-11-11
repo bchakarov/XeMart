@@ -10,7 +10,7 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900" rel="stylesheet" />
 
     <!-- Animate Css -->
     <link href="~/css/assets/animate.css" rel="stylesheet" asp-append-version="true" />
@@ -27,14 +27,14 @@
     <script src="https://kit.fontawesome.com/2b5e1173ae.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Preloader
+    @*<!-- Preloader -->
     <div class="preloader">
         <div class="load-list">
             <div class="load"></div>
             <div class="load load2"></div>
         </div>
     </div>
-     End Preloader -->
+    <!-- End Preloader -->*@
     <!-- Top Bar 2 -->
     <section class="top-bar2">
         <div class="container">
@@ -761,7 +761,9 @@
     <!-- Begin Content -->
     <partial name="_InfoAlertPartial.cshtml" />
     <partial name="_CookieConsentPartial" />
-    @this.RenderBody()
+    <div class="container mb-4">
+        @this.RenderBody()
+    </div>
     <!-- End Content -->
     <!-- Brand area 2 -->
     <section class="brand2">
@@ -878,7 +880,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>Copyright &copy; 2020 | Designed With <i class="fa fa-heart"></i> by <a href="#" target="_blank">SnazzyTheme</a></p>
+                    <p>Copyright &copy; XeMart @DateTime.UtcNow.Year | Designed With <i class="fa fa-heart"></i> by <a href="#" target="_blank">SnazzyTheme</a></p>
                 </div>
                 <div class="col-md-6 text-right">
                     <img src="~/images/payment.png" alt="" class="img-fluid">

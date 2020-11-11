@@ -7,6 +7,7 @@
 
     using XeMart.Data.Models;
     using XeMart.Services.Data;
+    using XeMart.Services.Mapping;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Home;
 
@@ -54,14 +55,11 @@
 
             this.TempData["Alert"] = "Thank you! Your request was sent successfully!";
 
+            var userMessage = AutoMapperConfig.MapperInstance.Map<UserMessage>(model);
             var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
-            await this.userMessagesService.Add(new UserMessage
-            {
-                Subject = model.Subject,
-                Email = model.Email,
-                Message = model.Message,
-                IP = ip,
-            });
+            userMessage.IP = ip;
+
+            await this.userMessagesService.Add(userMessage);
 
             return this.RedirectToAction(nameof(this.Index));
         }
