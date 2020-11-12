@@ -1,15 +1,14 @@
 ﻿namespace XeMart.Data.Models
 {
-    using System;
     using System.ComponentModel.DataAnnotations;
 
     using XeMart.Data.Common.Models;
 
-    public class Supplier : BaseDeletableModel<string>
+    public class Supplier : BaseDeletableModel<int>
     {
         public Supplier()
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.IsDefault = false;
         }
 
         [Required]

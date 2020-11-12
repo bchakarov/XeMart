@@ -1,0 +1,59 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Administration.Suppliers.SupplierViewModel>
+@{ ViewData["Title"] = "All Suppliers"; }
+
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr class="row">
+                    <th scope="col" class="col-1 d-flex justify-content-center">#</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Price to home</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Price to office</th>
+                    <th scope="col" class="col-4 d-flex justify-content-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var supplier in Model)
+                {
+                    <tr class="row">
+                        <td class="col-1 d-flex justify-content-center">
+                            @supplier.Id
+                        </td>
+                        <td class="col-3 d-flex justify-content-center">
+                            @supplier.Name
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @supplier.PriceToHome USD
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @supplier.PriceToOffice USD
+                        </td>
+                        <td class="col-md-4 d-flex justify-content-around">
+                            @if (supplier.IsDefault)
+                            {
+                                <div><i class="fas fa-truck-loading"> Default supplier</i></div>
+                                <div class="mr-2">
+                                    <a asp-controller="Suppliers" asp-action="Edit" asp-route-id="@supplier.Id" class="btn btn-success btn-sm">Edit</a>
+                                </div> 
+                            }
+                            else
+                            {
+                                <div class="mr-2">
+                                    <a asp-controller="Suppliers" asp-action="MakeDafault" asp-route-id="@supplier.Id" class="btn btn-primary btn-sm">Make default</a>
+                                </div>
+                                <div class="mr-2">
+                                    <a asp-controller="Suppliers" asp-action="Edit" asp-route-id="@supplier.Id" class="btn btn-success btn-sm">Edit</a>
+                                </div>
+                                <div class="mr-2">
+                                    <a asp-controller="Suppliers" asp-action="Delete" asp-route-id="@supplier.Id" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

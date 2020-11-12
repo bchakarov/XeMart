@@ -10,7 +10,7 @@ using XeMart.Data;
 namespace XeMart.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201112180117_AddSupplierEntity")]
+    [Migration("20201112202133_AddSupplierEntity")]
     partial class AddSupplierEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -501,8 +501,10 @@ namespace XeMart.Data.Migrations
 
             modelBuilder.Entity("XeMart.Data.Models.Supplier", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");

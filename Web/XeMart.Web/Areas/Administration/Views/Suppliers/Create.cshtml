@@ -1,0 +1,32 @@
+﻿@model XeMart.Web.ViewModels.Administration.Suppliers.CreateSupplierInputViewModel
+@{ 
+    this.ViewData["Title"] = "Create Supplier";
+}
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <form asp-controller="Suppliers" asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="PriceToHome" class="control-label"></label>
+                    <input asp-for="PriceToHome" class="form-control" />
+                    <span asp-validation-for="PriceToHome" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="PriceToOffice" class="control-label"></label>
+                    <input asp-for="PriceToOffice" class="form-control" />
+                    <span asp-validation-for="PriceToOffice" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" value="" class="btn btn-primary">Create Supplier</button>
+            </div>
+        </form>
+    </div>
+</div>
