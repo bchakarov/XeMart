@@ -1,5 +1,7 @@
 ﻿namespace XeMart.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using XeMart.Data.Common.Repositories;
@@ -20,17 +22,34 @@
             await this.userMessagesRepository.SaveChangesAsync();
         }
 
-        public async Task Delete(UserMessage userMessage)
+        public IEnumerable<UserMessage> All() =>
+            this.userMessagesRepository.AllAsNoTracking();
+
+        public async Task SetIsRead(string id, bool isRead)
         {
+            var userMessage = this.GetById(id);
+            if (userMessage == null)
+            {
+                return;
+            }
+
+            userMessage.IsRead = isRead;
+            await this.userMessagesRepository.SaveChangesAsync();
+        }
+
+        public async Task Delete(string id)
+        {
+            var userMessage = this.GetById(id);
+            if (userMessage == null)
+            {
+                return;
+            }
+
             this.userMessagesRepository.Delete(userMessage);
             await this.userMessagesRepository.SaveChangesAsync();
         }
 
-        public async Task SetIsRead(string id, bool isRead)
-        {
-            var userMessage = await this.userMessagesRepository.GetByIdWithDeletedAsync(id);
-            userMessage.IsRead = isRead;
-            await this.userMessagesRepository.SaveChangesAsync();
-        }
+        public UserMessage GetById(string id) =>
+            this.userMessagesRepository.All().FirstOrDefault(m => m.Id == id);
     }
 }
