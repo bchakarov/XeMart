@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
 
-    public class IndexUserMessageViewModel
+    public class IndexUserMessageViewModel<T>
     {
-        public IEnumerable<UserMessageViewModel> UserMessageViewModelCollection { get; set; }
+        public IEnumerable<T> UserMessageViewModelCollection { get; set; }
 
-        public UserMessageViewModel UserMessageViewModel { get; set; }
+        public T UserMessageViewModel { get; set; }
     }
 }

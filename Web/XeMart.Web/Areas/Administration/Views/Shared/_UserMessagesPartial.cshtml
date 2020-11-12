@@ -1,0 +1,43 @@
+﻿<div class="col-md-6">
+    <div class="container mobile-fondsize-11 p-3">
+        <div style="height:500px;" class="overflow-auto">
+            @if (Model.UserMessageViewModelCollection == null)
+            {
+                <div class="row col-md-12">No messages</div>
+            }
+            else
+            {
+                foreach (var userMessage in Model.UserMessageViewModelCollection)
+                {
+                    string color = "text-muted";
+                    if (userMessage.IsRead == false)
+                    {
+                        color = "text-dark font-weight-bold";
+                    }
+
+                    string active = null;
+                    if (userMessage.Id == Model.UserMessageViewModel.Id)
+                    {
+                        active = "bg-gray-500";
+                    }
+
+                    string actionName = "Index";
+                    if (userMessage.GetType().GetProperty("DeletedOn") != null)
+                    {
+                        actionName = "Deleted";
+                    }
+                    <a asp-controller="UserMessages" asp-action="@actionName" asp-route-id="@userMessage.Id">
+                        <div id="@userMessage.Id" class="row @color @active col-md-12">
+                            <div class="col-md-4 col">
+                                @userMessage.Subject
+                            </div>
+                            <div class="col-md-8 col">
+                                @userMessage.Email
+                            </div>
+                        </div>
+                    </a>
+                }
+            }
+        </div>
+    </div>
+</div>

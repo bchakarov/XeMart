@@ -5,7 +5,7 @@
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
 
-    public class UserMessageViewModel : IMapFrom<UserMessage>, IHaveCustomMappings
+    public class DeletedUserMessagesViewModel : IMapFrom<UserMessage>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -21,12 +21,14 @@
 
         public bool IsRead { get; set; }
 
+        public string DeletedOn { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<UserMessage, UserMessageViewModel>()
+            configuration.CreateMap<UserMessage, DeletedUserMessagesViewModel>()
             .ForMember(
-                source => source.CreatedOn,
-                destination => destination.MapFrom(member => member.CreatedOn.ToString("f")));
+                source => source.DeletedOn,
+                destination => destination.MapFrom(member => member.DeletedOn.Value.ToString("f")));
         }
     }
 }

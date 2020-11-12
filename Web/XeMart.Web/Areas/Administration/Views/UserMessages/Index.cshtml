@@ -1,4 +1,5 @@
-﻿@model XeMart.Web.ViewModels.Administration.UserMessages.IndexUserMessageViewModel
+﻿@using XeMart.Web.ViewModels.Administration.UserMessages
+@model IndexUserMessageViewModel<UserMessageViewModel>
 @{
     this.ViewData["Title"] = "Messages";
 }
@@ -6,43 +7,7 @@
 <div class="shadow pr-4 pl-4 pb-4 mb-4">
     <div class="card-header h3 text-center"><u>@this.ViewData["Title"]</u></div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="container mobile-fondsize-11 p-3">
-                <div style="height:500px; overflow-y:auto; overflow-x:hidden">
-                    @if (Model.UserMessageViewModelCollection == null)
-                    {
-                        <div class="row">No messages</div>
-                    }
-                    else
-                    {
-                        foreach (var userMessage in Model.UserMessageViewModelCollection)
-                        {
-                            string color = "text-muted";
-                            if (userMessage.IsRead == false)
-                            {
-                                color = "text-dark font-weight-bold";
-                            }
-
-                            string active = null;
-                            if (userMessage.Id == Model.UserMessageViewModel.Id)
-                            {
-                                active = "bg-gray-500";
-                            }
-                            <a asp-controller="UserMessages" asp-action="Index" asp-route-id="@userMessage.Id">
-                                <div id="@userMessage.Id" class="row @color @active">
-                                    <div class="col-md-4 col">
-                                        @userMessage.Subject
-                                    </div>
-                                    <div class="col-md-8 col">
-                                        @userMessage.Email
-                                    </div>
-                                </div>
-                            </a>
-                        }
-                    }
-                </div>
-            </div>
-        </div>
+        <partial name="_UserMessagesPartial" />
         <div class="col-md-6">
             <div class="container mt-3">
                 @if (Model.UserMessageViewModelCollection != null)
@@ -90,8 +55,13 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <a href="mailto:@Model.UserMessageViewModel.Email?subject=Re: @Model.UserMessageViewModel.Subject&body=Re: @Model.UserMessageViewModel.Message" class="btn xeon-color text-white btn-sm font-weight-bold"><i class="fas fa-reply"></i> Отговори</a>
+                        <div class="text-right">                            
+                            <a href="mailto:@Model.UserMessageViewModel.Email?subject=Re: @Model.UserMessageViewModel.Subject&body=Re: @Model.UserMessageViewModel.Message" class="btn btn-info btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                                <span class="text">Reply</span>
+                            </a>
                         </div>
                     </form>
                 }

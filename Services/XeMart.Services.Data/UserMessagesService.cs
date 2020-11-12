@@ -25,6 +25,9 @@
         public IEnumerable<UserMessage> All() =>
             this.userMessagesRepository.AllAsNoTracking();
 
+        public IEnumerable<UserMessage> AllWithDeleted() =>
+            this.userMessagesRepository.AllAsNoTrackingWithDeleted();
+
         public async Task SetIsRead(string id, bool isRead)
         {
             var userMessage = this.GetById(id);
@@ -49,7 +52,19 @@
             await this.userMessagesRepository.SaveChangesAsync();
         }
 
+        public async Task Undelete(string id)
+        {
+            var userMessage = this.GetById(id);
+            if (userMessage == null)
+            {
+                return;
+            }
+
+            this.userMessagesRepository.Undelete(userMessage);
+            await this.userMessagesRepository.SaveChangesAsync();
+        }
+
         public UserMessage GetById(string id) =>
-            this.userMessagesRepository.All().FirstOrDefault(m => m.Id == id);
+            this.userMessagesRepository.AllWithDeleted().FirstOrDefault(m => m.Id == id);
     }
 }

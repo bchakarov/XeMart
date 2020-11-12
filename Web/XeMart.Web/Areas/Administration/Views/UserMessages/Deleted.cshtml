@@ -1,0 +1,67 @@
+﻿@using XeMart.Web.ViewModels.Administration.UserMessages
+@model IndexUserMessageViewModel<DeletedUserMessagesViewModel>
+@{
+    this.ViewData["Title"] = "Deleted Messages";
+}
+
+<div class="shadow pr-4 pl-4 pb-4 mb-4">
+    <div class="card-header h3 text-center"><u>@this.ViewData["Title"]</u></div>
+    <div class="row">
+        <partial name="_UserMessagesPartial" />
+        <div class="col-md-6">
+            <div class="container mt-3">
+                @if (Model.UserMessageViewModelCollection != null)
+                {
+                <form>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label asp-for="@Model.UserMessageViewModel.Subject">Subject:</label>
+                                <input asp-for="@Model.UserMessageViewModel.Subject" class="form-control" disabled placeholder="Subject" />
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="@Model.UserMessageViewModel.Email">Email:</label>
+                                <input type="email" asp-for="@Model.UserMessageViewModel.Email" class="form-control" disabled placeholder="Email" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.UserMessageViewModel.CreatedOn">Created on:</label>
+                        <input asp-for="@Model.UserMessageViewModel.CreatedOn" class="form-control" disabled placeholder="Created on" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.UserMessageViewModel.DeletedOn">Deleted on:</label>
+                        <input asp-for="@Model.UserMessageViewModel.DeletedOn" class="form-control" disabled placeholder="Deleted on" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.UserMessageViewModel.IP">IP:</label>
+                        <input asp-for="@Model.UserMessageViewModel.IP" class="form-control" disabled placeholder="IP" />
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="@Model.UserMessageViewModel.Message">Message:</label>
+                        <textarea asp-for="@Model.UserMessageViewModel.Message" class="form-control" rows="3" disabled>@Model.UserMessageViewModel.Message</textarea>
+                    </div>
+                    <div class="row mb-3 pt-0">
+                        <div class="col-md-6">
+                            <a asp-controller="UserMessages" asp-action="Undelete" asp-route-id="@Model.UserMessageViewModel.Id" class="btn btn-danger btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-cross"></i>
+                                </span>
+                                <span class="text">Undelete</span>
+                            </a>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <a href="mailto:@Model.UserMessageViewModel.Email?subject=Re: @Model.UserMessageViewModel.Subject&body=Re: @Model.UserMessageViewModel.Message" class="btn btn-info btn-icon-split">
+                                <span class="icon text-white-50">
+                                    <i class="fas fa-info-circle"></i>
+                                </span>
+                                <span class="text">Reply</span>
+                            </a>
+                        </div>
+                    </div>                    
+                </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
