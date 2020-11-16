@@ -15,6 +15,12 @@
                 </tr>
             </thead>
             <tbody>
+                @if (!Model.Any())
+                {
+                    <tr class="row">
+                        <td class="col-12 d-flex justify-content-center"><strong>No suppliers</strong></td>
+                    </tr>
+                }
                 @foreach (var supplier in Model)
                 {
                     <tr class="row">
