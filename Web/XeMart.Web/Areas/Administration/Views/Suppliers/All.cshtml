@@ -33,7 +33,9 @@
                         <td class="col-md-4 d-flex justify-content-around">
                             @if (supplier.IsDefault)
                             {
-                                <div><i class="fas fa-truck-loading"> Default supplier</i></div>
+                                <div>
+                                    <strong>Default supplier</strong>
+                                </div>
                                 <div class="mr-2">
                                     <a asp-controller="Suppliers" asp-action="Edit" asp-route-id="@supplier.Id" class="btn btn-success btn-sm">Edit</a>
                                 </div> 

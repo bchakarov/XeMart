@@ -1,5 +1,7 @@
 ﻿namespace XeMart.Web.ViewModels.Administration.UserMessages
 {
+    using System.Globalization;
+
     using AutoMapper;
 
     using XeMart.Data.Models;
@@ -26,7 +28,7 @@
             configuration.CreateMap<UserMessage, UserMessageViewModel>()
             .ForMember(
                 source => source.CreatedOn,
-                destination => destination.MapFrom(member => member.CreatedOn.ToString("f")));
+                destination => destination.MapFrom(member => member.CreatedOn.ToString("f", CultureInfo.InvariantCulture)));
         }
     }
 }
