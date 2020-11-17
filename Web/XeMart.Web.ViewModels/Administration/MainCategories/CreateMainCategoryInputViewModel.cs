@@ -4,7 +4,7 @@
 
     using Microsoft.AspNetCore.Http;
 
-    using XeMart.Web.ViewModels.ValidationAttributes;
+    using XeMart.Web.Infrastructure.ValidationAttributes;
 
     public class CreateMainCategoryInputViewModel
     {

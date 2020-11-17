@@ -1,4 +1,4 @@
-﻿namespace XeMart.Web.ViewModels.ValidationAttributes
+﻿namespace XeMart.Web.Infrastructure.ValidationAttributes
 {
     using System.ComponentModel.DataAnnotations;
 

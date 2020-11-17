@@ -6,7 +6,7 @@
 
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
-    using XeMart.Web.ViewModels.ValidationAttributes;
+    using XeMart.Web.Infrastructure.ValidationAttributes;
 
     public class EditMainCategoryViewModel : IMapFrom<MainCategory>
     {
