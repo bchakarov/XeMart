@@ -19,6 +19,8 @@
         private readonly IImagesService imagesService;
         private readonly IWebHostEnvironment webHostEnvironment;
 
+        private string path;
+
         public MainCategoriesController(
             IMainCategoriesService mainCategoriesService,
             IImagesService imagesService,
@@ -27,6 +29,8 @@
             this.mainCategoriesService = mainCategoriesService;
             this.imagesService = imagesService;
             this.webHostEnvironment = webHostEnvironment;
+
+            this.path = this.webHostEnvironment.WebRootPath + GlobalConstants.MainCategoriesDirectoryPath;
         }
 
         public IActionResult Create()
@@ -50,9 +54,9 @@
 
             if (model.Image != null)
             {
-                var path = this.webHostEnvironment.WebRootPath + GlobalConstants.MainCategoriesDirectoryPath + model.Image.FileName;
-                await this.imagesService.UploadImage(model.Image, path);
-                mainCategory.ImageUrl = path.Replace(this.webHostEnvironment.WebRootPath, string.Empty).Replace("\\", "/");
+                this.path += model.Image.FileName;
+                await this.imagesService.UploadImage(model.Image, this.path);
+                mainCategory.ImageUrl = this.path.Replace(this.webHostEnvironment.WebRootPath, string.Empty).Replace("\\", "/");
             }
 
             await this.mainCategoriesService.Create(mainCategory);
@@ -69,27 +73,34 @@
             return this.View(mainCategoryViewModels);
         }
 
-        //public IActionResult Edit(int id)
-        //{
-        //    var mainCategory = this.mainCategoriesService.GetById(id);
+        public IActionResult Edit(int id)
+        {
+            var mainCategory = this.mainCategoriesService.GetById(id);
 
-        //    var editViewModel = AutoMapperConfig.MapperInstance.Map<EditMainCategoryViewModel>(mainCategory);
+            var editViewModel = AutoMapperConfig.MapperInstance.Map<EditMainCategoryViewModel>(mainCategory);
 
-        //    return this.View(editViewModel);
-        //}
+            return this.View(editViewModel);
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Edit(EditMainCategoryViewModel model)
-        //{
-        //    if (!this.ModelState.IsValid)
-        //    {
-        //        return this.View(model);
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditMainCategoryViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
 
-        //    await this.mainCategoriesService.Edit(model.Id, model.Name, model.PriceToHome, model.PriceToOffice);
+            if (model.Image != null)
+            {
+                this.path += model.Image.FileName;
+                await this.imagesService.UploadImage(model.Image, this.path);
+                model.ImageUrl = this.path.Replace(this.webHostEnvironment.WebRootPath, string.Empty).Replace("\\", "/");
+            }
 
-        //    return this.RedirectToAction(nameof(this.All));
-        //}
+            await this.mainCategoriesService.Edit(model.Id, model.Name, model.FontAwesomeIcon, model.ImageUrl);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
 
         public async Task<IActionResult> Delete(int id)
         {

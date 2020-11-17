@@ -27,7 +27,21 @@
 
         public async Task Edit(int id, string name, string fontAwesomeIcon, string imageUrl)
         {
-            throw new System.NotImplementedException();
+            var mainCategory = this.GetById(id);
+
+            if (mainCategory == null)
+            {
+                return;
+            }
+
+            mainCategory.Name = name;
+            mainCategory.FontAwesomeIcon = fontAwesomeIcon;
+            if (!string.IsNullOrWhiteSpace(imageUrl))
+            {
+                mainCategory.ImageUrl = imageUrl;
+            }
+
+            await this.mainCategoriesRepository.SaveChangesAsync();
         }
 
         public async Task<bool> Delete(int id)

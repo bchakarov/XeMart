@@ -27,9 +27,9 @@
             var format = Image.DetectFormat(image.OpenReadStream());
 
             if (format == null ||
-                format.Name != "JPEG" ||
-                format.Name != "JPG" ||
-                format.Name != "PNG")
+                (format.Name != "JPEG" &&
+                format.Name != "JPG" &&
+                format.Name != "PNG"))
             {
                 return new ValidationResult("Only .jpeg, .jpg and .png file formats are allowed.");
             }
