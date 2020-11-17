@@ -17,6 +17,7 @@
     using XeMart.Data.Models;
     using XeMart.Data.Repositories;
     using XeMart.Data.Seeding;
+    using XeMart.Services;
     using XeMart.Services.Data;
     using XeMart.Services.Mapping;
     using XeMart.Services.Messaging;
@@ -65,6 +66,8 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<IUserMessagesService, UserMessagesService>();
             services.AddTransient<ISuppliersService, SuppliersService>();
+            services.AddTransient<IImagesService, ImagesService>();
+            services.AddTransient<IMainCategoriesService, MainCategoriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

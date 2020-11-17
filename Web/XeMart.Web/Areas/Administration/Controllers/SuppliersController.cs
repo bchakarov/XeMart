@@ -56,7 +56,7 @@
 
         public IActionResult Edit(int id)
         {
-            Supplier supplier = this.suppliersService.GetById(id);
+            var supplier = this.suppliersService.GetById(id);
 
             var editViewModel = AutoMapperConfig.MapperInstance.Map<EditSupplierViewModel>(supplier);
 

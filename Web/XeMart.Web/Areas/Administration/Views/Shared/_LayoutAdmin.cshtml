@@ -38,7 +38,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" asp-area="Administration" asp-controller="Dashboard" asp-action="Index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -141,8 +141,8 @@
                 <div id="collapseMainCategories" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">All</a>
-                        <a class="collapse-item" href="#">Create</a>
+                        <a class="collapse-item" asp-area="Administration" asp-controller="MainCategories" asp-action="All">All</a>
+                        <a class="collapse-item" asp-area="Administration" asp-controller="MainCategories" asp-action="Create">Create</a>
                     </div>
                 </div>
             </li>

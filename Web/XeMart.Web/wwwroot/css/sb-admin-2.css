@@ -11246,3 +11246,7 @@ body.sidebar-toggled footer.sticky-footer {
 .message-box {
   height: 500px;
 }
+
+.custom-image-box {
+  height: 50px;
+}

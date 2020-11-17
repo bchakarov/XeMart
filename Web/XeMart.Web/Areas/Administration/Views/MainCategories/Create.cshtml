@@ -1,0 +1,29 @@
+﻿@model XeMart.Web.ViewModels.Administration.MainCategories.CreateMainCategoryInputViewModel
+@{ this.ViewData["Title"] = "Create Main Category"; }
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <form asp-controller="MainCategories" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label asp-for="FontAwesomeIcon" class="control-label"></label>
+                    <input asp-for="FontAwesomeIcon" class="form-control" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" value="" class="btn btn-primary">Create Main Category</button>
+            </div>
+        </form>
+    </div>
+</div>
