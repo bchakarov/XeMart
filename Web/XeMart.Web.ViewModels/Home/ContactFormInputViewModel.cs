@@ -4,6 +4,7 @@
 
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
+    using XeMart.Web.Infrastructure.ValidationAttributes;
 
     public class ContactFormInputViewModel : IMapTo<UserMessage>
     {
@@ -20,5 +21,8 @@
         [MinLength(10, ErrorMessage = "The message must be at least 10 characters long.")]
         [MaxLength(2000, ErrorMessage = "The message can be maximum 2000 characters long.")]
         public string Message { get; set; }
+
+        [GoogleReCaptchaValidation]
+        public string RecaptchaValue { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model XeMart.Web.ViewModels.Home.ContactFormInputViewModel
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model XeMart.Web.ViewModels.Home.ContactFormInputViewModel
 
 @{
     this.ViewData["Title"] = "Contact Us";
@@ -76,11 +77,12 @@
                             <div class="col-md-6">
                                 <p><input asp-for="Email" placeholder="Email"></p>
                                 <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>                            
+                            </div>
                             <div class="col-md-12">
                                 <p><textarea asp-for="Message" placeholder="Message" rows="3"></textarea></p>
                                 <span asp-validation-for="Message" class="text-danger"></span>
                             </div>
+                            <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
                             <div class="col-md-12">
                                 <button type="submit">Send Message</button>
                             </div>
@@ -88,7 +90,19 @@
                     </form>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </section>
 <!-- End Contact -->
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+} 
