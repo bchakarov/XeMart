@@ -61,6 +61,8 @@
 
             await this.mainCategoriesService.Create(mainCategory);
 
+            this.TempData["Alert"] = "Successfully created main category.";
+
             return this.RedirectToAction(nameof(this.All));
         }
 
@@ -99,12 +101,16 @@
 
             await this.mainCategoriesService.Edit(model.Id, model.Name, model.FontAwesomeIcon, model.ImageUrl);
 
+            this.TempData["Alert"] = "Successfully edited main category.";
+
             return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             await this.mainCategoriesService.Delete(id);
+
+            this.TempData["Alert"] = "Successfully deleted main category.";
 
             return this.RedirectToAction(nameof(this.All));
         }

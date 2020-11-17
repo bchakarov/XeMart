@@ -35,6 +35,8 @@
             var supplier = AutoMapperConfig.MapperInstance.Map<Supplier>(model);
             await this.suppliersService.Create(supplier);
 
+            this.TempData["Alert"] = "Successfully created supplier.";
+
             return this.RedirectToAction(nameof(this.All));
         }
 
@@ -73,12 +75,16 @@
 
             await this.suppliersService.Edit(model.Id, model.Name, model.PriceToHome, model.PriceToOffice);
 
+            this.TempData["Alert"] = "Successfully edited supplier.";
+
             return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             await this.suppliersService.Delete(id);
+
+            this.TempData["Alert"] = "Successfully deleted supplier.";
 
             return this.RedirectToAction(nameof(this.All));
         }
