@@ -9,8 +9,9 @@
                 <tr class="row">
                     <th scope="col" class="col-1 d-flex justify-content-center">#</th>
                     <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
-                    <th scope="col" class="col-2 d-flex justify-content-center">Font Awesome Icon</th>
+                    <th scope="col" class="col-1 d-flex justify-content-center">Icon</th>
                     <th scope="col" class="col-2 d-flex justify-content-center">Image</th>
+                    <th scope="col" class="col-1 d-flex justify-content-center">Subcategories</th>
                     <th scope="col" class="col-4 d-flex justify-content-center">Actions</th>
                 </tr>
             </thead>
@@ -30,11 +31,14 @@
                         <td class="col-3 d-flex justify-content-center">
                             @mainCategory.Name
                         </td>
-                        <td class="col-2 d-flex justify-content-center">
+                        <td class="col-1 d-flex justify-content-center">
                             <i class="@mainCategory.FontAwesomeIcon"></i>
                         </td>
                         <td class="col-2 d-flex justify-content-center">
                             <img src="@mainCategory.ImageUrl" class="custom-image-box" />
+                        </td>
+                        <td class="col-1 d-flex justify-content-center">
+                            @mainCategory.SubcategoriesCount
                         </td>
                         <td class="col-md-4 d-flex justify-content-around">
                             <div class="mr-2">

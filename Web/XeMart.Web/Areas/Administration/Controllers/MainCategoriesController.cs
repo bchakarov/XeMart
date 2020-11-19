@@ -108,9 +108,16 @@
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.mainCategoriesService.Delete(id);
+            var deleteResult = await this.mainCategoriesService.Delete(id);
 
-            this.TempData["Alert"] = "Successfully deleted main category.";
+            if (deleteResult)
+            {
+                this.TempData["Alert"] = "Successfully deleted main category.";
+            }
+            else
+            {
+                this.TempData["Alert"] = "Cannot delete a main category with subcategories in it.";
+            }
 
             return this.RedirectToAction(nameof(this.All));
         }

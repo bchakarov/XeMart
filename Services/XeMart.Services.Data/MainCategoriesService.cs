@@ -47,7 +47,7 @@
         public async Task<bool> Delete(int id)
         {
             var mainCategory = this.GetById(id);
-            if (mainCategory == null)
+            if (mainCategory == null || mainCategory.Subcategories.Any())
             {
                 return false;
             }

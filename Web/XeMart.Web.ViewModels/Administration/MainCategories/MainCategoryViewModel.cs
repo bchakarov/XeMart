@@ -12,5 +12,7 @@
         public string FontAwesomeIcon { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public int SubcategoriesCount { get; set; }
     }
 }
