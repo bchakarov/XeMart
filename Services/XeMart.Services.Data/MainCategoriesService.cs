@@ -16,16 +16,16 @@
             this.mainCategoriesRepository = mainCategoriesRepository;
         }
 
-        public async Task Create(MainCategory mainCategory)
+        public async Task CreateAsync(MainCategory mainCategory)
         {
             await this.mainCategoriesRepository.AddAsync(mainCategory);
             await this.mainCategoriesRepository.SaveChangesAsync();
         }
 
         public IEnumerable<MainCategory> All() =>
-            this.mainCategoriesRepository.All();
+            this.mainCategoriesRepository.All().ToList();
 
-        public async Task Edit(int id, string name, string fontAwesomeIcon, string imageUrl)
+        public async Task EditAsync(int id, string name, string fontAwesomeIcon, string imageUrl)
         {
             var mainCategory = this.GetById(id);
 
@@ -44,7 +44,7 @@
             await this.mainCategoriesRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var mainCategory = this.GetById(id);
             if (mainCategory == null || mainCategory.Subcategories.Any())

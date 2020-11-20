@@ -14,6 +14,7 @@
             this.Reviews = new HashSet<ProductReview>();
             this.Images = new HashSet<ProductImage>();
             this.FavouriteProducts = new HashSet<UserFavouriteProduct>();
+            this.ShoppingCartProducts = new HashSet<ShoppingCartProduct>();
         }
 
         [Required]
@@ -24,9 +25,9 @@
         [ConcurrencyCheck]
         public decimal Price { get; set; }
 
-        public virtual Subcategory Subcategory { get; set; }
-
         public int SubcategoryId { get; set; }
+
+        public virtual Subcategory Subcategory { get; set; }
 
         public virtual ICollection<ProductReview> Reviews { get; set; }
 

@@ -7,13 +7,13 @@
 
     public interface IMainCategoriesService
     {
-        public Task Create(MainCategory supplier);
+        public Task CreateAsync(MainCategory supplier);
 
         public IEnumerable<MainCategory> All();
 
-        public Task Edit(int id, string name, string fontAwesomeIcon, string imageUrl);
+        public Task EditAsync(int id, string name, string fontAwesomeIcon, string imageUrl);
 
-        public Task<bool> Delete(int id);
+        public Task<bool> DeleteAsync(int id);
 
         public MainCategory GetById(int id);
     }

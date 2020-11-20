@@ -59,7 +59,7 @@
                 mainCategory.ImageUrl = this.path.Replace(this.webHostEnvironment.WebRootPath, string.Empty).Replace("\\", "/");
             }
 
-            await this.mainCategoriesService.Create(mainCategory);
+            await this.mainCategoriesService.CreateAsync(mainCategory);
 
             this.TempData["Alert"] = "Successfully created main category.";
 
@@ -99,7 +99,7 @@
                 model.ImageUrl = this.path.Replace(this.webHostEnvironment.WebRootPath, string.Empty).Replace("\\", "/");
             }
 
-            await this.mainCategoriesService.Edit(model.Id, model.Name, model.FontAwesomeIcon, model.ImageUrl);
+            await this.mainCategoriesService.EditAsync(model.Id, model.Name, model.FontAwesomeIcon, model.ImageUrl);
 
             this.TempData["Alert"] = "Successfully edited main category.";
 
@@ -108,7 +108,7 @@
 
         public async Task<IActionResult> Delete(int id)
         {
-            var deleteResult = await this.mainCategoriesService.Delete(id);
+            var deleteResult = await this.mainCategoriesService.DeleteAsync(id);
 
             if (deleteResult)
             {
@@ -116,7 +116,7 @@
             }
             else
             {
-                this.TempData["Alert"] = "Cannot delete a main category with subcategories in it.";
+                this.TempData["Error"] = "Cannot delete a main category with subcategories in it.";
             }
 
             return this.RedirectToAction(nameof(this.All));
