@@ -1,12 +1,9 @@
 ﻿namespace XeMart.Web.Areas.Administration.Controllers
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using XeMart.Data;
-    using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
     using XeMart.Services.Data;
     using XeMart.Services.Mapping;
