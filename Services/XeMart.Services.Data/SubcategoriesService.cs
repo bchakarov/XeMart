@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
 
@@ -24,7 +26,7 @@
         }
 
         public IEnumerable<Subcategory> All() =>
-            this.subcategoriesRepository.All().ToList();
+            this.subcategoriesRepository.All().Include(x => x.MainCategory).ToList();
 
         public async Task EditAsync(int id)
         {

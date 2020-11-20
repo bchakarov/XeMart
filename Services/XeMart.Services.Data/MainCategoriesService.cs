@@ -4,6 +4,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
 
@@ -23,7 +25,7 @@
         }
 
         public IEnumerable<MainCategory> All() =>
-            this.mainCategoriesRepository.All().ToList();
+            this.mainCategoriesRepository.All().Include(x => x.Subcategories).ToList();
 
         public async Task EditAsync(int id, string name, string fontAwesomeIcon, string imageUrl)
         {
