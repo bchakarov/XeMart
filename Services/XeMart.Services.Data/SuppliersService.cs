@@ -73,7 +73,7 @@
         public async Task<bool> DeleteAsync(int id)
         {
             var supplier = this.GetById(id);
-            if (supplier == null)
+            if (supplier == null || supplier.IsDefault)
             {
                 return false;
             }
