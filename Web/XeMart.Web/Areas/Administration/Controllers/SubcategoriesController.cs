@@ -42,9 +42,7 @@
                 return this.View(model);
             }
 
-            var subcategory = AutoMapperConfig.MapperInstance.Map<Subcategory>(model);
-
-            await this.subcategoriesService.CreateAsync(subcategory);
+            await this.subcategoriesService.CreateAsync<CreateSubcategoryInputViewModel>(model);
 
             this.TempData["Alert"] = "Successfully created subcategory.";
 
@@ -53,27 +51,42 @@
 
         public IActionResult All()
         {
-            var subcategories = this.subcategoriesService.All();
-
-            var subcategoryViewModels = AutoMapperConfig.MapperInstance.Map<IEnumerable<SubcategoryViewModel>>(subcategories);
-
-            return this.View(subcategoryViewModels);
+            var subcategories = this.subcategoriesService.All<SubcategoryViewModel>();
+            return this.View(subcategories);
         }
 
         public IActionResult Edit(int id)
         {
-            return this.View();
+            var mainCategories = this.mainCategoriesService.All();
+            var subcategory = this.subcategoriesService.GetById<EditSubcategoryViewModel>(id);
+            if (subcategory == null)
+            {
+                this.TempData["Error"] = "Subcategory not found.";
+                return this.RedirectToAction(nameof(this.All));
+            }
+
+            subcategory.MainCategories = mainCategories;
+
+            return this.View(subcategory);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(EditSubcategoryViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View();
             }
 
-            this.TempData["Alert"] = "Successfully edited subcategory.";
+            var editResult = await this.subcategoriesService.EditAsync<EditSubcategoryViewModel>(model);
+            if (editResult)
+            {
+                this.TempData["Alert"] = "Successfully edited subcategory.";
+            }
+            else
+            {
+                this.TempData["Error"] = "There was a problem editing the subcategory.";
+            }
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -81,14 +94,13 @@
         public async Task<IActionResult> Delete(int id)
         {
             var deleteResult = await this.subcategoriesService.DeleteAsync(id);
-
             if (deleteResult)
             {
                 this.TempData["Alert"] = "Successfully deleted subcategory.";
             }
             else
             {
-                this.TempData["Error"] = "Cannot delete subcategories with products in it.";
+                this.TempData["Error"] = "There was a problem deleting the subcategory.";
             }
 
             return this.RedirectToAction(nameof(this.All));

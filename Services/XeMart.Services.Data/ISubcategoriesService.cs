@@ -7,14 +7,14 @@
 
     public interface ISubcategoriesService
     {
-        public Task CreateAsync(Subcategory subcategory);
+        public Task CreateAsync<T>(T model);
 
-        public IEnumerable<Subcategory> All();
+        public IEnumerable<T> All<T>();
 
-        public Task EditAsync(int id);
+        public Task<bool> EditAsync<T>(T model);
 
         public Task<bool> DeleteAsync(int id);
 
-        public Subcategory GetById(int id);
+        public T GetById<T>(int id);
     }
 }
