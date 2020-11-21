@@ -6,6 +6,7 @@
 
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
+    using XeMart.Services.Mapping;
 
     public class SuppliersService : ISuppliersService
     {
@@ -16,9 +17,10 @@
             this.suppliersRepository = suppliersRepository;
         }
 
-        public async Task Create(Supplier supplier)
+        public async Task CreateAsync<T>(T model)
         {
-            if (!this.All().Any(x => x.IsDefault))
+            var supplier = AutoMapperConfig.MapperInstance.Map<Supplier>(model);
+            if (this.GetDefaultSupplier() == null)
             {
                 supplier.IsDefault = true;
             }
@@ -27,46 +29,48 @@
             await this.suppliersRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<Supplier> All() =>
-            this.suppliersRepository.All();
+        public IEnumerable<T> All<T>() =>
+            this.suppliersRepository.AllAsNoTracking()
+            .To<T>().ToList();
 
-        public async Task<bool> MakeDafault(int id)
+        public async Task<bool> MakeDafaultAsync(int id)
         {
             var newDefaultSupplier = this.GetById(id);
-
             if (newDefaultSupplier == null)
             {
                 return false;
             }
 
-            var oldDefaultSupplier = this.All().FirstOrDefault(x => x.IsDefault == true);
+            var oldDefaultSupplier = this.GetDefaultSupplier();
             if (oldDefaultSupplier != null)
             {
                 oldDefaultSupplier.IsDefault = false;
+                this.suppliersRepository.Update(oldDefaultSupplier);
             }
 
             newDefaultSupplier.IsDefault = true;
+
+            this.suppliersRepository.Update(newDefaultSupplier);
             await this.suppliersRepository.SaveChangesAsync();
+
             return true;
         }
 
-        public async Task Edit(int id, string name, decimal priceToHome, decimal priceToOffice)
+        public async Task<bool> EditAsync<T>(T model)
         {
-            var supplier = this.GetById(id);
-
-            if (supplier == null)
+            var supplier = AutoMapperConfig.MapperInstance.Map<Supplier>(model);
+            if (this.GetById(supplier.Id) == null)
             {
-                return;
+                return false;
             }
 
-            supplier.Name = name;
-            supplier.PriceToHome = priceToHome;
-            supplier.PriceToOffice = priceToOffice;
-
+            this.suppliersRepository.Update(supplier);
             await this.suppliersRepository.SaveChangesAsync();
+
+            return true;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             var supplier = this.GetById(id);
             if (supplier == null)
@@ -76,13 +80,22 @@
 
             this.suppliersRepository.Delete(supplier);
             await this.suppliersRepository.SaveChangesAsync();
+
             return true;
         }
 
-        public Supplier GetById(int id) =>
-            this.suppliersRepository.All().FirstOrDefault(x => x.Id == id);
+        public T GetById<T>(int id) =>
+            this.suppliersRepository.AllAsNoTracking()
+            .Where(x => x.Id == id)
+            .To<T>()
+            .FirstOrDefault();
 
-        public Supplier GetDefaultSupplier() =>
-            this.suppliersRepository.All().FirstOrDefault(x => x.IsDefault);
+        private Supplier GetById(int id) =>
+            this.suppliersRepository.AllAsNoTracking()
+            .FirstOrDefault(x => x.Id == id);
+
+        private Supplier GetDefaultSupplier() =>
+            this.suppliersRepository.AllAsNoTracking()
+            .FirstOrDefault(x => x.IsDefault);
     }
 }

@@ -1,13 +1,10 @@
 ﻿namespace XeMart.Web.Areas.Administration.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
 
-    using XeMart.Data.Models;
     using XeMart.Services.Data;
-    using XeMart.Services.Mapping;
     using XeMart.Web.ViewModels.Administration.Suppliers;
 
     public class SuppliersController : AdministrationController
@@ -32,8 +29,7 @@
                 return this.View(model);
             }
 
-            var supplier = AutoMapperConfig.MapperInstance.Map<Supplier>(model);
-            await this.suppliersService.Create(supplier);
+            await this.suppliersService.CreateAsync<CreateSupplierInputViewModel>(model);
 
             this.TempData["Alert"] = "Successfully created supplier.";
 
@@ -42,27 +38,29 @@
 
         public IActionResult All()
         {
-            var suppliers = this.suppliersService.All();
-
-            var supplierViewModels = AutoMapperConfig.MapperInstance.Map<IEnumerable<SupplierViewModel>>(suppliers);
-
-            return this.View(supplierViewModels);
+            var suppliers = this.suppliersService.All<SupplierViewModel>();
+            return this.View(suppliers);
         }
 
         public async Task<IActionResult> MakeDafault(int id)
         {
-            await this.suppliersService.MakeDafault(id);
+            var makeDefaultResult = await this.suppliersService.MakeDafaultAsync(id);
+            if (makeDefaultResult)
+            {
+                this.TempData["Alert"] = "Successfully changed default supplier.";
+            }
+            else
+            {
+                this.TempData["Alert"] = "There was a problem changing the default supplier.";
+            }
 
             return this.RedirectToAction(nameof(this.All));
         }
 
         public IActionResult Edit(int id)
         {
-            var supplier = this.suppliersService.GetById(id);
-
-            var editViewModel = AutoMapperConfig.MapperInstance.Map<EditSupplierViewModel>(supplier);
-
-            return this.View(editViewModel);
+            var supplier = this.suppliersService.GetById<EditSupplierViewModel>(id);
+            return this.View(supplier);
         }
 
         [HttpPost]
@@ -73,18 +71,30 @@
                 return this.View(model);
             }
 
-            await this.suppliersService.Edit(model.Id, model.Name, model.PriceToHome, model.PriceToOffice);
-
-            this.TempData["Alert"] = "Successfully edited supplier.";
+            var editResult = await this.suppliersService.EditAsync<EditSupplierViewModel>(model);
+            if (editResult)
+            {
+                this.TempData["Alert"] = "Successfully edited supplier.";
+            }
+            else
+            {
+                this.TempData["Error"] = "There was a problem editing the supplier.";
+            }
 
             return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-            await this.suppliersService.Delete(id);
-
-            this.TempData["Alert"] = "Successfully deleted supplier.";
+            var deleteResult = await this.suppliersService.DeleteAsync(id);
+            if (deleteResult)
+            {
+                this.TempData["Alert"] = "Successfully deleted supplier.";
+            }
+            else
+            {
+                this.TempData["Error"] = "There was a problem deleting the supplier.";
+            }
 
             return this.RedirectToAction(nameof(this.All));
         }

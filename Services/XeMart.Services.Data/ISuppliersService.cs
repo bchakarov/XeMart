@@ -3,22 +3,18 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using XeMart.Data.Models;
-
     public interface ISuppliersService
     {
-        public Task Create(Supplier supplier);
+        public Task CreateAsync<T>(T supplier);
 
-        public IEnumerable<Supplier> All();
+        public IEnumerable<T> All<T>();
 
-        public Task<bool> MakeDafault(int id);
+        public Task<bool> MakeDafaultAsync(int id);
 
-        public Task Edit(int id, string name, decimal priceToHome, decimal priceToOffice);
+        public Task<bool> EditAsync<T>(T model);
 
-        public Task<bool> Delete(int id);
+        public Task<bool> DeleteAsync(int id);
 
-        public Supplier GetById(int id);
-
-        public Supplier GetDefaultSupplier();
+        public T GetById<T>(int id);
     }
 }
