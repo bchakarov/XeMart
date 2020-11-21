@@ -51,7 +51,7 @@
             }
             else
             {
-                this.TempData["Alert"] = "There was a problem changing the default supplier.";
+                this.TempData["Error"] = "There was a problem changing the default supplier.";
             }
 
             return this.RedirectToAction(nameof(this.All));
@@ -60,6 +60,12 @@
         public IActionResult Edit(int id)
         {
             var supplier = this.suppliersService.GetById<EditSupplierViewModel>(id);
+            if (supplier == null)
+            {
+                this.TempData["Error"] = "Supplier not found.";
+                return this.RedirectToAction(nameof(this.All));
+            }
+
             return this.View(supplier);
         }
 
