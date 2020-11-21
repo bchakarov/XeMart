@@ -55,11 +55,8 @@
 
             this.TempData["Alert"] = "Thank you! Your request was sent successfully!";
 
-            var userMessage = AutoMapperConfig.MapperInstance.Map<UserMessage>(model);
             var ip = this.HttpContext.Connection.RemoteIpAddress.ToString();
-            userMessage.IP = ip;
-
-            await this.userMessagesService.Add(userMessage);
+            await this.userMessagesService.CreateAsync<ContactFormInputViewModel>(model, ip);
 
             return this.RedirectToAction(nameof(this.Index));
         }

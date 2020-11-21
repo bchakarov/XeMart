@@ -6,6 +6,7 @@
 
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
+    using XeMart.Services.Mapping;
 
     public class UserMessagesService : IUserMessagesService
     {
@@ -16,55 +17,77 @@
             this.userMessagesRepository = userMessagesRepository;
         }
 
-        public async Task Add(UserMessage userMessage)
+        public async Task CreateAsync<T>(T model, string ip)
         {
+            var userMessage = AutoMapperConfig.MapperInstance.Map<UserMessage>(model);
+            userMessage.IP = ip;
             await this.userMessagesRepository.AddAsync(userMessage);
             await this.userMessagesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<UserMessage> All() =>
-            this.userMessagesRepository.AllAsNoTracking();
+        public IEnumerable<T> All<T>() =>
+            this.userMessagesRepository.AllAsNoTracking()
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>().ToList();
 
-        public IEnumerable<UserMessage> AllWithDeleted() =>
-            this.userMessagesRepository.AllAsNoTrackingWithDeleted();
+        public IEnumerable<T> AllDeleted<T>() =>
+            this.userMessagesRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted)
+            .OrderByDescending(x => x.DeletedOn)
+            .To<T>().ToList();
 
-        public async Task SetIsRead(string id, bool isRead)
+        public async Task<bool> SetIsReadAsync(string id, bool isRead)
         {
             var userMessage = this.GetById(id);
             if (userMessage == null)
             {
-                return;
+                return false;
             }
 
             userMessage.IsRead = isRead;
+
+            this.userMessagesRepository.Update(userMessage);
             await this.userMessagesRepository.SaveChangesAsync();
+
+            return true;
         }
 
-        public async Task Delete(string id)
+        public async Task<bool> DeleteAsync(string id)
         {
             var userMessage = this.GetById(id);
             if (userMessage == null)
             {
-                return;
+                return false;
             }
 
             this.userMessagesRepository.Delete(userMessage);
             await this.userMessagesRepository.SaveChangesAsync();
+
+            return true;
         }
 
-        public async Task Undelete(string id)
+        public async Task<bool> UndeleteAsync(string id)
         {
             var userMessage = this.GetById(id);
             if (userMessage == null)
             {
-                return;
+                return false;
             }
 
             this.userMessagesRepository.Undelete(userMessage);
             await this.userMessagesRepository.SaveChangesAsync();
+
+            return true;
         }
 
-        public UserMessage GetById(string id) =>
-            this.userMessagesRepository.AllWithDeleted().FirstOrDefault(m => m.Id == id);
+        public T GetById<T>(string id) =>
+            this.userMessagesRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.Id == id)
+            .To<T>()
+            .FirstOrDefault();
+
+        private UserMessage GetById(string id) =>
+            this.userMessagesRepository.AllAsNoTrackingWithDeleted()
+            .FirstOrDefault(x => x.Id == id);
     }
 }
