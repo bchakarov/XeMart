@@ -6,6 +6,6 @@
 
     public interface IImagesService
     {
-        public Task UploadImage(IFormFile image, string path);
+        public Task<string> UploadImage(IFormFile image, string path);
     }
 }

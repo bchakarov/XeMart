@@ -1,36 +1,30 @@
 ﻿namespace XeMart.Web.Areas.Administration.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
-    using XeMart.Common;
-    using XeMart.Data.Models;
-    using XeMart.Services;
     using XeMart.Services.Data;
-    using XeMart.Services.Mapping;
     using XeMart.Web.ViewModels.Administration.MainCategories;
 
     public class MainCategoriesController : AdministrationController
     {
+        private const string MainCategoriesDirectoryPath = "\\images\\categories\\";
+
         private readonly IMainCategoriesService mainCategoriesService;
-        private readonly IImagesService imagesService;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        private string path;
+        private readonly string path;
 
         public MainCategoriesController(
             IMainCategoriesService mainCategoriesService,
-            IImagesService imagesService,
             IWebHostEnvironment webHostEnvironment)
         {
             this.mainCategoriesService = mainCategoriesService;
-            this.imagesService = imagesService;
             this.webHostEnvironment = webHostEnvironment;
 
-            this.path = this.webHostEnvironment.WebRootPath + GlobalConstants.MainCategoriesDirectoryPath;
+            this.path = this.webHostEnvironment.WebRootPath + MainCategoriesDirectoryPath;
         }
 
         public IActionResult Create()
@@ -46,20 +40,7 @@
                 return this.View(model);
             }
 
-            var mainCategory = new MainCategory
-            {
-                Name = model.Name,
-                FontAwesomeIcon = model.FontAwesomeIcon,
-            };
-
-            if (model.Image != null)
-            {
-                this.path += model.Image.FileName;
-                await this.imagesService.UploadImage(model.Image, this.path);
-                mainCategory.ImageUrl = this.path.Replace(this.webHostEnvironment.WebRootPath, string.Empty).Replace("\\", "/");
-            }
-
-            await this.mainCategoriesService.CreateAsync(mainCategory);
+            await this.mainCategoriesService.CreateAsync<CreateMainCategoryInputViewModel>(model, model.Image, this.path, this.webHostEnvironment.WebRootPath);
 
             this.TempData["Alert"] = "Successfully created main category.";
 
@@ -68,20 +49,20 @@
 
         public IActionResult All()
         {
-            var mainCategories = this.mainCategoriesService.All();
-
-            var mainCategoryViewModels = AutoMapperConfig.MapperInstance.Map<IEnumerable<MainCategoryViewModel>>(mainCategories);
-
-            return this.View(mainCategoryViewModels);
+            var mainCategories = this.mainCategoriesService.All<MainCategoryViewModel>();
+            return this.View(mainCategories);
         }
 
         public IActionResult Edit(int id)
         {
-            var mainCategory = this.mainCategoriesService.GetById(id);
+            var mainCategory = this.mainCategoriesService.GetById<EditMainCategoryViewModel>(id);
+            if (mainCategory == null)
+            {
+                this.TempData["Error"] = "Main category not found.";
+                return this.RedirectToAction(nameof(this.All));
+            }
 
-            var editViewModel = AutoMapperConfig.MapperInstance.Map<EditMainCategoryViewModel>(mainCategory);
-
-            return this.View(editViewModel);
+            return this.View(mainCategory);
         }
 
         [HttpPost]
@@ -92,16 +73,15 @@
                 return this.View(model);
             }
 
-            if (model.Image != null)
+            var editResult = await this.mainCategoriesService.EditAsync<EditMainCategoryViewModel>(model, model.Image, this.path, this.webHostEnvironment.WebRootPath);
+            if (editResult)
             {
-                this.path += model.Image.FileName;
-                await this.imagesService.UploadImage(model.Image, this.path);
-                model.ImageUrl = this.path.Replace(this.webHostEnvironment.WebRootPath, string.Empty).Replace("\\", "/");
+                this.TempData["Alert"] = "Successfully edited main category.";
             }
-
-            await this.mainCategoriesService.EditAsync(model.Id, model.Name, model.FontAwesomeIcon, model.ImageUrl);
-
-            this.TempData["Alert"] = "Successfully edited main category.";
+            else
+            {
+                this.TempData["Error"] = "There was a problem editing the main category.";
+            }
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -109,14 +89,13 @@
         public async Task<IActionResult> Delete(int id)
         {
             var deleteResult = await this.mainCategoriesService.DeleteAsync(id);
-
             if (deleteResult)
             {
                 this.TempData["Alert"] = "Successfully deleted main category.";
             }
             else
             {
-                this.TempData["Error"] = "Cannot delete a main category with subcategories in it.";
+                this.TempData["Error"] = "There was a problem deleting the main category.";
             }
 
             return this.RedirectToAction(nameof(this.All));
