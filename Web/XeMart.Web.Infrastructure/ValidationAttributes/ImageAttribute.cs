@@ -10,7 +10,7 @@
     {
         private readonly int maxFileSize;
 
-        public ImageAttribute(int maxFileSize)
+        public ImageAttribute(int maxFileSize = 2 * 1024 * 1024)
         {
             this.maxFileSize = maxFileSize;
         }

@@ -12,7 +12,7 @@
 
         public string LogoUrl { get; set; }
 
-        [ImageAttribute(2 * 1024 * 1024)]
+        [ImageAttribute]
         public IFormFile Logo { get; set; }
     }
 }

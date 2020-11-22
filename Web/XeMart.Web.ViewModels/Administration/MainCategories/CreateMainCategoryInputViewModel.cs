@@ -18,7 +18,7 @@
         [Display(Name = "Icon")]
         public string FontAwesomeIcon { get; set; }
 
-        [ImageAttribute(2 * 1024 * 1024)]
+        [ImageAttribute]
         public IFormFile Image { get; set; }
     }
 }
