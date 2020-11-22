@@ -30,7 +30,7 @@
             if (image != null)
             {
                 imagePath += image.FileName;
-                var imageUrl = await this.imagesService.UploadImage(image, imagePath);
+                var imageUrl = await this.imagesService.UploadLocalImageAsync(image, imagePath);
                 mainCategory.ImageUrl = imageUrl.Replace(webRootPath, string.Empty).Replace("\\", "/");
             }
 
@@ -57,7 +57,7 @@
             if (image != null)
             {
                 imagePath += image.FileName;
-                var imageUrl = await this.imagesService.UploadImage(image, imagePath);
+                var imageUrl = await this.imagesService.UploadLocalImageAsync(image, imagePath);
                 mainCategory.ImageUrl = imageUrl.Replace(webRootPath, string.Empty).Replace("\\", "/");
             }
 

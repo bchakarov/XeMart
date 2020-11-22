@@ -10,6 +10,7 @@
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels.Partners;
 
+    [Authorize]
     public class PartnersController : BaseController
     {
         private readonly IPartnersService partnersService;
@@ -19,7 +20,6 @@
             this.partnersService = partnersService;
         }
 
-        [Authorize]
         public IActionResult Create()
         {
             if (this.User.IsInRole(GlobalConstants.PartnerRoleName))
@@ -30,7 +30,6 @@
             return this.View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CreatePartnerInputViewModel model)
         {
@@ -72,9 +71,31 @@
 
         [Authorize(Roles = GlobalConstants.PartnerRoleName)]
         [HttpPost]
-        public IActionResult Edit(EditPartnerViewModel model)
+        public async Task<IActionResult> Edit(EditPartnerViewModel model)
         {
-            return this.View();
+            var partner = this.partnersService.GetByManagerId<EditPartnerViewModel>(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (partner == null)
+            {
+                this.TempData["Error"] = "Partner not found.";
+                return this.RedirectToAction(nameof(this.Create));
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var editResult = await this.partnersService.EditAsync<EditPartnerViewModel>(model, model.Logo);
+            if (editResult)
+            {
+                this.TempData["Alert"] = "Successfully edited partner.";
+            }
+            else
+            {
+                this.TempData["Error"] = "There was a problem editing the partner.";
+            }
+
+            return this.RedirectToAction(nameof(this.Edit));
         }
     }
 }

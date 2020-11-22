@@ -1,0 +1,55 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Administration.Partners.PartnerViewModel>
+@{ ViewData["Title"] = "Approved Partners"; }
+
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr class="row">
+                    <th scope="col" class="col-1 d-flex justify-content-center">#</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center">Company Name</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Company URL</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Manager</th>
+                    <th scope="col" class="col-4 d-flex justify-content-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr class="row">
+                        <td class="col-12 d-flex justify-content-center"><strong>No approved partners</strong></td>
+                    </tr>
+                }
+                @foreach (var partner in Model)
+                {
+                    <tr class="row">
+                        <td class="col-1 d-flex justify-content-center">
+                            @partner.Id
+                        </td>
+                        <td class="col-3 d-flex justify-content-center">
+                            @partner.CompanyName
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @partner.CompanyUrl
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @partner.ManagerEmail
+                        </td>
+                        <td class="col-md-4 d-flex justify-content-around">
+                            <div class="mr-2">
+                                <a asp-controller="Partners" asp-action="Unapprove" asp-route-id="@partner.Id" class="btn btn-primary btn-sm">Unapprove</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="Partners" asp-action="Edit" asp-route-id="@partner.Id" class="btn btn-success btn-sm">Edit</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="Partners" asp-action="Delete" asp-route-id="@partner.Id" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

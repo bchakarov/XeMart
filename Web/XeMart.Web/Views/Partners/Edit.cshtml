@@ -1,0 +1,38 @@
+﻿@model XeMart.Web.ViewModels.Partners.EditPartnerViewModel
+@{ ViewData["Title"] = "Edit Partner"; }
+<section class="register">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-area="" asp-controller="Partners" asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <h5>Edit partner</h5>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row justify-content-center">
+                        <img src="@Model.LogoUrl" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label asp-for="CompanyName" class="control-label"></label>
+                            <input asp-for="CompanyName" class="form-control" />
+                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="CompanyUrl" class="control-label"></label>
+                            <input asp-for="CompanyUrl" class="form-control" />
+                            <span asp-validation-for="CompanyUrl" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="Logo" class="control-label"></label>
+                            <input asp-for="Logo" class="form-control" />
+                            <span asp-validation-for="Logo" class="text-danger"></span>
+                        </div>
+                        <input asp-for="Id" hidden />
+                        <div class="col-md-5">
+                            <button type="submit">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

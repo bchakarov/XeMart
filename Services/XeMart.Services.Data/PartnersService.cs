@@ -1,20 +1,34 @@
 ﻿namespace XeMart.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+
+    using XeMart.Common;
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
 
     public class PartnersService : IPartnersService
     {
-        private readonly IDeletableEntityRepository<Partner> partnersRepository;
+        private const string LogoDirectoryPath = "partners";
 
-        public PartnersService(IDeletableEntityRepository<Partner> partnersRepository)
+        private readonly IDeletableEntityRepository<Partner> partnersRepository;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IImagesService imagesService;
+
+        public PartnersService(
+            IDeletableEntityRepository<Partner> partnersRepository,
+            UserManager<ApplicationUser> userManager,
+            IImagesService imagesService)
         {
             this.partnersRepository = partnersRepository;
+            this.userManager = userManager;
+            this.imagesService = imagesService;
         }
 
         public async Task<bool> CreateAsync<T>(T model, string managerId)
@@ -38,15 +52,66 @@
             .Where(x => x.IsApproved)
             .To<T>().ToList();
 
-        public async Task<bool> EditAsync<T>(T model)
+        public IEnumerable<T> AllRequests<T>() =>
+            this.partnersRepository.AllAsNoTracking()
+            .Where(x => !x.IsApproved)
+            .To<T>().ToList();
+
+        public async Task<bool> ApproveAsync(int id)
         {
-            var partner = AutoMapperConfig.MapperInstance.Map<Partner>(model);
-            if (this.GetById(partner.Id) == null)
+            var partner = this.GetById(id);
+            if (partner == null)
             {
                 return false;
             }
 
+            var manager = await this.userManager.FindByIdAsync(partner.ManagerId);
+            await this.userManager.AddToRoleAsync(manager, GlobalConstants.PartnerRoleName);
+            partner.IsApproved = true;
+            partner.ApprovedOn = DateTime.UtcNow;
             this.partnersRepository.Update(partner);
+            await this.partnersRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UnapproveAsync(int id)
+        {
+            var partner = this.GetById(id);
+            if (partner == null)
+            {
+                return false;
+            }
+
+            var manager = await this.userManager.FindByIdAsync(partner.ManagerId);
+            await this.userManager.RemoveFromRoleAsync(manager, GlobalConstants.PartnerRoleName);
+
+            partner.IsApproved = false;
+            partner.ApprovedOn = null;
+            this.partnersRepository.Update(partner);
+            await this.partnersRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> EditAsync<T>(T model, IFormFile logo)
+        {
+            var newPartner = AutoMapperConfig.MapperInstance.Map<Partner>(model);
+            var foundPartner = this.GetById(newPartner.Id);
+            if (foundPartner == null)
+            {
+                return false;
+            }
+
+            foundPartner.CompanyName = newPartner.CompanyName;
+            foundPartner.CompanyUrl = newPartner.CompanyUrl;
+
+            if (logo != null)
+            {
+                foundPartner.LogoUrl = await this.imagesService.UploadCloudinaryImageAsync(logo, LogoDirectoryPath);
+            }
+
+            this.partnersRepository.Update(foundPartner);
             await this.partnersRepository.SaveChangesAsync();
 
             return true;
@@ -65,6 +130,12 @@
 
             return true;
         }
+
+        public T GetById<T>(int id) =>
+            this.partnersRepository.AllAsNoTracking()
+            .Where(x => x.Id == id)
+            .To<T>()
+            .FirstOrDefault();
 
         public T GetByManagerId<T>(string managerId) =>
             this.partnersRepository.AllAsNoTracking()

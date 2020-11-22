@@ -1,0 +1,38 @@
+﻿@model XeMart.Web.ViewModels.Partners.EditPartnerViewModel
+@{ ViewData["Title"] = "Edit Partner"; }
+
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <form asp-area="Administration" asp-controller="Partners" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row justify-content-center">
+                <img src="@Model.LogoUrl" />
+            </div>
+            <div class="form-group">
+                <input asp-for="Id" class="form-control" hidden />
+            </div>
+            <div class="form-group">
+                <label asp-for="CompanyName" class="control-label"></label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label asp-for="CompanyUrl" class="control-label"></label>
+                    <input asp-for="CompanyUrl" class="form-control" />
+                    <span asp-validation-for="CompanyUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Logo" class="control-label"></label>
+                    <input asp-for="Logo" class="form-control" />
+                    <span asp-validation-for="Logo" class="text-danger"></span>
+                </div>
+            </div>
+            <input asp-for="Id" hidden />
+            <div class="form-group text-center">
+                <button type="submit" value="" class="btn btn-primary">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
