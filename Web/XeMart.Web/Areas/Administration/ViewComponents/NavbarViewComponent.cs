@@ -1,10 +1,11 @@
-﻿namespace XeMart.Web.Areas.Administration.Components
+﻿namespace XeMart.Web.Areas.Administration.ViewComponents
 {
     using Microsoft.AspNetCore.Mvc;
+
     using XeMart.Services;
     using XeMart.Services.Data;
-    using XeMart.Web.ViewModels.Administration.Components;
     using XeMart.Web.ViewModels.Administration.UserMessages;
+    using XeMart.Web.ViewModels.Administration.ViewComponents;
 
     public class NavbarViewComponent : ViewComponent
     {

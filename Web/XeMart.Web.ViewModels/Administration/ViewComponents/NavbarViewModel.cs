@@ -1,4 +1,4 @@
-﻿namespace XeMart.Web.ViewModels.Administration.Components
+﻿namespace XeMart.Web.ViewModels.Administration.ViewComponents
 {
     using System.Collections.Generic;
 

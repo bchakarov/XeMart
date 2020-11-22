@@ -1,0 +1,18 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Partners.PartnerCarouselViewModel>
+
+<section class="brand2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tp-bnd owl-carousel">
+                    @foreach (var partner in Model)
+                    {
+                        <div class="bnd-items">
+                            <a href="@partner.CompanyUrl"><img src="@partner.LogoUrl" alt="@partner.CompanyName" class="img-fluid"></a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
