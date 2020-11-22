@@ -37,8 +37,12 @@ namespace XeMart.Data.Models
 
         public virtual ICollection<UserFavouriteProduct> FavouriteProducts { get; set; }
 
+        public string ShoppingCartId { get; set; }
+
         public virtual ShoppingCart ShoppingCart { get; set; }
 
-        public string ShoppingCartId { get; set; }
+        public int? PartnerId { get; set; }
+
+        public virtual Partner Partner { get; set; }
     }
 }

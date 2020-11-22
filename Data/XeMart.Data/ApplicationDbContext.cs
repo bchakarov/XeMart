@@ -44,6 +44,8 @@
 
         public virtual DbSet<Supplier> Suppliers { get; set; }
 
+        public virtual DbSet<Partner> Partners { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
