@@ -57,6 +57,11 @@
             .Where(x => !x.IsApproved)
             .To<T>().ToList();
 
+        public int GetRequestsCount() =>
+            this.partnersRepository.AllAsNoTracking()
+            .Where(x => !x.IsApproved)
+            .ToList().Count;
+
         public async Task<bool> ApproveAsync(int id)
         {
             var partner = this.GetById(id);

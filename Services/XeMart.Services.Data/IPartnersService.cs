@@ -13,6 +13,8 @@
 
         public IEnumerable<T> AllRequests<T>();
 
+        public int GetRequestsCount();
+
         public Task<bool> ApproveAsync(int id);
 
         public Task<bool> UnapproveAsync(int id);

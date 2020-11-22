@@ -36,6 +36,12 @@
             .OrderByDescending(x => x.DeletedOn)
             .To<T>().ToList();
 
+        public IEnumerable<T> GetUnreadMessages<T>() =>
+            this.userMessagesRepository.AllAsNoTracking()
+            .Where(x => !x.IsRead)
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>().ToList();
+
         public async Task<bool> SetIsReadAsync(string id, bool isRead)
         {
             var userMessage = this.GetById(id);

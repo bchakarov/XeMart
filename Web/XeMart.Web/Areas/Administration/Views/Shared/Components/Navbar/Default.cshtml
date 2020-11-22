@@ -1,0 +1,61 @@
+﻿@model XeMart.Web.ViewModels.Administration.Components.NavbarViewModel
+<!-- Nav Item - Orders -->
+<li class="nav-item no-arrow mx-1">
+    <a class="nav-link" href="#">
+        <i class="fas fa-box"></i>
+        <!-- Counter - Alerts -->
+        <span class="badge badge-danger badge-counter">1</span>
+    </a>
+</li>
+
+<!-- Nav Item - Partners -->
+<li class="nav-item no-arrow mx-1">
+    <a class="nav-link" asp-area="Administration" asp-controller="Partners" asp-action="Requests">
+        <i class="fas fa-handshake"></i>
+        <!-- Counter - Alerts -->
+        @if (Model.PartnerRequestsCount > 0)
+        {
+            <span class="badge badge-danger badge-counter">@Model.PartnerRequestsCount</span>
+        }
+    </a>
+</li>
+
+<!-- Nav Item - Messages -->
+<li class="nav-item dropdown no-arrow mx-1">
+    <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-envelope fa-fw"></i>
+        <!-- Counter - Messages -->
+        @if (Model.UnreadUserMessages.Count() > 0)
+        {
+            <span class="badge badge-danger badge-counter">@Model.UnreadUserMessages.Count()</span>
+        }
+    </a>
+    <!-- Dropdown - Messages -->
+    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+         aria-labelledby="messagesDropdown">
+        <h6 class="dropdown-header">
+            Message Center
+        </h6>
+        @if (Model.UnreadUserMessages.Count() == 0)
+        {
+            <div class="font-weight-bold">
+                <div class="text-gray-500">
+                    No unread messages
+                </div>
+            </div>
+        }
+        @foreach (var unreadMessage in Model.UnreadUserMessages.Take(Model.MaxMessagesToDisplay))
+        {
+            <a class="dropdown-item d-flex align-items-center" asp-area="Administration" asp-controller="UserMessages" asp-action="Index" asp-route-id="@unreadMessage.Id">
+                <div class="font-weight-bold">
+                    <div class="text-truncate">
+                        @unreadMessage.Subject
+                    </div>
+                    <div class="small text-gray-500">@unreadMessage.Email · @unreadMessage.TimePassedSinceSubmission ago</div>
+                </div>
+            </a>
+        }
+        <a class="dropdown-item text-center small text-gray-500" asp-area="Administration" asp-controller="UserMessages" asp-action="Index">Read More Messages</a>
+    </div>
+</li>

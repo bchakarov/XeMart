@@ -11,6 +11,8 @@
 
         public IEnumerable<T> AllDeleted<T>();
 
+        public IEnumerable<T> GetUnreadMessages<T>();
+
         public Task<bool> SetIsReadAsync(string id, bool isRead);
 
         public Task<bool> DeleteAsync(string id);
