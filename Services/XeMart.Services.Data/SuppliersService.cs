@@ -58,13 +58,19 @@
 
         public async Task<bool> EditAsync<T>(T model)
         {
-            var supplier = AutoMapperConfig.MapperInstance.Map<Supplier>(model);
-            if (this.GetById(supplier.Id) == null)
+            var newSupplier = AutoMapperConfig.MapperInstance.Map<Supplier>(model);
+
+            var foundSupplier = this.GetById(newSupplier.Id);
+            if (foundSupplier == null)
             {
                 return false;
             }
 
-            this.suppliersRepository.Update(supplier);
+            foundSupplier.Name = newSupplier.Name;
+            foundSupplier.PriceToHome = newSupplier.PriceToHome;
+            foundSupplier.PriceToOffice = newSupplier.PriceToOffice;
+
+            this.suppliersRepository.Update(foundSupplier);
             await this.suppliersRepository.SaveChangesAsync();
 
             return true;

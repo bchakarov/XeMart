@@ -6,7 +6,5 @@
     public class EditSupplierViewModel : CreateSupplierInputViewModel, IMapFrom<Supplier>, IMapTo<Supplier>
     {
         public int Id { get; set; }
-
-        public bool IsDefault { get; set; }
     }
 }

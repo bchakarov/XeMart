@@ -97,6 +97,7 @@
         public async Task<bool> EditAsync<T>(T model, IFormFile logo)
         {
             var newPartner = AutoMapperConfig.MapperInstance.Map<Partner>(model);
+
             var foundPartner = this.GetById(newPartner.Id);
             if (foundPartner == null)
             {

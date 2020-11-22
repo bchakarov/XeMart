@@ -48,20 +48,25 @@
 
         public async Task<bool> EditAsync<T>(T model, IFormFile image, string imagePath, string webRootPath)
         {
-            var mainCategory = AutoMapperConfig.MapperInstance.Map<MainCategory>(model);
-            if (this.GetById(mainCategory.Id) == null)
+            var newMainCategory = AutoMapperConfig.MapperInstance.Map<MainCategory>(model);
+
+            var foundMainCategory = this.GetById(newMainCategory.Id);
+            if (foundMainCategory == null)
             {
                 return false;
             }
+
+            foundMainCategory.Name = newMainCategory.Name;
+            foundMainCategory.FontAwesomeIcon = newMainCategory.FontAwesomeIcon;
 
             if (image != null)
             {
                 imagePath += image.FileName;
                 var imageUrl = await this.imagesService.UploadLocalImageAsync(image, imagePath);
-                mainCategory.ImageUrl = imageUrl.Replace(webRootPath, string.Empty).Replace("\\", "/");
+                foundMainCategory.ImageUrl = imageUrl.Replace(webRootPath, string.Empty).Replace("\\", "/");
             }
 
-            this.mainCategoriesRepository.Update(mainCategory);
+            this.mainCategoriesRepository.Update(foundMainCategory);
             await this.mainCategoriesRepository.SaveChangesAsync();
 
             return true;

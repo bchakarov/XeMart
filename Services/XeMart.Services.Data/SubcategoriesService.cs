@@ -36,13 +36,18 @@
 
         public async Task<bool> EditAsync<T>(T model)
         {
-            var subcategory = AutoMapperConfig.MapperInstance.Map<Subcategory>(model);
-            if (this.GetById(subcategory.Id) == null)
+            var newSubcategory = AutoMapperConfig.MapperInstance.Map<Subcategory>(model);
+
+            var foundSubcategory = this.GetById(newSubcategory.Id);
+            if (foundSubcategory == null)
             {
                 return false;
             }
 
-            this.subcategoriesRepository.Update(subcategory);
+            foundSubcategory.Name = newSubcategory.Name;
+            foundSubcategory.MainCategoryId = newSubcategory.MainCategoryId;
+
+            this.subcategoriesRepository.Update(foundSubcategory);
             await this.subcategoriesRepository.SaveChangesAsync();
 
             return true;
