@@ -6,7 +6,7 @@
 <div class="shadow card">
     <div class="card-header h3 text-center">@ViewData["Title"]</div>
     <div class="card-body">
-        <form asp-controller="MainCategories" asp-action="Edit" method="post" enctype="multipart/form-data">
+        <form asp-area="Administration" asp-controller="MainCategories" asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="row justify-content-center">
                 <img src="@Model.ImageUrl" />

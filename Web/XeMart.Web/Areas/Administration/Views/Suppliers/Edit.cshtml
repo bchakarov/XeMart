@@ -6,7 +6,7 @@
 <div class="shadow card">
     <div class="card-header h3 text-center">@ViewData["Title"]</div>
     <div class="card-body">
-        <form asp-controller="Suppliers" asp-action="Edit" method="post">
+        <form asp-area="Administration" asp-controller="Suppliers" asp-action="Edit" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <input asp-for="Id" class="form-control" hidden />
