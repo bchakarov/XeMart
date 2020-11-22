@@ -5,9 +5,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using XeMart.Data.Models;
     using XeMart.Services.Data;
-    using XeMart.Services.Mapping;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Home;
 
