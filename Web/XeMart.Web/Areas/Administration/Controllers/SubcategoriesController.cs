@@ -53,6 +53,12 @@
             return this.View(subcategories);
         }
 
+        public IActionResult Deleted()
+        {
+            var subcategories = this.subcategoriesService.GetAllDeleted<DeletedSubcategoryViewModel>();
+            return this.View(subcategories);
+        }
+
         public IActionResult Edit(int id)
         {
             var mainCategories = this.mainCategoriesService.GetAll();
@@ -102,6 +108,21 @@
             }
 
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Undelete(int id)
+        {
+            var undeleteResult = await this.subcategoriesService.UndeleteAsync(id);
+            if (undeleteResult)
+            {
+                this.TempData["Alert"] = "Successfully undeleted subcategory.";
+            }
+            else
+            {
+                this.TempData["Error"] = "There was a problem undeleting the subcategory.";
+            }
+
+            return this.RedirectToAction(nameof(this.Deleted));
         }
     }
 }

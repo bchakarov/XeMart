@@ -13,9 +13,13 @@
 
         public IEnumerable<Subcategory> GetAll();
 
+        public IEnumerable<T> GetAllDeleted<T>();
+
         public Task<bool> EditAsync<T>(T model);
 
         public Task<bool> DeleteAsync(int id);
+
+        public Task<bool> UndeleteAsync(int id);
 
         public T GetById<T>(int id);
     }

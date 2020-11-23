@@ -34,6 +34,11 @@
             this.subcategoriesRepository.AllAsNoTracking()
             .ToList();
 
+        public IEnumerable<T> GetAllDeleted<T>() =>
+            this.subcategoriesRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted)
+            .To<T>().ToList();
+
         public async Task<bool> EditAsync<T>(T model)
         {
             var newSubcategory = AutoMapperConfig.MapperInstance.Map<Subcategory>(model);
@@ -67,6 +72,20 @@
             return true;
         }
 
+        public async Task<bool> UndeleteAsync(int id)
+        {
+            var subcategory = this.GetDeletedById(id);
+            if (subcategory == null)
+            {
+                return false;
+            }
+
+            this.subcategoriesRepository.Undelete(subcategory);
+            await this.subcategoriesRepository.SaveChangesAsync();
+
+            return true;
+        }
+
         public T GetById<T>(int id) =>
              this.subcategoriesRepository.AllAsNoTracking()
             .Where(x => x.Id == id)
@@ -76,5 +95,10 @@
         private Subcategory GetById(int id) =>
              this.subcategoriesRepository.AllAsNoTracking().Include(x => x.Products)
             .FirstOrDefault(x => x.Id == id);
+
+        private Subcategory GetDeletedById(int id) =>
+            this.subcategoriesRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted && x.Id == id)
+            .FirstOrDefault();
     }
 }
