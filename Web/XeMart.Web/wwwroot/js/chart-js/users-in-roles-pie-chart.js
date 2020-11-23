@@ -26,6 +26,11 @@ var usersInRolesChart = new Chart(ctx, {
             yPadding: 15,
             displayColors: false,
             caretPadding: 10,
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    return data['labels'][tooltipItem['index']] + ': ' + data['datasets'][0]['data'][tooltipItem['index']] + '%';
+                }
+            },
         },
         legend: {
             display: true
