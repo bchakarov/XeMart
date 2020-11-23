@@ -15,9 +15,13 @@
 
         public IEnumerable<MainCategory> GetAll();
 
+        public IEnumerable<T> GetAllDeleted<T>();
+
         public Task<bool> EditAsync<T>(T model, IFormFile image, string imagePath, string webRootPath);
 
         public Task<bool> DeleteAsync(int id);
+
+        public Task<bool> UndeleteAsync(int id);
 
         public T GetById<T>(int id);
     }

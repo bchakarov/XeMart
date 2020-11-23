@@ -53,6 +53,12 @@
             return this.View(mainCategories);
         }
 
+        public IActionResult Deleted()
+        {
+            var mainCategories = this.mainCategoriesService.GetAllDeleted<DeletedMainCategoryViewModel>();
+            return this.View(mainCategories);
+        }
+
         public IActionResult Edit(int id)
         {
             var mainCategory = this.mainCategoriesService.GetById<EditMainCategoryViewModel>(id);
@@ -99,6 +105,21 @@
             }
 
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Undelete(int id)
+        {
+            var undeleteResult = await this.mainCategoriesService.UndeleteAsync(id);
+            if (undeleteResult)
+            {
+                this.TempData["Alert"] = "Successfully undeleted main category.";
+            }
+            else
+            {
+                this.TempData["Error"] = "There was a problem undeleting the main category.";
+            }
+
+            return this.RedirectToAction(nameof(this.Deleted));
         }
     }
 }

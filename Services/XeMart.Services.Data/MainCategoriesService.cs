@@ -46,6 +46,11 @@
             this.mainCategoriesRepository.AllAsNoTracking()
             .ToList();
 
+        public IEnumerable<T> GetAllDeleted<T>() =>
+            this.mainCategoriesRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted)
+            .To<T>().ToList();
+
         public async Task<bool> EditAsync<T>(T model, IFormFile image, string imagePath, string webRootPath)
         {
             var newMainCategory = AutoMapperConfig.MapperInstance.Map<MainCategory>(model);
@@ -86,6 +91,20 @@
             return true;
         }
 
+        public async Task<bool> UndeleteAsync(int id)
+        {
+            var mainCategory = this.GetDeletedById(id);
+            if (mainCategory == null)
+            {
+                return false;
+            }
+
+            this.mainCategoriesRepository.Undelete(mainCategory);
+            await this.mainCategoriesRepository.SaveChangesAsync();
+
+            return true;
+        }
+
         public T GetById<T>(int id) =>
              this.mainCategoriesRepository.AllAsNoTracking()
             .Where(x => x.Id == id)
@@ -95,5 +114,10 @@
         private MainCategory GetById(int id) =>
              this.mainCategoriesRepository.AllAsNoTracking().Include(x => x.Subcategories)
             .FirstOrDefault(x => x.Id == id);
+
+        private MainCategory GetDeletedById(int id) =>
+            this.mainCategoriesRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted && x.Id == id)
+            .FirstOrDefault();
     }
 }
