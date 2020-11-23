@@ -4,7 +4,7 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 // Pie Chart Example
 var ctx = document.getElementById("usersInRolesChart");
-var myPieChart = new Chart(ctx, {
+var usersInRolesChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
         labels: [],
@@ -35,10 +35,9 @@ var myPieChart = new Chart(ctx, {
 });
 
 (async () => {
-    removeData(myPieChart);
+    removeData(usersInRolesChart);
     var userRoles = await getDataAsync();
-    userRoles.forEach((userRole) => addData(myPieChart, userRole.roleName, userRole.percentage));
-    console.log(userRoles);
+    userRoles.forEach((userRole) => addData(usersInRolesChart, userRole.roleName, userRole.percentage));
 })();
 
 async function getDataAsync() {

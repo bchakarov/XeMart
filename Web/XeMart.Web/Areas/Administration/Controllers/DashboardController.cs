@@ -10,7 +10,6 @@
 
         public IActionResult Index()
         {
-            // var viewModel = new IndexViewModel();
             return this.View();
         }
     }

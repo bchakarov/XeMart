@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -41,6 +42,23 @@
             userRoles.Add(new UserRolesViewModel { RoleName = "User", Percentage = Math.Round((double)normalUsersCount / totalUsersCount * 100, 2) });
 
             return this.Json(userRoles);
+        }
+
+        [HttpGet("RegisteredUsers")]
+        public IActionResult RegisteredUsers()
+        {
+            var registeredUsers = new List<RegisteredUsersViewModel>();
+
+            var userDates = this.userManager.Users.OrderBy(x => x.CreatedOn).ToList().GroupBy(x => x.CreatedOn.ToString("dd-MMM-yyy", CultureInfo.InvariantCulture));
+
+            var totalUsers = 0;
+            foreach (var user in userDates)
+            {
+                totalUsers += user.Count();
+                registeredUsers.Add(new RegisteredUsersViewModel { RegistrationDate = user.Key, UsersCount = totalUsers });
+            }
+
+            return this.Json(registeredUsers);
         }
     }
 }

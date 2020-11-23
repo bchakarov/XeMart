@@ -12,22 +12,19 @@
 
         <div class="col-xl-8 col-lg-7">
 
-            <!-- Area Chart -->
+            <!-- Registered Users Area Chart -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Registered Users</h6>
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                        <canvas id="registeredUsersChart"></canvas>
                     </div>
-                    <hr>
-                    Styling for the area chart can be found in the
-                    <code>/js/demo/chart-area-demo.js</code> file.
                 </div>
             </div>
 
-            <!-- Bar Chart -->
+            @*<!-- Bar Chart -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
@@ -40,11 +37,11 @@
                     Styling for the bar chart can be found in the
                     <code>/js/demo/chart-bar-demo.js</code> file.
                 </div>
-            </div>
+            </div>*@
 
         </div>
 
-        <!-- Users In Roles Chart -->
+        <!-- Users In Roles Pie Chart -->
         <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
@@ -70,6 +67,6 @@
 
     <!-- Page level custom scripts -->
     <script src="~/js/chart-js/users-in-roles-pie-chart.js" asp-append-version="true"></script>
-    <script src="~/js/chart-js/chart-area-demo.js" asp-append-version="true"></script>
+    <script src="~/js/chart-js/registered-users-area-chart.js" asp-append-version="true"></script>
     <script src="~/js/chart-js/chart-bar-demo.js" asp-append-version="true"></script>
 }
