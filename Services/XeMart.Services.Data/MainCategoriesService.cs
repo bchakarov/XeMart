@@ -38,11 +38,11 @@
             await this.mainCategoriesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> All<T>() =>
+        public IEnumerable<T> GetAll<T>() =>
             this.mainCategoriesRepository.AllAsNoTracking()
             .To<T>().ToList();
 
-        public IEnumerable<MainCategory> All() =>
+        public IEnumerable<MainCategory> GetAll() =>
             this.mainCategoriesRepository.AllAsNoTracking()
             .ToList();
 

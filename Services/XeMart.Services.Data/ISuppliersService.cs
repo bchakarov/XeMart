@@ -7,7 +7,7 @@
     {
         public Task CreateAsync<T>(T supplier);
 
-        public IEnumerable<T> All<T>();
+        public IEnumerable<T> GetAll<T>();
 
         public Task<bool> MakeDafaultAsync(int id);
 

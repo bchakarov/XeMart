@@ -9,9 +9,9 @@
     {
         public Task<bool> CreateAsync<T>(T model, string managerId);
 
-        public IEnumerable<T> AllApproved<T>();
+        public IEnumerable<T> GetAllApproved<T>();
 
-        public IEnumerable<T> AllRequests<T>();
+        public IEnumerable<T> GetAllRequests<T>();
 
         public int GetRequestsCount();
 

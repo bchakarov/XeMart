@@ -11,9 +11,9 @@
     {
         public Task CreateAsync<T>(T model, IFormFile image, string imagePath, string webRootPath);
 
-        public IEnumerable<T> All<T>();
+        public IEnumerable<T> GetAll<T>();
 
-        public IEnumerable<MainCategory> All();
+        public IEnumerable<MainCategory> GetAll();
 
         public Task<bool> EditAsync<T>(T model, IFormFile image, string imagePath, string webRootPath);
 

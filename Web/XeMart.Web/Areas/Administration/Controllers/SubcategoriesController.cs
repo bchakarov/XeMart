@@ -1,12 +1,10 @@
 ﻿namespace XeMart.Web.Areas.Administration.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
-    using XeMart.Data.Models;
+
     using XeMart.Services.Data;
-    using XeMart.Services.Mapping;
     using XeMart.Web.ViewModels.Administration.Subcategories;
 
     public class SubcategoriesController : AdministrationController
@@ -22,7 +20,7 @@
 
         public IActionResult Create()
         {
-            var mainCategories = this.mainCategoriesService.All();
+            var mainCategories = this.mainCategoriesService.GetAll();
 
             var model = new CreateSubcategoryInputViewModel
             {
@@ -37,7 +35,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var mainCategories = this.mainCategoriesService.All();
+                var mainCategories = this.mainCategoriesService.GetAll();
                 model.MainCategories = mainCategories;
                 return this.View(model);
             }
@@ -51,13 +49,13 @@
 
         public IActionResult All()
         {
-            var subcategories = this.subcategoriesService.All<SubcategoryViewModel>();
+            var subcategories = this.subcategoriesService.GetAll<SubcategoryViewModel>();
             return this.View(subcategories);
         }
 
         public IActionResult Edit(int id)
         {
-            var mainCategories = this.mainCategoriesService.All();
+            var mainCategories = this.mainCategoriesService.GetAll();
             var subcategory = this.subcategoriesService.GetById<EditSubcategoryViewModel>(id);
             if (subcategory == null)
             {

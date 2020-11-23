@@ -49,7 +49,7 @@
 
         public IActionResult All()
         {
-            var mainCategories = this.mainCategoriesService.All<MainCategoryViewModel>();
+            var mainCategories = this.mainCategoriesService.GetAll<MainCategoryViewModel>();
             return this.View(mainCategories);
         }
 

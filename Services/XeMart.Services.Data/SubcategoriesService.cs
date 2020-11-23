@@ -26,11 +26,11 @@
             await this.subcategoriesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> All<T>() =>
+        public IEnumerable<T> GetAll<T>() =>
             this.subcategoriesRepository.AllAsNoTracking()
             .To<T>().ToList();
 
-        public IEnumerable<Subcategory> All() =>
+        public IEnumerable<Subcategory> GetAll() =>
             this.subcategoriesRepository.AllAsNoTracking()
             .ToList();
 

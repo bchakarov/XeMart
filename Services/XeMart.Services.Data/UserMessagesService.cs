@@ -25,12 +25,12 @@
             await this.userMessagesRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> All<T>() =>
+        public IEnumerable<T> GetAll<T>() =>
             this.userMessagesRepository.AllAsNoTracking()
             .OrderByDescending(x => x.CreatedOn)
             .To<T>().ToList();
 
-        public IEnumerable<T> AllDeleted<T>() =>
+        public IEnumerable<T> GetAllDeleted<T>() =>
             this.userMessagesRepository.AllAsNoTrackingWithDeleted()
             .Where(x => x.IsDeleted)
             .OrderByDescending(x => x.DeletedOn)

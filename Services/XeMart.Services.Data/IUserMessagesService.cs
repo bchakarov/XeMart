@@ -7,9 +7,9 @@
     {
         public Task CreateAsync<T>(T model, string ip);
 
-        public IEnumerable<T> All<T>();
+        public IEnumerable<T> GetAll<T>();
 
-        public IEnumerable<T> AllDeleted<T>();
+        public IEnumerable<T> GetAllDeleted<T>();
 
         public IEnumerable<T> GetUnreadMessages<T>();
 

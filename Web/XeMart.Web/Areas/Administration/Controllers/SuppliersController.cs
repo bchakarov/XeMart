@@ -38,7 +38,7 @@
 
         public IActionResult All()
         {
-            var suppliers = this.suppliersService.All<SupplierViewModel>();
+            var suppliers = this.suppliersService.GetAll<SupplierViewModel>();
             return this.View(suppliers);
         }
 

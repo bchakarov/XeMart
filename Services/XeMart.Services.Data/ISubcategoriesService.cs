@@ -9,7 +9,9 @@
     {
         public Task CreateAsync<T>(T model);
 
-        public IEnumerable<T> All<T>();
+        public IEnumerable<T> GetAll<T>();
+
+        public IEnumerable<Subcategory> GetAll();
 
         public Task<bool> EditAsync<T>(T model);
 

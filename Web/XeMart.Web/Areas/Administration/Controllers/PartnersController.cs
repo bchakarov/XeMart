@@ -19,13 +19,13 @@
 
         public IActionResult Approved()
         {
-            var suppliers = this.partnersService.AllApproved<PartnerViewModel>();
+            var suppliers = this.partnersService.GetAllApproved<PartnerViewModel>();
             return this.View(suppliers);
         }
 
         public IActionResult Requests()
         {
-            var suppliers = this.partnersService.AllRequests<PartnerViewModel>();
+            var suppliers = this.partnersService.GetAllRequests<PartnerViewModel>();
             return this.View(suppliers);
         }
 

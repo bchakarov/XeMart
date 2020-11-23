@@ -19,7 +19,7 @@
 
         public IActionResult Index(string id)
         {
-            var userMessages = this.userMessagesService.All<UserMessageViewModel>().ToList();
+            var userMessages = this.userMessagesService.GetAll<UserMessageViewModel>().ToList();
             if (userMessages.Count == 0)
             {
                 return this.View(new IndexUserMessageViewModel<UserMessageViewModel>());
@@ -44,7 +44,7 @@
 
         public IActionResult Deleted(string id)
         {
-            var userMessages = this.userMessagesService.AllDeleted<DeletedUserMessagesViewModel>().ToList();
+            var userMessages = this.userMessagesService.GetAllDeleted<DeletedUserMessagesViewModel>().ToList();
             if (userMessages.Count == 0)
             {
                 return this.View(new IndexUserMessageViewModel<DeletedUserMessagesViewModel>());

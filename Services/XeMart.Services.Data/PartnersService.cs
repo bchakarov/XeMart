@@ -47,12 +47,12 @@
             return true;
         }
 
-        public IEnumerable<T> AllApproved<T>() =>
+        public IEnumerable<T> GetAllApproved<T>() =>
             this.partnersRepository.AllAsNoTracking()
             .Where(x => x.IsApproved)
             .To<T>().ToList();
 
-        public IEnumerable<T> AllRequests<T>() =>
+        public IEnumerable<T> GetAllRequests<T>() =>
             this.partnersRepository.AllAsNoTracking()
             .Where(x => !x.IsApproved)
             .To<T>().ToList();

@@ -29,7 +29,7 @@
             await this.suppliersRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> All<T>() =>
+        public IEnumerable<T> GetAll<T>() =>
             this.suppliersRepository.AllAsNoTracking()
             .To<T>().ToList();
 

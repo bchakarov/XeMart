@@ -16,7 +16,7 @@
 
         public IViewComponentResult Invoke()
         {
-            var partners = this.partnersService.AllApproved<PartnerCarouselViewModel>();
+            var partners = this.partnersService.GetAllApproved<PartnerCarouselViewModel>();
             return this.View(partners);
         }
     }
