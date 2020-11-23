@@ -57,6 +57,11 @@
             .Where(x => !x.IsApproved)
             .To<T>().ToList();
 
+        public IEnumerable<T> GetAllDeleted<T>() =>
+            this.partnersRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted)
+            .To<T>().ToList();
+
         public int GetRequestsCount() =>
             this.partnersRepository.AllAsNoTracking()
             .Where(x => !x.IsApproved)
@@ -137,6 +142,20 @@
             return true;
         }
 
+        public async Task<bool> UndeleteAsync(int id)
+        {
+            var partner = this.GetDeletedById(id);
+            if (partner == null)
+            {
+                return false;
+            }
+
+            this.partnersRepository.Undelete(partner);
+            await this.partnersRepository.SaveChangesAsync();
+
+            return true;
+        }
+
         public T GetById<T>(int id) =>
             this.partnersRepository.AllAsNoTracking()
             .Where(x => x.Id == id)
@@ -152,5 +171,10 @@
         private Partner GetById(int id) =>
             this.partnersRepository.AllAsNoTracking()
             .FirstOrDefault(x => x.Id == id);
+
+        private Partner GetDeletedById(int id) =>
+            this.partnersRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted && x.Id == id)
+            .FirstOrDefault();
     }
 }

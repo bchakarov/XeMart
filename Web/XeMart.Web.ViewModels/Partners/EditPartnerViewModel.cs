@@ -6,7 +6,7 @@
     using XeMart.Services.Mapping;
     using XeMart.Web.Infrastructure.ValidationAttributes;
 
-    public class EditPartnerViewModel : CreatePartnerInputViewModel, IMapFrom<Partner>, IMapTo<Partner>
+    public class EditPartnerViewModel : CreatePartnerInputViewModel, IMapFrom<Partner>
     {
         public int Id { get; set; }
 

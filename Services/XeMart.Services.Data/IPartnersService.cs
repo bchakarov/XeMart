@@ -13,6 +13,8 @@
 
         public IEnumerable<T> GetAllRequests<T>();
 
+        public IEnumerable<T> GetAllDeleted<T>();
+
         public int GetRequestsCount();
 
         public Task<bool> ApproveAsync(int id);
@@ -22,6 +24,8 @@
         public Task<bool> EditAsync<T>(T model, IFormFile logo);
 
         public Task<bool> DeleteAsync(int id);
+
+        public Task<bool> UndeleteAsync(int id);
 
         public T GetById<T>(int id);
 
