@@ -35,6 +35,16 @@
         "dist/jquery.validate.unobtrusive.js",
         "dist/jquery.validate.unobtrusive.min.js"
       ]
+    },
+    {
+      "library": "chart.js@2.9.4",
+      "destination": "wwwroot/lib/chart-js/",
+      "files": [
+        "dist/Chart.bundle.js",
+        "dist/Chart.bundle.min.js",
+        "dist/Chart.js",
+        "dist/Chart.min.js"
+      ]
     }
   ]
 }
