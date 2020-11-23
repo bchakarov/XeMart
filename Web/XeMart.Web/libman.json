@@ -45,6 +45,40 @@
         "dist/Chart.js",
         "dist/Chart.min.js"
       ]
+    },
+    {
+      "library": "jquery.easing@1.4.1",
+      "destination": "wwwroot/lib/jquery-easing/",
+      "files": [
+        "jquery.easing.compatibility.js",
+        "jquery.easing.compatibility.min.js",
+        "jquery.easing.js",
+        "jquery.easing.min.js"
+      ]
+    },
+    {
+      "library": "popper.js@1.16.1",
+      "destination": "wwwroot/lib/popper/",
+      "files": [
+        "dist/umd/popper.js",
+        "dist/umd/popper.min.js"
+      ]
+    },
+    {
+      "library": "owl.carousel@2.3.4",
+      "destination": "wwwroot/lib/owl-carousel/",
+      "files": [
+        "dist/owl.carousel.js",
+        "dist/owl.carousel.min.js"
+      ]
+    },
+    {
+      "library": "wow.js@1.2.2",
+      "destination": "wwwroot/lib/wow-js/",
+      "files": [
+        "dist/wow.js",
+        "dist/wow.min.js"
+      ]
     }
   ]
 }

@@ -22,6 +22,7 @@
             this.roleManager = roleManager;
         }
 
+        [HttpGet("UserRoles")]
         public IActionResult UserRoles()
         {
             var userRoles = new List<UserRolesViewModel>();

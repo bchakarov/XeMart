@@ -42,7 +42,7 @@ var myPieChart = new Chart(ctx, {
 })();
 
 async function getDataAsync() {
-    var response = await fetch("api/statistics");
+    var response = await fetch("api/statistics/userroles");
     var data = await response.json();
     return data;
 }
