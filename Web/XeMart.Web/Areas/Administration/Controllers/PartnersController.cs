@@ -19,20 +19,20 @@
 
         public IActionResult Approved()
         {
-            var suppliers = this.partnersService.GetAllApproved<PartnerViewModel>();
-            return this.View(suppliers);
+            var partners = this.partnersService.GetAllApproved<PartnerViewModel>();
+            return this.View(partners);
         }
 
         public IActionResult Requests()
         {
-            var suppliers = this.partnersService.GetAllRequests<PartnerViewModel>();
-            return this.View(suppliers);
+            var partners = this.partnersService.GetAllRequests<PartnerViewModel>();
+            return this.View(partners);
         }
 
         public IActionResult Deleted()
         {
-            var suppliers = this.partnersService.GetAllDeleted<DeletedPartnerViewModel>();
-            return this.View(suppliers);
+            var partners = this.partnersService.GetAllDeleted<DeletedPartnerViewModel>();
+            return this.View(partners);
         }
 
         public async Task<IActionResult> Approve(int id)

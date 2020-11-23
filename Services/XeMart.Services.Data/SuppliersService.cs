@@ -33,6 +33,11 @@
             this.suppliersRepository.AllAsNoTracking()
             .To<T>().ToList();
 
+        public IEnumerable<T> GetAllDeleted<T>() =>
+            this.suppliersRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted)
+            .To<T>().ToList();
+
         public async Task<bool> MakeDafaultAsync(int id)
         {
             var newDefaultSupplier = this.GetById(id);
@@ -90,6 +95,20 @@
             return true;
         }
 
+        public async Task<bool> UndeleteAsync(int id)
+        {
+            var supplier = this.GetDeletedById(id);
+            if (supplier == null)
+            {
+                return false;
+            }
+
+            this.suppliersRepository.Undelete(supplier);
+            await this.suppliersRepository.SaveChangesAsync();
+
+            return true;
+        }
+
         public T GetById<T>(int id) =>
             this.suppliersRepository.AllAsNoTracking()
             .Where(x => x.Id == id)
@@ -103,5 +122,10 @@
         private Supplier GetDefaultSupplier() =>
             this.suppliersRepository.AllAsNoTracking()
             .FirstOrDefault(x => x.IsDefault);
+
+        private Supplier GetDeletedById(int id) =>
+            this.suppliersRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted && x.Id == id)
+            .FirstOrDefault();
     }
 }

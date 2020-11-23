@@ -1,0 +1,53 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Administration.Suppliers.DeletedSupplierViewModel>
+@{ ViewData["Title"] = "Deleted Suppliers"; }
+
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr class="row">
+                    <th scope="col" class="col-1 d-flex justify-content-center">#</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Price to home</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Price to office</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center">Deleted On</th>
+                    <th scope="col" class="col-1 d-flex justify-content-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr class="row">
+                        <td class="col-12 d-flex justify-content-center"><strong>No deleted suppliers</strong></td>
+                    </tr>
+                }
+                @foreach (var supplier in Model)
+                {
+                    <tr class="row">
+                        <td class="col-1 d-flex justify-content-center">
+                            @supplier.Id
+                        </td>
+                        <td class="col-3 d-flex justify-content-center">
+                            @supplier.Name
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @supplier.PriceToHome
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @supplier.PriceToOffice
+                        </td>
+                        <td class="col-3 d-flex justify-content-center">
+                            @supplier.DeletedOn
+                        </td>
+                        <td class="col-md-1 d-flex justify-content-around">
+                            <div class="mr-2">
+                                <a asp-controller="Suppliers" asp-action="Undelete" asp-route-id="@supplier.Id" class="btn btn-primary btn-sm">Undelete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

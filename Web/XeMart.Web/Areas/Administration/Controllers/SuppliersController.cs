@@ -42,6 +42,12 @@
             return this.View(suppliers);
         }
 
+        public IActionResult Deleted()
+        {
+            var suppliers = this.suppliersService.GetAllDeleted<DeletedSupplierViewModel>();
+            return this.View(suppliers);
+        }
+
         public async Task<IActionResult> MakeDafault(int id)
         {
             var makeDefaultResult = await this.suppliersService.MakeDafaultAsync(id);
@@ -103,6 +109,21 @@
             }
 
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        public async Task<IActionResult> Undelete(int id)
+        {
+            var undeleteResult = await this.suppliersService.UndeleteAsync(id);
+            if (undeleteResult)
+            {
+                this.TempData["Alert"] = "Successfully undeleted supplier.";
+            }
+            else
+            {
+                this.TempData["Error"] = "There was a problem undeleting the supplier.";
+            }
+
+            return this.RedirectToAction(nameof(this.Deleted));
         }
     }
 }
