@@ -5,20 +5,26 @@
 
     using XeMart.Data.Common.Models;
 
-    public class ProductReview : BaseDeletableModel<string>
+    public class UserProductReview : BaseDeletableModel<string>
     {
-        public ProductReview()
+        public UserProductReview()
         {
             this.Id = Guid.NewGuid().ToString();
         }
 
-        public int Rating { get; set; }
+        public byte Rating { get; set; }
 
+        [Required]
         public string Content { get; set; }
 
         public virtual Product Product { get; set; }
 
         [Required]
         public string ProductId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
     }
 }

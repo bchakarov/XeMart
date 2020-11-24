@@ -30,7 +30,7 @@
 
         public virtual DbSet<Product> Products { get; set; }
 
-        public virtual DbSet<ProductReview> ProductReviews { get; set; }
+        public virtual DbSet<UserProductReview> UserProductReviews { get; set; }
 
         public virtual DbSet<ProductImage> ProductImages { get; set; }
 

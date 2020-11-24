@@ -17,6 +17,7 @@ namespace XeMart.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.FavouriteProducts = new HashSet<UserFavouriteProduct>();
+            this.Reviews = new HashSet<UserProductReview>();
         }
 
         // Audit info
@@ -36,6 +37,8 @@ namespace XeMart.Data.Models
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
         public virtual ICollection<UserFavouriteProduct> FavouriteProducts { get; set; }
+
+        public virtual ICollection<UserProductReview> Reviews { get; set; }
 
         public string ShoppingCartId { get; set; }
 
