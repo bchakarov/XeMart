@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.WebUtilities;
+@{ 
+    int statusCode = (int)this.ViewData["StatusCode"];
+    this.ViewData["Title"] = statusCode;
+}
+
+<section class="error-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-box text-center">
+                    <h1>@statusCode</h1>
+                    <h3 class="mb-5">@ReasonPhrases.GetReasonPhrase(statusCode)</h3>
+                    <a asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home"></i>Back To Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

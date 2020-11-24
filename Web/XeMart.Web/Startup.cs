@@ -1,7 +1,9 @@
 ﻿namespace XeMart.Web
 {
     using System.Reflection;
+
     using CloudinaryDotNet;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -104,6 +106,8 @@
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseStatusCodePagesWithReExecute("/Home/StatusCodePage", "?code={0}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
