@@ -6,6 +6,7 @@
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
+
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
@@ -23,14 +24,13 @@
             this.imagesService = imagesService;
         }
 
-        public async Task CreateAsync<T>(T model, IFormFile image, string imagePath, string webRootPath)
+        public async Task CreateAsync<T>(T model, IFormFile image, string fullDirectoryPath, string webRootPath)
         {
             var mainCategory = AutoMapperConfig.MapperInstance.Map<MainCategory>(model);
 
             if (image != null)
             {
-                imagePath += image.FileName;
-                var imageUrl = await this.imagesService.UploadLocalImageAsync(image, imagePath);
+                var imageUrl = await this.imagesService.UploadLocalImageAsync(image, fullDirectoryPath);
                 mainCategory.ImageUrl = imageUrl.Replace(webRootPath, string.Empty).Replace("\\", "/");
             }
 
@@ -51,7 +51,7 @@
             .Where(x => x.IsDeleted)
             .To<T>().ToList();
 
-        public async Task<bool> EditAsync<T>(T model, IFormFile image, string imagePath, string webRootPath)
+        public async Task<bool> EditAsync<T>(T model, IFormFile image, string fullDirectoryPath, string webRootPath)
         {
             var newMainCategory = AutoMapperConfig.MapperInstance.Map<MainCategory>(model);
 
@@ -66,8 +66,7 @@
 
             if (image != null)
             {
-                imagePath += image.FileName;
-                var imageUrl = await this.imagesService.UploadLocalImageAsync(image, imagePath);
+                var imageUrl = await this.imagesService.UploadLocalImageAsync(image, fullDirectoryPath);
                 foundMainCategory.ImageUrl = imageUrl.Replace(webRootPath, string.Empty).Replace("\\", "/");
             }
 

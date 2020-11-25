@@ -6,7 +6,7 @@
 
     public interface IImagesService
     {
-        public Task<string> UploadLocalImageAsync(IFormFile image, string path);
+        public Task<string> UploadLocalImageAsync(IFormFile image, string fullDirectoryPath);
 
         public Task<string> UploadCloudinaryImageAsync(IFormFile image, string folderName);
     }

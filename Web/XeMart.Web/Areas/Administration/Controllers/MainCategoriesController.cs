@@ -15,7 +15,7 @@
         private readonly IMainCategoriesService mainCategoriesService;
         private readonly IWebHostEnvironment webHostEnvironment;
 
-        private readonly string path;
+        private readonly string fullDirectoryPath;
 
         public MainCategoriesController(
             IMainCategoriesService mainCategoriesService,
@@ -24,7 +24,7 @@
             this.mainCategoriesService = mainCategoriesService;
             this.webHostEnvironment = webHostEnvironment;
 
-            this.path = this.webHostEnvironment.WebRootPath + MainCategoriesDirectoryPath;
+            this.fullDirectoryPath = this.webHostEnvironment.WebRootPath + MainCategoriesDirectoryPath;
         }
 
         public IActionResult Create()
@@ -40,7 +40,7 @@
                 return this.View(model);
             }
 
-            await this.mainCategoriesService.CreateAsync<CreateMainCategoryInputViewModel>(model, model.Image, this.path, this.webHostEnvironment.WebRootPath);
+            await this.mainCategoriesService.CreateAsync<CreateMainCategoryInputViewModel>(model, model.Image, this.fullDirectoryPath, this.webHostEnvironment.WebRootPath);
 
             this.TempData["Alert"] = "Successfully created main category.";
 
@@ -79,7 +79,7 @@
                 return this.View(model);
             }
 
-            var editResult = await this.mainCategoriesService.EditAsync<EditMainCategoryViewModel>(model, model.Image, this.path, this.webHostEnvironment.WebRootPath);
+            var editResult = await this.mainCategoriesService.EditAsync<EditMainCategoryViewModel>(model, model.Image, this.fullDirectoryPath, this.webHostEnvironment.WebRootPath);
             if (editResult)
             {
                 this.TempData["Alert"] = "Successfully edited main category.";

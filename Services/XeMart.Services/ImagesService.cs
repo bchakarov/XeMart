@@ -17,9 +17,12 @@
             this.cloudinaryUtility = cloudinaryUtility;
         }
 
-        public async Task<string> UploadLocalImageAsync(IFormFile image, string path)
+        public async Task<string> UploadLocalImageAsync(IFormFile image, string directoryPath)
         {
-            using var stream = new FileStream(path, FileMode.Create, FileAccess.Write);
+            Directory.CreateDirectory(directoryPath);
+            var fullPath = directoryPath + image.FileName;
+
+            using var stream = new FileStream(fullPath, FileMode.Create, FileAccess.Write);
             await image.CopyToAsync(stream);
 
             return stream.Name;

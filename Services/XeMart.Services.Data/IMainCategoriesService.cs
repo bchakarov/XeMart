@@ -9,7 +9,7 @@
 
     public interface IMainCategoriesService
     {
-        public Task CreateAsync<T>(T model, IFormFile image, string imagePath, string webRootPath);
+        public Task CreateAsync<T>(T model, IFormFile image, string fullDirectoryPath, string webRootPath);
 
         public IEnumerable<T> GetAll<T>();
 
@@ -17,7 +17,7 @@
 
         public IEnumerable<T> GetAllDeleted<T>();
 
-        public Task<bool> EditAsync<T>(T model, IFormFile image, string imagePath, string webRootPath);
+        public Task<bool> EditAsync<T>(T model, IFormFile image, string fullDirectoryPath, string webRootPath);
 
         public Task<bool> DeleteAsync(int id);
 
