@@ -22,7 +22,6 @@
 
         public string Description { get; set; }
 
-        [ConcurrencyCheck]
         public decimal Price { get; set; }
 
         public int SubcategoryId { get; set; }

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Administration.Products.ProductViewModel>
+@{
+    ViewData["Title"] = "All Products";
+}
+
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr class="row">
+                    <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
+                    <th scope="col" class="col-1 d-flex justify-content-center">Price</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Subcategory</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Image</th>
+                    <th scope="col" class="col-4 d-flex justify-content-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr class="row">
+                        <td class="col-12 d-flex justify-content-center"><strong>No products</strong></td>
+                    </tr>
+                }
+                @foreach (var product in Model)
+                {
+                    <tr class="row">
+                        <td class="col-3 d-flex justify-content-center">
+                            @product.Name
+                        </td>
+                        <td class="col-1 d-flex justify-content-center">
+                            @product.Price USD
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @product.SubcategoryName
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            <img src="@product.ImageUrl" class="custom-image-box" />
+                        </td>
+                        <td class="col-md-4 d-flex justify-content-around">
+                            <div class="mr-2">
+                                <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-success btn-sm">Edit</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
