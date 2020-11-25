@@ -1,5 +1,6 @@
 ﻿namespace XeMart.Data.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using XeMart.Data.Common.Models;
@@ -8,6 +9,7 @@
     {
         public Supplier()
         {
+            this.Orders = new HashSet<OrderProduct>();
             this.IsDefault = false;
         }
 
@@ -19,5 +21,7 @@
         public decimal PriceToOffice { get; set; }
 
         public bool IsDefault { get; set; }
+
+        public virtual ICollection<OrderProduct> Orders { get; set; }
     }
 }
