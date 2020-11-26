@@ -127,7 +127,13 @@
                                     {
                                         <div class="review-box d-flex">
                                             <div class="rv-content">
-                                                <h6>@review.Name <span>(@review.CreatedOn.ToString("dd-MMM-yyyy HH:mm", CultureInfo.InvariantCulture))</span></h6>
+                                                <h6>
+                                                    @review.Name <span>(@review.CreatedOn.ToString("dd-MMM-yyyy HH:mm", CultureInfo.InvariantCulture))</span>
+                                                    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                                    {
+                                                        <a asp-area="Administration" asp-controller="Products" asp-action="DeleteReview" asp-route-id="@review.Id" asp-route-returnUrl="@string.Format("{0}{1}", this.Context.Request.Path, this.Context.Request.QueryString)" class="btn btn-danger float-right">Delete</a>
+                                                    }
+                                                </h6>
                                                 <ul class="list-unstyled list-inline">
                                                     @for (int i = 0; i < review.Rating; i++)
                                                     {

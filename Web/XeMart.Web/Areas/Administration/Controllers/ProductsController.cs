@@ -151,5 +151,20 @@
 
             return this.RedirectToAction(nameof(this.All));
         }
+
+        public async Task<IActionResult> DeleteReview(string id, string returnUrl)
+        {
+            var deleteResult = await this.productsService.DeleteReviewAsync(id);
+            if (deleteResult)
+            {
+                this.TempData["Alert"] = "Successfully deleted review.";
+            }
+            else
+            {
+                this.TempData["Error"] = "There was a problem deleting the review.";
+            }
+
+            return this.LocalRedirect(returnUrl);
+        }
     }
 }

@@ -23,6 +23,8 @@
 
         public Task<bool> DeleteImageAsync(string id);
 
+        public Task<bool> DeleteReviewAsync(string id);
+
         public T GetById<T>(string id);
     }
 }

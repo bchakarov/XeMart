@@ -157,6 +157,20 @@
             return true;
         }
 
+        public async Task<bool> DeleteReviewAsync(string id)
+        {
+            var review = this.GetReviewById(id);
+            if (review == null)
+            {
+                return false;
+            }
+
+            this.userProductReviewsRepository.Delete(review);
+            await this.userProductReviewsRepository.SaveChangesAsync();
+
+            return true;
+        }
+
         public T GetById<T>(string id) =>
              this.productsRepository.AllAsNoTracking()
             .Where(x => x.Id == id)
@@ -174,6 +188,10 @@
 
         private ProductImage GetImageById(string id) =>
             this.productImagesRepository.All()
+            .FirstOrDefault(x => x.Id == id);
+
+        private UserProductReview GetReviewById(string id) =>
+            this.userProductReviewsRepository.All()
             .FirstOrDefault(x => x.Id == id);
     }
 }
