@@ -1,0 +1,34 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Categories.CategoriesSidebarViewModel>
+
+<div class="category-box">
+    <div class="sec-title">
+        <h6>Categories</h6>
+    </div>
+    <!-- accordion -->
+    <div id="accordion">
+        @{ var mainCategoryCount = 1; }
+        @foreach (var mainCategory in Model)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <a href="" data-toggle="collapse" data-target="#collapse@(mainCategoryCount)">
+                        <span>@mainCategory.Name</span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                </div>
+                <div id="collapse@(mainCategoryCount)" class="collapse">
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            @foreach (var subcategory in mainCategory.Subcategories)
+                            {
+                                <li><a href=""><i class="fa fa-angle-right"></i> @subcategory.Name</a></li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            mainCategoryCount++;
+        }
+    </div>
+</div>

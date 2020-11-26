@@ -5,7 +5,7 @@
 
     using XeMart.Data.Common.Models;
 
-    public class UserProductReview : BaseDeletableModel<string>
+    public class UserProductReview : BaseModel<string>
     {
         public UserProductReview()
         {
@@ -15,16 +15,19 @@
         public byte Rating { get; set; }
 
         [Required]
-        public string Content { get; set; }
+        public string Name { get; set; }
 
-        public virtual Product Product { get; set; }
+        [Required]
+        public string Content { get; set; }
 
         [Required]
         public string ProductId { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public virtual Product Product { get; set; }
 
         [Required]
         public string UserId { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
     }
 }

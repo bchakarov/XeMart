@@ -1,0 +1,154 @@
+﻿@using System.Globalization;
+@using System.Security.Claims;
+@using XeMart.Common
+@using XeMart.Web.ViewModels.Products;
+@model ProductDetailsViewModel
+
+@{
+    this.ViewData["Title"] = Model.Name;
+    var imageCount = 1;
+}
+
+<!-- Single Product Area -->
+<section class="sg-product">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="sg-img">
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                @foreach (var image in Model.Images)
+                                {
+                                    if (imageCount == 1)
+                                    {
+                                        <div class="tab-pane fade show active" id="sg@(imageCount)" role="tabpanel">
+                                            <img src="@image.ImageUrl" class="img-fluid" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="tab-pane" id="sg@(imageCount)" role="tabpanel">
+                                            <img src="@image.ImageUrl" class="img-fluid" />
+                                        </div>
+                                    }
+
+                                    imageCount++;
+                                }
+                            </div>
+                            <div class="nav d-flex justify-content-between">
+                                @{ imageCount = 1; }
+                                @foreach (var image in Model.Images)
+                                {
+                                    if (imageCount == 1)
+                                    {
+                                        <a class="nav-item nav-link active" data-toggle="tab" href="#sg@(imageCount)"><img src="@image.ImageUrl" /></a>
+                                    }
+                                    else
+                                    {
+                                        <a class="nav-item nav-link" data-toggle="tab" href="#sg@(imageCount)"><img src="@image.ImageUrl" /></a>
+                                    }
+
+                                    imageCount++;
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="sg-content">
+                            <div class="pro-tag">
+                                <ul class="list-unstyled list-inline">
+                                    <li class="list-inline-item"><a href="">@Model.SubcategoryMainCategory.Name ,</a></li>
+                                    <li class="list-inline-item"><a href="">@Model.Subcategory.Name</a></li>
+                                </ul>
+                            </div>
+                            <div class="pro-name">
+                                <p>@Model.Name</p>
+                            </div>
+                            <div class="pro-rating">
+                                <ul class="list-unstyled list-inline">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= Model.AverageRatingRounded)
+                                        {
+                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        }
+                                        else
+                                        {
+                                            var difference = i - Model.AverageRatingRounded;
+                                            if (difference != 0 && difference < 1)
+                                            {
+                                                <li class="list-inline-item"><i class="fa fa-star-half-alt"></i></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                            }
+                                        }
+                                    }
+                                    <li class="list-inline-item"><a href="">( @Model.AverageRating.ToString("F") )</a></li>
+                                </ul>
+                            </div>
+                            <div class="pro-price">
+                                <ul class="list-unstyled list-inline">
+                                    <li class="list-inline-item">$@Model.Price</li>
+                                    <li class="list-inline-item"></li>
+                                </ul>
+                            </div>
+                            <div class="colo-siz">
+                                <div class="pro-btns mb-5">
+                                    <a href="" class="cart"><i class="fas fa-shopping-cart"></i>Add To Cart</a>
+                                </div>
+                                <div class="pro-btns mb-5">
+                                    <a href="" class="cart"><i class="fas fa-heart"></i>Add To Favourites</a>
+                                </div>
+                                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
+                                    <div class="pro-btns">
+                                        <a target="_blank" asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" class="cart"><i class="fas fa-cogs"></i>Edit Product</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="sg-tab">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#pro-det">Product Details</a></li>
+                                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#rev">Reviews (@Model.Reviews.Count())</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="pro-det" role="tabpanel">
+                                    <p>@Model.Description</p>
+                                </div>
+                                <div class="tab-pane fade" id="rev" role="tabpanel">
+                                    @foreach (var review in Model.Reviews)
+                                    {
+                                        <div class="review-box d-flex">
+                                            <div class="rv-content">
+                                                <h6>@review.Name <span>(@review.CreatedOn.ToString("dd-MMM-yyyy HH:mm", CultureInfo.InvariantCulture))</span></h6>
+                                                <ul class="list-unstyled list-inline">
+                                                    @for (int i = 0; i < review.Rating; i++)
+                                                    {
+                                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                                    }
+                                                </ul>
+                                                <p>@review.Content</p>
+                                            </div>
+                                        </div>
+                                    }
+                                    <partial name="_AddReviewPartial" model="new ProductReviewInputViewModel { UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier), ProductId = Model.Id }" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <vc:categories-sidebar></vc:categories-sidebar>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Single Product Area -->

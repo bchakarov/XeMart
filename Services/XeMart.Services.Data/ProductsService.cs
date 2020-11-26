@@ -16,15 +16,18 @@
         private readonly IDeletableEntityRepository<Product> productsRepository;
         private readonly IImagesService imagesService;
         private readonly IDeletableEntityRepository<ProductImage> productImagesRepository;
+        private readonly IRepository<UserProductReview> userProductReviewsRepository;
 
         public ProductsService(
             IDeletableEntityRepository<Product> productsRepository,
             IImagesService imagesService,
-            IDeletableEntityRepository<ProductImage> productImagesRepository)
+            IDeletableEntityRepository<ProductImage> productImagesRepository,
+            IRepository<UserProductReview> userProductReviewsRepository)
         {
             this.productsRepository = productsRepository;
             this.imagesService = imagesService;
             this.productImagesRepository = productImagesRepository;
+            this.userProductReviewsRepository = userProductReviewsRepository;
         }
 
         public async Task CreateAsync<T>(T model, IEnumerable<IFormFile> images, string fullDirectoryPath, string webRootPath)
@@ -45,6 +48,22 @@
 
             await this.productsRepository.AddAsync(product);
             await this.productsRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> CreateReviewAsync<T>(T model)
+        {
+            var productReview = AutoMapperConfig.MapperInstance.Map<UserProductReview>(model);
+            var product = this.GetById(productReview.ProductId);
+
+            if (product == null || this.userProductReviewsRepository.AllAsNoTracking().Any(x => x.UserId == productReview.UserId))
+            {
+                return false;
+            }
+
+            await this.userProductReviewsRepository.AddAsync(productReview);
+            await this.userProductReviewsRepository.SaveChangesAsync();
+
+            return true;
         }
 
         public IEnumerable<T> GetAll<T>() =>

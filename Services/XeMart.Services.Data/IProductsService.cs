@@ -9,6 +9,8 @@
     {
         public Task CreateAsync<T>(T model, IEnumerable<IFormFile> images, string fullDirectoryPath, string webRootPath);
 
+        public Task<bool> CreateReviewAsync<T>(T model);
+
         public IEnumerable<T> GetAll<T>();
 
         public IEnumerable<T> GetAllDeleted<T>();
