@@ -7,6 +7,7 @@
 
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
+    using XeMart.Web.Infrastructure.ValidationAttributes;
 
     public class CreateProductInputViewModel : IMapTo<Product>
     {
@@ -27,6 +28,7 @@
         public IEnumerable<Subcategory> Subcategories { get; set; }
 
         [Display(Name = "Add Images")]
+        [MultipleImageAttribute]
         public IEnumerable<IFormFile> UploadedImages { get; set; }
     }
 }
