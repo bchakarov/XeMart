@@ -15,6 +15,8 @@
 
         public IEnumerable<T> GetAllDeleted<T>();
 
+        public IEnumerable<T> GetNewestBySubcategoryId<T>(int subcategoryId, int productsToTake);
+
         public Task<bool> EditAsync<T>(T model, IEnumerable<IFormFile> images, string fullDirectoryPath, string webRootPath);
 
         public Task<bool> DeleteAsync(string id);

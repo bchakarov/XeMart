@@ -1,0 +1,46 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Products.ProductSidebarViewModel>
+
+<div class="ht-offer">
+    <div class="sec-title">
+        <h6>Newest Products</h6>
+    </div>
+    <div class="ht-body owl-carousel">
+        @foreach (var product in Model)
+        {
+            <div class="ht-item">
+                <div class="ht-img">
+                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" class="img-fluid"></a>
+                </div>
+                <div class="ht-content">
+                    <p><a href="">@product.Name</a></p>
+                    <ul class="list-unstyled list-inline fav">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= product.AverageRatingRounded)
+                            {
+                                <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                            }
+                            else
+                            {
+                                var difference = i - product.AverageRatingRounded;
+                                if (difference != 0 && difference < 1)
+                                {
+                                    <li class="list-inline-item"><i class="fa fa-star-half-alt"></i></li>
+                                }
+                                else
+                                {
+                                    <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                }
+                            }
+                        }
+                        <li class="list-inline-item"><a href="#">( @product.AverageRating.ToString("F") )</a></li>
+                    </ul>
+                    <ul class="list-unstyled list-inline price">
+                        <li class="list-inline-item">@product.Price</li>
+                        <li class="list-inline-item"></li>
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+</div>

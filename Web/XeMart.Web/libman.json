@@ -65,7 +65,7 @@
       ]
     },
     {
-      "library": "owl.carousel@2.3.4",
+      "library": "owl.carousel@2.2.0",
       "destination": "wwwroot/lib/owl-carousel/",
       "files": [
         "dist/owl.carousel.js",

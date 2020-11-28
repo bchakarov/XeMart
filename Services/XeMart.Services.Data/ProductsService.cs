@@ -75,6 +75,12 @@
             .Where(x => x.IsDeleted)
             .To<T>().ToList();
 
+        public IEnumerable<T> GetNewestBySubcategoryId<T>(int subcategoryId, int productsToTake) =>
+            this.productsRepository.AllAsNoTracking()
+            .Where(x => x.SubcategoryId == subcategoryId)
+            .Take(productsToTake)
+            .To<T>().ToList();
+
         public async Task<bool> EditAsync<T>(T model, IEnumerable<IFormFile> images, string fullDirectoryPath, string webRootPath)
         {
             var newProduct = AutoMapperConfig.MapperInstance.Map<Product>(model);

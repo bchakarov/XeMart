@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\XeMart.Data.Models\XeMart.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\XeMart.Services.Mapping\XeMart.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\XeMart.Common\XeMart.Common.csproj" />
     <ProjectReference Include="..\XeMart.Web.Infrastructure\XeMart.Web.Infrastructure.csproj" />
   </ItemGroup>
 
