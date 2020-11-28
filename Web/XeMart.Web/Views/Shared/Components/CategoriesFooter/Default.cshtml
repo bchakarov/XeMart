@@ -1,0 +1,13 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Categories.MainCategoryNameViewModel>
+
+<div class="col-md-3">
+    <div class="f-cat">
+        <h5>Categories</h5>
+        <ul class="list-unstyled">
+            @foreach (var category in Model)
+            {
+                <li><a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@category.Id"><i class="fa fa-angle-right"></i>@category.Name</a></li>
+            }
+        </ul>
+    </div>
+</div>
