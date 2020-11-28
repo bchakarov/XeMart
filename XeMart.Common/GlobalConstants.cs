@@ -9,5 +9,7 @@
         public const string PartnerRoleName = "Partner";
 
         public const string ImageNotFoundPath = "\\images\\image-not-found.jpg";
+
+        public const string DateTimeFormat = "dd-MMM-yyyy HH:mm";
     }
 }

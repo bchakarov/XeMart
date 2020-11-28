@@ -4,6 +4,7 @@
 
     using AutoMapper;
 
+    using XeMart.Common;
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
 
@@ -16,7 +17,7 @@
             configuration.CreateMap<MainCategory, DeletedMainCategoryViewModel>()
             .ForMember(
                 source => source.DeletedOn,
-                destination => destination.MapFrom(member => member.DeletedOn.Value.ToString("f", CultureInfo.InvariantCulture)));
+                destination => destination.MapFrom(member => member.DeletedOn.Value.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)));
         }
     }
 }

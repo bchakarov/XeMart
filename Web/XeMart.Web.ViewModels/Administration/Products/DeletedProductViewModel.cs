@@ -5,6 +5,7 @@
 
     using AutoMapper;
 
+    using XeMart.Common;
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
 
@@ -20,7 +21,7 @@
                 destination => destination.MapFrom(member => member.Images.FirstOrDefault().ImageUrl))
             .ForMember(
                 source => source.DeletedOn,
-                destination => destination.MapFrom(member => member.DeletedOn.Value.ToString("f", CultureInfo.InvariantCulture)));
+                destination => destination.MapFrom(member => member.DeletedOn.Value.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)));
         }
     }
 }

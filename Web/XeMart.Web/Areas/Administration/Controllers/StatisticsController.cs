@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    using XeMart.Common;
     using XeMart.Data.Models;
     using XeMart.Web.ViewModels.Administration.Statistics;
 
@@ -50,7 +51,7 @@
         {
             var registeredUsers = new List<RegisteredUsersViewModel>();
 
-            var userDates = this.userManager.Users.OrderBy(x => x.CreatedOn).ToList().GroupBy(x => x.CreatedOn.ToString("dd-MMM-yyy", CultureInfo.InvariantCulture));
+            var userDates = this.userManager.Users.OrderBy(x => x.CreatedOn).ToList().GroupBy(x => x.CreatedOn.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture));
 
             var totalUsers = 0;
             foreach (var user in userDates)
