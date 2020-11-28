@@ -21,9 +21,6 @@
 
         public double AverageRating { get; set; }
 
-        [IgnoreMap]
-        public double AverageRatingRounded => Math.Round(this.AverageRating * 2, MidpointRounding.AwayFromZero) / 2;
-
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Product, ProductSidebarViewModel>()
