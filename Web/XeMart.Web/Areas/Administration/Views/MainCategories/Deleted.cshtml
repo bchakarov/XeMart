@@ -9,10 +9,9 @@
                 <tr class="row">
                     <th scope="col" class="col-1 d-flex justify-content-center">#</th>
                     <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
-                    <th scope="col" class="col-2 d-flex justify-content-center">Icon</th>
-                    <th scope="col" class="col-2 d-flex justify-content-center">Image</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Icon</th>                    
                     <th scope="col" class="col-3 d-flex justify-content-center">Deleted On</th>
-                    <th scope="col" class="col-1 d-flex justify-content-center">Actions</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,14 +32,11 @@
                         </td>
                         <td class="col-2 d-flex justify-content-center">
                             <i class="@mainCategory.FontAwesomeIcon"></i>
-                        </td>
-                        <td class="col-2 d-flex justify-content-center">
-                            <img src="@mainCategory.ImageUrl" class="custom-image-box" />
-                        </td>
+                        </td>                        
                         <td class="col-3 d-flex justify-content-center">
                             @mainCategory.DeletedOn
                         </td>
-                        <td class="col-md-1 d-flex justify-content-around">
+                        <td class="col-md-3 d-flex justify-content-around">
                             <div class="mr-2">
                                 <a asp-controller="MainCategories" asp-action="Undelete" asp-route-id="@mainCategory.Id" class="btn btn-primary btn-sm">Undelete</a>
                             </div>

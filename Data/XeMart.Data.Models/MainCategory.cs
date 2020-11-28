@@ -17,8 +17,6 @@
 
         public string FontAwesomeIcon { get; set; }
 
-        public string ImageUrl { get; set; }
-
         public virtual ICollection<Subcategory> Subcategories { get; set; }
     }
 }

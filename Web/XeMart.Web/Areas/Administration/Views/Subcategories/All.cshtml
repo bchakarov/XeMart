@@ -11,9 +11,10 @@
                 <tr class="row">
                     <th scope="col" class="col-1 d-flex justify-content-center">#</th>
                     <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Image</th>
                     <th scope="col" class="col-2 d-flex justify-content-center">Main Category</th>
-                    <th scope="col" class="col-2 d-flex justify-content-center">Products</th>
-                    <th scope="col" class="col-4 d-flex justify-content-center">Actions</th>
+                    <th scope="col" class="col-1 d-flex justify-content-center">Products</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,12 +34,15 @@
                             @subcategory.Name
                         </td>
                         <td class="col-2 d-flex justify-content-center">
-                            @subcategory.MainCategoryName
+                            <img src="@subcategory.ImageUrl" class="custom-image-box" />
                         </td>
                         <td class="col-2 d-flex justify-content-center">
+                            @subcategory.MainCategoryName
+                        </td>
+                        <td class="col-1 d-flex justify-content-center">
                             @subcategory.ProductsCount
                         </td>
-                        <td class="col-md-4 d-flex justify-content-around">
+                        <td class="col-md-3 d-flex justify-content-around">
                             <div class="mr-2">
                                 <a asp-controller="Subcategories" asp-action="Edit" asp-route-id="@subcategory.Id" class="btn btn-success btn-sm">Edit</a>
                             </div>

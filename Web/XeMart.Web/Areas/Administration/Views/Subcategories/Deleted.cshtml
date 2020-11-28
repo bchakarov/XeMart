@@ -10,7 +10,8 @@
             <thead class="thead-light">
                 <tr class="row">
                     <th scope="col" class="col-1 d-flex justify-content-center">#</th>
-                    <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Name</th>
+                    <th scope="col" class="col-1 d-flex justify-content-center">Image</th>
                     <th scope="col" class="col-2 d-flex justify-content-center">Main Category</th>
                     <th scope="col" class="col-3 d-flex justify-content-center">Deleted On</th>
                     <th scope="col" class="col-3 d-flex justify-content-center">Actions</th>
@@ -29,8 +30,11 @@
                         <td class="col-1 d-flex justify-content-center">
                             @subcategory.Id
                         </td>
-                        <td class="col-3 d-flex justify-content-center">
+                        <td class="col-2 d-flex justify-content-center">
                             @subcategory.Name
+                        </td>
+                        <td class="col-1 d-flex justify-content-center">
+                            <img src="@subcategory.ImageUrl" class="custom-image-box" />
                         </td>
                         <td class="col-2 d-flex justify-content-center">
                             @subcategory.MainCategoryName

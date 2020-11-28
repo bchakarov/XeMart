@@ -15,6 +15,8 @@
         [Required]
         public string Name { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public int MainCategoryId { get; set; }
 
         public virtual MainCategory MainCategory { get; set; }

@@ -9,6 +9,8 @@
 
         public string Name { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public string MainCategoryName { get; set; }
 
         public int ProductsCount { get; set; }

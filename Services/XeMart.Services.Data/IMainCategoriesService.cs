@@ -3,13 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Http;
-
     using XeMart.Data.Models;
 
     public interface IMainCategoriesService
     {
-        public Task CreateAsync<T>(T model, IFormFile image, string fullDirectoryPath, string webRootPath);
+        public Task CreateAsync<T>(T model);
 
         public IEnumerable<T> GetAll<T>();
 
@@ -17,7 +15,7 @@
 
         public IEnumerable<T> GetAllDeleted<T>();
 
-        public Task<bool> EditAsync<T>(T model, IFormFile image, string fullDirectoryPath, string webRootPath);
+        public Task<bool> EditAsync<T>(T model);
 
         public Task<bool> DeleteAsync(int id);
 

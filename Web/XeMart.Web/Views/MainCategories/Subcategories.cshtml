@@ -1,0 +1,27 @@
+﻿@model XeMart.Web.ViewModels.Categories.MainCategorySubcategoriesViewModel
+
+@{ 
+    this.ViewData["Title"] = Model.Name;
+}
+
+<!-- Subcategories -->
+<section class="blog1">
+    <div class="container">
+        <div class="row">
+            @foreach (var subcategory in Model.Subcategories)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog-box">
+                        <div class="blog-img text-center">
+                            <a href="#"><img src="@subcategory.ImageUrl" class="img-fluid"></a>
+                        </div>
+                        <div class="blog-content">
+                            <h3 class="text-center">@subcategory.Name</h3>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- End Subcategories -->

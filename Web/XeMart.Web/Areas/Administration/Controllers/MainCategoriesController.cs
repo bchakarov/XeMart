@@ -2,7 +2,6 @@
 {
     using System.Threading.Tasks;
 
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
     using XeMart.Services.Data;
@@ -10,21 +9,11 @@
 
     public class MainCategoriesController : AdministrationController
     {
-        private const string MainCategoriesDirectoryPath = "\\images\\categories\\";
-
         private readonly IMainCategoriesService mainCategoriesService;
-        private readonly IWebHostEnvironment webHostEnvironment;
 
-        private readonly string fullDirectoryPath;
-
-        public MainCategoriesController(
-            IMainCategoriesService mainCategoriesService,
-            IWebHostEnvironment webHostEnvironment)
+        public MainCategoriesController(IMainCategoriesService mainCategoriesService)
         {
             this.mainCategoriesService = mainCategoriesService;
-            this.webHostEnvironment = webHostEnvironment;
-
-            this.fullDirectoryPath = this.webHostEnvironment.WebRootPath + MainCategoriesDirectoryPath;
         }
 
         public IActionResult Create()
@@ -40,7 +29,7 @@
                 return this.View(model);
             }
 
-            await this.mainCategoriesService.CreateAsync<CreateMainCategoryInputViewModel>(model, model.Image, this.fullDirectoryPath, this.webHostEnvironment.WebRootPath);
+            await this.mainCategoriesService.CreateAsync<CreateMainCategoryInputViewModel>(model);
 
             this.TempData["Alert"] = "Successfully created main category.";
 
@@ -79,7 +68,7 @@
                 return this.View(model);
             }
 
-            var editResult = await this.mainCategoriesService.EditAsync<EditMainCategoryViewModel>(model, model.Image, this.fullDirectoryPath, this.webHostEnvironment.WebRootPath);
+            var editResult = await this.mainCategoriesService.EditAsync<EditMainCategoryViewModel>(model);
             if (editResult)
             {
                 this.TempData["Alert"] = "Successfully edited main category.";

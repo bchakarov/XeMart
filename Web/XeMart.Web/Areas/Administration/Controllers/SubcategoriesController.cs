@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
     using XeMart.Services.Data;
@@ -9,13 +10,20 @@
 
     public class SubcategoriesController : AdministrationController
     {
+        private const string SubcategoriesImagesDirectoryPath = "\\images\\subcategories\\";
+
         private readonly ISubcategoriesService subcategoriesService;
         private readonly IMainCategoriesService mainCategoriesService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public SubcategoriesController(ISubcategoriesService subcategoriesService, IMainCategoriesService mainCategoriesService)
+        public SubcategoriesController(
+            ISubcategoriesService subcategoriesService,
+            IMainCategoriesService mainCategoriesService,
+            IWebHostEnvironment webHostEnvironment)
         {
             this.subcategoriesService = subcategoriesService;
             this.mainCategoriesService = mainCategoriesService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Create()
@@ -40,7 +48,7 @@
                 return this.View(model);
             }
 
-            await this.subcategoriesService.CreateAsync<CreateSubcategoryInputViewModel>(model);
+            await this.subcategoriesService.CreateAsync<CreateSubcategoryInputViewModel>(model, model.Image, SubcategoriesImagesDirectoryPath, this.webHostEnvironment.WebRootPath);
 
             this.TempData["Alert"] = "Successfully created subcategory.";
 
@@ -82,7 +90,7 @@
                 return this.View();
             }
 
-            var editResult = await this.subcategoriesService.EditAsync<EditSubcategoryViewModel>(model);
+            var editResult = await this.subcategoriesService.EditAsync<EditSubcategoryViewModel>(model, model.Image, SubcategoriesImagesDirectoryPath, this.webHostEnvironment.WebRootPath);
             if (editResult)
             {
                 this.TempData["Alert"] = "Successfully edited subcategory.";
