@@ -59,7 +59,7 @@
                         <div class="sg-content">
                             <div class="pro-tag">
                                 <ul class="list-unstyled list-inline">
-                                    <li class="list-inline-item"><a href="">@Model.SubcategoryMainCategory.Name ,</a></li>
+                                    <li class="list-inline-item"><a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@Model.SubcategoryMainCategory.Id">@Model.SubcategoryMainCategory.Name ,</a></li>
                                     <li class="list-inline-item"><a href="">@Model.Subcategory.Name</a></li>
                                 </ul>
                             </div>
@@ -110,7 +110,7 @@
                                                     @review.Name <span>(@review.CreatedOn.ToString("dd-MMM-yyyy HH:mm", CultureInfo.InvariantCulture))</span>
                                                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                                     {
-                                                        <a asp-area="Administration" asp-controller="Products" asp-action="DeleteReview" asp-route-id="@review.Id" asp-route-returnUrl="@string.Format("{0}{1}", this.Context.Request.Path, this.Context.Request.QueryString)" class="btn btn-danger float-right">Delete</a>
+                                                        <a asp-area="Administration" asp-controller="Products" asp-action="DeleteReview" asp-route-id="@review.Id" asp-route-returnUrl="@string.Format("{0}{1}", this.Context.Request.Path, this.Context.Request.QueryString)" class="btn btn-danger float-right ml-5">Delete</a>
                                                     }
                                                 </h6>
                                                 <ul class="list-unstyled list-inline">
