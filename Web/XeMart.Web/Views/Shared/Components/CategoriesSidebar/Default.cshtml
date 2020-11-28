@@ -19,9 +19,9 @@
                 <div id="collapse@(mainCategoryCount)" class="collapse">
                     <div class="card-body">
                         <ul class="list-unstyled">
-                            @foreach (var subcategoryName in mainCategory.SubcategoryNames)
+                            @foreach (var subcategory in mainCategory.Subcategories)
                             {
-                                <li><a href=""><i class="fa fa-angle-right"></i> @subcategoryName</a></li>
+                                <li><a asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-subcategoryId="@subcategory.Id"><i class="fa fa-angle-right"></i> @subcategory.Name</a></li>
                             }
                         </ul>
                     </div>

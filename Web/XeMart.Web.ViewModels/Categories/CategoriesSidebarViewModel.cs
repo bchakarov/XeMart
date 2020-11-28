@@ -1,24 +1,14 @@
 ﻿namespace XeMart.Web.ViewModels.Categories
 {
-    using System.Linq;
-
-    using AutoMapper;
+    using System.Collections.Generic;
 
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
 
-    public class CategoriesSidebarViewModel : IMapFrom<MainCategory>, IHaveCustomMappings
+    public class CategoriesSidebarViewModel : IMapFrom<MainCategory>
     {
         public string Name { get; set; }
 
-        public string[] SubcategoryNames { get; set; }
-
-        public void CreateMappings(IProfileExpression configuration)
-        {
-            configuration.CreateMap<MainCategory, CategoriesSidebarViewModel>()
-            .ForMember(
-                source => source.SubcategoryNames,
-                destination => destination.MapFrom(member => member.Subcategories.Select(x => x.Name).ToArray()));
-        }
+        public IEnumerable<SubcategoryNameViewModel> Subcategories { get; set; }
     }
 }

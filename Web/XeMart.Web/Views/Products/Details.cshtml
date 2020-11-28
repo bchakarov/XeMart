@@ -60,7 +60,7 @@
                             <div class="pro-tag">
                                 <ul class="list-unstyled list-inline">
                                     <li class="list-inline-item"><a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@Model.SubcategoryMainCategory.Id">@Model.SubcategoryMainCategory.Name ,</a></li>
-                                    <li class="list-inline-item"><a href="">@Model.Subcategory.Name</a></li>
+                                    <li class="list-inline-item"><a asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-subcategoryId="@Model.Subcategory.Id">@Model.Subcategory.Name</a></li>
                                 </ul>
                             </div>
                             <div class="pro-name">
