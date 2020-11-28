@@ -19,6 +19,12 @@
         public IActionResult Details(string id)
         {
             var product = this.productsService.GetById<ProductDetailsViewModel>(id);
+            if (product == null)
+            {
+                this.TempData["Error"] = "Product not found.";
+                return this.RedirectToAction("Index", "Home");
+            }
+
             return this.View(product);
         }
 

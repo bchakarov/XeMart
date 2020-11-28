@@ -18,6 +18,12 @@
         public IActionResult Subcategories(int mainCategoryId)
         {
             var mainCategoryModel = this.mainCategoriesService.GetById<MainCategorySubcategoriesViewModel>(mainCategoryId);
+            if (mainCategoryModel == null)
+            {
+                this.TempData["Error"] = "Main category not found.";
+                return this.RedirectToAction("Index", "Home");
+            }
+
             return this.View(mainCategoryModel);
         }
     }
