@@ -28,7 +28,7 @@
         public IEnumerable<UserProductReview> Reviews { get; set; }
 
         [IgnoreMap]
-        public double AverageRating => Math.Round(this.Reviews.Average(x => x.Rating), 2);
+        public double AverageRating => (!this.Reviews.Any()) ? 0 : Math.Round(this.Reviews.Average(x => x.Rating), 2);
 
         [IgnoreMap]
         public double AverageRatingRounded => Math.Round(this.AverageRating * 2, MidpointRounding.AwayFromZero) / 2;

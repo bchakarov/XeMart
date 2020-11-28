@@ -96,16 +96,16 @@
                                     <li class="list-inline-item"></li>
                                 </ul>
                             </div>
-                            <div class="colo-siz">
-                                <div class="pro-btns mb-5">
+                            <div class="colo-siz row">
+                                <div class="pro-btns mb-5 pl-3">
                                     <a href="" class="cart"><i class="fas fa-shopping-cart"></i>Add To Cart</a>
                                 </div>
-                                <div class="pro-btns mb-5">
+                                <div class="pro-btns mb-5 pl-3">
                                     <a href="" class="cart"><i class="fas fa-heart"></i>Add To Favourites</a>
                                 </div>
                                 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                 {
-                                    <div class="pro-btns">
+                                    <div class="pro-btns pl-3">
                                         <a target="_blank" asp-area="Administration" asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" class="cart"><i class="fas fa-cogs"></i>Edit Product</a>
                                     </div>
                                 }

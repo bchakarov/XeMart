@@ -13,13 +13,14 @@
     {
         [Required]
         [MinLength(3, ErrorMessage = "The name must be at least 3 characters long.")]
-        [MaxLength(20, ErrorMessage = "The name can be maximum 20 characters long.")]
+        [MaxLength(100, ErrorMessage = "The name can be maximum 100 characters long.")]
         public string Name { get; set; }
 
         [MaxLength(2000, ErrorMessage = "The desciption can be maximum 2000 characters long.")]
         public string Description { get; set; }
 
         [Range(1, (double)int.MaxValue)]
+        [Display(Name = "Price (USD)")]
         public decimal Price { get; set; }
 
         [Display(Name = "Subcategory")]
