@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
+    using XeMart.Common;
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels.Partners;
 
@@ -17,6 +18,14 @@
         public IViewComponentResult Invoke()
         {
             var partners = this.partnersService.GetAllApproved<PartnerCarouselViewModel>();
+            foreach (var partner in partners)
+            {
+                if (string.IsNullOrEmpty(partner.LogoUrl))
+                {
+                    partner.LogoUrl = GlobalConstants.ImageNotFoundPath;
+                }
+            }
+
             return this.View(partners);
         }
     }

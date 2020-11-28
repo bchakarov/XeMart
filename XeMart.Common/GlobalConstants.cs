@@ -7,5 +7,7 @@
         public const string AdministratorRoleName = "Administrator";
 
         public const string PartnerRoleName = "Partner";
+
+        public const string ImageNotFoundPath = "\\images\\image-not-found.jpg";
     }
 }
