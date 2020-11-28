@@ -368,3 +368,4 @@ FodyWeavers.xsd
 # Libman
 lib/
 /Web/XeMart.Web/wwwroot/images/products
+/Web/XeMart.Web/wwwroot/images/subcategories
