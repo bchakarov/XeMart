@@ -9,6 +9,36 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/css/sb-admin-2.min.css",
+    "inputFiles": [
+      "wwwroot/css/sb-admin-2.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/assets/owl.carousel.min.css",
+    "inputFiles": [
+      "wwwroot/css/assets/owl.carousel.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/assets/animate.min.css",
+    "inputFiles": [
+      "wwwroot/css/assets/animate.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/assets/normalize.min.css",
+    "inputFiles": [
+      "wwwroot/css/assets/normalize.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/assets/responsive.min.css",
+    "inputFiles": [
+      "wwwroot/css/assets/responsive.css"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
       "wwwroot/js/site.js"
@@ -20,5 +50,45 @@
     },
     // Optionally generate .map file
     "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/sb-admin-2.min.js",
+    "inputFiles": [
+      "wwwroot/js/sb-admin-2.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/custom.min.js",
+    "inputFiles": [
+      "wwwroot/js/custom.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/plugins.min.js",
+    "inputFiles": [
+      "wwwroot/js/plugins.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/assets/price-filter.min.js",
+    "inputFiles": [
+      "wwwroot/js/assets/price-filter.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/chart-js/users-in-roles-pie-chart.min.js",
+    "inputFiles": [
+      "wwwroot/js/chart-js/users-in-roles-pie-chart.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/js/chart-js/registered-users-area-chart.min.js",
+    "inputFiles": [
+      "wwwroot/js/chart-js/registered-users-area-chart.js"
+    ]
   }
 ]
