@@ -37,7 +37,7 @@
                         </div>
                         <div class="sortby">
                             <span>Sort By</span>
-                            <select class="sort-box">
+                            <select class="sort-box" id="sort-box" onchange="submitForm()">
                                 <option>Position</option>
                                 <option>Name</option>
                                 <option>Price</option>
@@ -46,10 +46,7 @@
                         </div>
                         <div class="show-item">
                             <span>Show</span>
-                            <select class="show-box">
-                                <option>12</option>
-                                <option>24</option>
-                                <option>36</option>
+                            <select class="show-box" onchange="submitForm()" asp-for="@Model.ItemsPerPage" asp-items="@Model.ItemsPerPageValues.Select(x => new SelectListItem(x.ToString(), x.ToString()))">
                             </select>
                         </div>
                         <div class="page">
@@ -137,5 +134,23 @@
             </div>
         </div>
     </div>
+    <form method="get" id="hiddenForm" asp-controller="Subcategories" asp-action="Products" hidden>
+        <input asp-for="@Model.ItemsPerPage" />
+    </form>
 </section>
 <!-- End Category Area -->
+
+@section Scripts {
+    <script>
+        function submitForm() {
+            var form = this.document.getElementById("hiddenForm");
+
+            var itemsPerPageSelectBox = this.document.querySelector("select#ItemsPerPage");
+            var itemsPerPageInputField = this.document.querySelector("input#ItemsPerPage");
+
+            itemsPerPageInputField.setAttribute("value", itemsPerPageSelectBox.value);
+
+            form.submit();
+        }
+    </script>
+}

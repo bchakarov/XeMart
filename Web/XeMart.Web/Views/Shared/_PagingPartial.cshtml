@@ -3,10 +3,19 @@
 @functions {
     public Dictionary<string, string> getPageQuery(int pageNumber)
     {
-        return new Dictionary<string, string>
+        var routes = new Dictionary<string, string>();
+
+        if (pageNumber > 1)
         {
-            { "pageNumber", pageNumber.ToString() }
-        };
+            routes.Add("pageNumber", pageNumber.ToString());
+        }
+
+        if (Model.ItemsPerPage != 6)
+        {
+            routes.Add("itemsPerPage", Model.ItemsPerPage.ToString());
+        }
+
+        return routes;
     }
 }
 

@@ -1,5 +1,7 @@
 ﻿namespace XeMart.Web.Controllers
 {
+    using System.Collections.Generic;
+
     using Microsoft.AspNetCore.Mvc;
 
     using XeMart.Services;
@@ -10,6 +12,7 @@
     public class SubcategoriesController : BaseController
     {
         private const int DescriptionMaxLength = 200;
+        private readonly List<int> itemsPerPageValues = new List<int> { 6, 12, 18, 24 };
 
         private readonly ISubcategoriesService subcategoriesService;
         private readonly IProductsService productsService;
@@ -26,14 +29,14 @@
         }
 
         [HttpGet("/Subcategories/{subcategoryId}")]
-        public IActionResult Products(int subcategoryId, int pageNumber = 1, int productsPerPage = 12)
+        public IActionResult Products(int subcategoryId, int pageNumber = 1, int itemsPerPage = 6)
         {
             if (pageNumber <= 0)
             {
                 return this.Products(subcategoryId);
             }
 
-            if (productsPerPage <= 0)
+            if (itemsPerPage <= 0)
             {
                 return this.Products(subcategoryId);
             }
@@ -45,7 +48,7 @@
                 return this.RedirectToAction("Index", "Home");
             }
 
-            var products = this.productsService.TakeProductsBySubcategoryId<ProductViewModel>(subcategoryId, pageNumber, productsPerPage);
+            var products = this.productsService.TakeProductsBySubcategoryId<ProductViewModel>(subcategoryId, pageNumber, itemsPerPage);
 
             foreach (var product in products)
             {
@@ -57,9 +60,10 @@
                 SubcategoryId = subcategoryNameAndProductCount.Id,
                 Name = subcategoryNameAndProductCount.Name,
                 ItemsCount = subcategoryNameAndProductCount.ProductsCount,
-                ItemsPerPage = productsPerPage,
+                ItemsPerPage = itemsPerPage,
                 PageNumber = pageNumber,
                 Products = products,
+                ItemsPerPageValues = this.itemsPerPageValues,
             };
 
             return this.View(subcategory);
