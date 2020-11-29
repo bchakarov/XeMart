@@ -1,6 +1,7 @@
 ﻿namespace XeMart.Web.ViewModels
 {
     using System;
+    using System.Collections.Generic;
 
     public class PagingViewModel
     {
@@ -21,5 +22,7 @@
         public int ItemsCount { get; set; }
 
         public int ItemsPerPage { get; set; }
+
+        public IEnumerable<int> ItemsPerPageValues { get; set; }
     }
 }

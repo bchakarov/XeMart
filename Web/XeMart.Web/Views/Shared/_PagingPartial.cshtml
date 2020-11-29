@@ -10,7 +10,7 @@
             routes.Add("pageNumber", pageNumber.ToString());
         }
 
-        if (Model.ItemsPerPage != 6)
+        if (Model.ItemsPerPage != Model.ItemsPerPageValues.FirstOrDefault())
         {
             routes.Add("itemsPerPage", Model.ItemsPerPage.ToString());
         }
