@@ -20,5 +20,8 @@
             }
         }
     }
-    <li class="list-inline-item"><a href="#">( @Model.AverageRating.ToString("F") )</a></li>
+    @if (Model.ShowAverageRating)
+    {
+        <li class="list-inline-item"><a href="#">( @Model.AverageRating.ToString("F") )</a></li>
+    }
 </ul>

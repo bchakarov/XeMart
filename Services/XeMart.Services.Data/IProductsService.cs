@@ -13,6 +13,8 @@
 
         public IEnumerable<T> GetAll<T>();
 
+        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake);
+
         public IEnumerable<T> GetAllDeleted<T>();
 
         public IEnumerable<T> GetNewestBySubcategoryId<T>(int subcategoryId, int productsToTake);

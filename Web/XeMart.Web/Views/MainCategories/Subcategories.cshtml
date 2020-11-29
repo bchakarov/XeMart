@@ -12,12 +12,14 @@
             {
                 <div class="col-lg-4 col-md-6">
                     <div class="blog-box">
-                        <div class="blog-img text-center">
-                            <a href="#"><img src="@subcategory.ImageUrl" class="img-fluid"></a>
-                        </div>
-                        <div class="blog-content">
-                            <h3 class="text-center">@subcategory.Name</h3>
-                        </div>
+                        <a asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-subcategoryId="@subcategory.Id">
+                            <div class="blog-img text-center">
+                                <img src="@subcategory.ImageUrl" class="img-fluid">
+                            </div>
+                            <div class="blog-content">
+                                <h3 class="text-center">@subcategory.Name</h3>
+                            </div>
+                        </a>
                     </div>
                 </div>
             }

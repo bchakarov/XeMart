@@ -70,6 +70,13 @@
             this.productsRepository.AllAsNoTracking()
             .To<T>().ToList();
 
+        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake) =>
+            this.productsRepository.AllAsNoTracking()
+            .Where(x => x.SubcategoryId == subcategoryId)
+            .Skip((page - 1) * productsToTake)
+            .Take(productsToTake)
+            .To<T>().ToList();
+
         public IEnumerable<T> GetAllDeleted<T>() =>
             this.productsRepository.AllAsNoTrackingWithDeleted()
             .Where(x => x.IsDeleted)
