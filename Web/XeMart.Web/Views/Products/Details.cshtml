@@ -107,9 +107,10 @@
                                         <div class="review-box d-flex">
                                             <div class="rv-content">
                                                 <h6>
-                                                    @review.Name <span>(@review.CreatedOn.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture))</span>
+                                                    @review.Name <span>(@review.CreatedOn)</span>
                                                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                                     {
+                                                        <span>(@review.UserEmail)</span>
                                                         <a asp-area="Administration" asp-controller="Products" asp-action="DeleteReview" asp-route-id="@review.Id" asp-route-returnUrl="@string.Format("{0}{1}", this.Context.Request.Path, this.Context.Request.QueryString)" class="btn btn-danger float-right ml-5">Delete</a>
                                                     }
                                                 </h6>

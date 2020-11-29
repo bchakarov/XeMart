@@ -25,7 +25,7 @@
 
         public IEnumerable<ProductImage> Images { get; set; }
 
-        public IEnumerable<UserProductReview> Reviews { get; set; }
+        public IEnumerable<ProductReviewViewModel> Reviews { get; set; }
 
         public double AverageRating { get; set; }
 
