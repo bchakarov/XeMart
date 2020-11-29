@@ -13,6 +13,7 @@
     {
         private const int DescriptionMaxLength = 200;
         private readonly List<int> itemsPerPageValues = new List<int> { 6, 12, 18, 24 };
+        private readonly List<string> sortingValues = new List<string> { "Price asc", "Price desc", "Newest", "Oldest" };
 
         private readonly ISubcategoriesService subcategoriesService;
         private readonly IProductsService productsService;
@@ -29,7 +30,7 @@
         }
 
         [HttpGet("/Subcategories/{subcategoryId}")]
-        public IActionResult Products(int subcategoryId, int pageNumber = 1, int itemsPerPage = 6)
+        public IActionResult Products(int subcategoryId, int pageNumber = 1, int itemsPerPage = 6, string sorting = "price asc")
         {
             if (pageNumber <= 0)
             {
@@ -48,7 +49,31 @@
                 return this.RedirectToAction("Index", "Home");
             }
 
-            var products = this.productsService.TakeProductsBySubcategoryId<ProductViewModel>(subcategoryId, pageNumber, itemsPerPage);
+            var columnName = string.Empty;
+            var isAscending = true;
+
+            sorting = sorting.ToLower();
+
+            if (sorting == "price desc")
+            {
+                columnName = "Price";
+                isAscending = false;
+            }
+            else if (sorting == "price asc")
+            {
+                columnName = "Price";
+            }
+            else if (sorting == "newest")
+            {
+                columnName = "CreatedOn";
+                isAscending = false;
+            }
+            else if (sorting == "oldest")
+            {
+                columnName = "CreatedOn";
+            }
+
+            var products = this.productsService.TakeProductsBySubcategoryId<ProductViewModel>(subcategoryId, pageNumber, itemsPerPage, columnName, isAscending);
 
             foreach (var product in products)
             {
@@ -64,6 +89,8 @@
                 PageNumber = pageNumber,
                 Products = products,
                 ItemsPerPageValues = this.itemsPerPageValues,
+                Sorting = sorting,
+                SortingValues = this.sortingValues,
             };
 
             return this.View(subcategory);

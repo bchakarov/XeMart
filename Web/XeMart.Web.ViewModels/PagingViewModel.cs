@@ -24,5 +24,9 @@
         public int ItemsPerPage { get; set; }
 
         public IEnumerable<int> ItemsPerPageValues { get; set; }
+
+        public string Sorting { get; set; }
+
+        public IEnumerable<string> SortingValues { get; set; }
     }
 }

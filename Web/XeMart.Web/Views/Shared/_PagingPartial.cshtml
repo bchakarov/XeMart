@@ -15,6 +15,11 @@
             routes.Add("itemsPerPage", Model.ItemsPerPage.ToString());
         }
 
+        if (Model.Sorting.ToLower() != Model.SortingValues.FirstOrDefault().ToLower())
+        {
+            routes.Add("sorting", Model.Sorting.ToString());
+        }
+
         return routes;
     }
 }

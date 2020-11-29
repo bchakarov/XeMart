@@ -1,9 +1,13 @@
 ﻿namespace XeMart.Services.Data
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
+
+    using XeMart.Data.Models;
 
     public interface IProductsService
     {
@@ -13,7 +17,7 @@
 
         public IEnumerable<T> GetAll<T>();
 
-        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake);
+        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake, string columnName, bool isAscending);
 
         public IEnumerable<T> GetAllDeleted<T>();
 

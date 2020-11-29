@@ -5354,7 +5354,7 @@ input:focus, textarea:focus {
 .category .product-box .cat-box .sortby select.sort-box {
   color: #666666;
   border: 1px solid #dddddd;
-  width: 90px;
+  width: 100px;
   padding: 5px 12px;
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;

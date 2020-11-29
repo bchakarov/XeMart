@@ -10,6 +10,7 @@
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
+    using XeMart.Web.Infrastructure.ExtensionMethods;
 
     public class ProductsService : IProductsService
     {
@@ -70,9 +71,10 @@
             this.productsRepository.AllAsNoTracking()
             .To<T>().ToList();
 
-        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake) =>
+        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake, string columnName, bool isAscending) =>
             this.productsRepository.AllAsNoTracking()
             .Where(x => x.SubcategoryId == subcategoryId)
+            .MyOrderBy(columnName, isAscending)
             .Skip((page - 1) * productsToTake)
             .Take(productsToTake)
             .To<T>().ToList();
