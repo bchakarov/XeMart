@@ -1,15 +1,25 @@
 ﻿@model PagingViewModel
 
+@functions {
+    public Dictionary<string, string> getPageQuery(int pageNumber)
+    {
+        return new Dictionary<string, string>
+        {
+            { "pageNumber", pageNumber.ToString() }
+        };
+    }
+}
+
 <nav aria-label="...">
     <ul class="pagination justify-content-center">
         <li class="page-item @if (!Model.HasPreviousPage) { <text>disabled</text> }">
-            <a class="page-link" asp-action="All" asp-route-id="@Model.PreviousPageNumber">Previous</a>
+            <a class="page-link" asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-page="@Model.SubcategoryId" asp-all-route-data="@getPageQuery(Model.PreviousPageNumber)">Previous</a>
         </li>
         @for (int i = Model.PageNumber - 4; i < Model.PageNumber; i++)
         {
             if (i > 0)
             {
-                <li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>
+                <li class="page-item"><a class="page-link" asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-page="@Model.SubcategoryId" asp-all-route-data="@getPageQuery(i)">@i</a></li>
             }
         }
         <li class="page-item active" aria-current="page">
@@ -21,11 +31,11 @@
         {
             if (i <= Model.PagesCount)
             {
-                <li class="page-item"><a class="page-link" asp-action="All" asp-route-id="@i">@i</a></li>
+                <li class="page-item"><a class="page-link" asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-page="@Model.SubcategoryId" asp-all-route-data="@getPageQuery(i)">@i</a></li>
             }
         }
         <li class="page-item @if (!Model.HasNextPage) { <text>disabled</text> }">
-            <a class="page-link" asp-action="All" asp-route-id="@Model.NextPageNumber">Next</a>
+            <a class="page-link" asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-subcategoryId="@Model.SubcategoryId" asp-all-route-data="@getPageQuery(Model.NextPageNumber)">Next</a>
         </li>
     </ul>
 </nav>

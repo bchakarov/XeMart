@@ -26,21 +26,26 @@
         }
 
         [HttpGet("/Subcategories/{subcategoryId}")]
-        public IActionResult Products(int subcategoryId, int page = 1, int productsPerPage = 12)
+        public IActionResult Products(int subcategoryId, int pageNumber = 1, int productsPerPage = 12)
         {
-            if (page <= 0)
+            if (pageNumber <= 0)
             {
-                return this.NotFound();
+                return this.Products(subcategoryId);
             }
 
             if (productsPerPage <= 0)
             {
-                return this.NotFound();
+                return this.Products(subcategoryId);
             }
 
             var subcategoryNameAndProductCount = this.subcategoriesService.GetById<SubcategoryNameAndProductCountViewModel>(subcategoryId);
+            if (subcategoryNameAndProductCount == null)
+            {
+                this.TempData["Error"] = "Subcategory not found.";
+                return this.RedirectToAction("Index", "Home");
+            }
 
-            var products = this.productsService.TakeProductsBySubcategoryId<ProductViewModel>(subcategoryId, page, productsPerPage);
+            var products = this.productsService.TakeProductsBySubcategoryId<ProductViewModel>(subcategoryId, pageNumber, productsPerPage);
 
             foreach (var product in products)
             {
@@ -49,10 +54,11 @@
 
             var subcategory = new SubcategoryProductsViewModel
             {
+                SubcategoryId = subcategoryNameAndProductCount.Id,
                 Name = subcategoryNameAndProductCount.Name,
                 ItemsCount = subcategoryNameAndProductCount.ProductsCount,
                 ItemsPerPage = productsPerPage,
-                PageNumber = page,
+                PageNumber = pageNumber,
                 Products = products,
             };
 
