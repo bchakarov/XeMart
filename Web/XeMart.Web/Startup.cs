@@ -74,6 +74,7 @@
 
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IStringService, StringService>();
             services.AddTransient<ITimeSpanService, TimeSpanService>();
             services.AddTransient<IImagesService, ImagesService>();
             services.AddTransient<IUserMessagesService, UserMessagesService>();

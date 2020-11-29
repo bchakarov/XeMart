@@ -15,11 +15,21 @@
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public decimal Price { get; set; }
 
         public string ImageUrl { get; set; }
 
         public double AverageRating { get; set; }
+
+        public int SubcategoryId { get; set; }
+
+        public string SubcategoryName { get; set; }
+
+        public int SubcategoryMaincategoryId { get; set; }
+
+        public string SubcategoryMaincategoryName { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

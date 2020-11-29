@@ -14,7 +14,7 @@
             this.mainCategoriesService = mainCategoriesService;
         }
 
-        [HttpGet("/maincategories/{mainCategoryId}")]
+        [HttpGet("/Maincategories/{mainCategoryId}")]
         public IActionResult Subcategories(int mainCategoryId)
         {
             var mainCategoryModel = this.mainCategoriesService.GetById<MainCategorySubcategoriesViewModel>(mainCategoryId);
