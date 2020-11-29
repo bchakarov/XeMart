@@ -5,11 +5,11 @@
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels.Categories;
 
-    public class CategoriesSidebarViewComponent : ViewComponent
+    public class MenuAllCategoriesViewComponent : ViewComponent
     {
         private readonly IMainCategoriesService mainCategoriesService;
 
-        public CategoriesSidebarViewComponent(IMainCategoriesService mainCategoriesService)
+        public MenuAllCategoriesViewComponent(IMainCategoriesService mainCategoriesService)
         {
             this.mainCategoriesService = mainCategoriesService;
         }

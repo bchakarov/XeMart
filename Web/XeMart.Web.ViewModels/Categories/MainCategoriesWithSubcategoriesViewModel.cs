@@ -5,9 +5,13 @@
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
 
-    public class CategoriesSidebarViewModel : IMapFrom<MainCategory>
+    public class MainCategoriesWithSubcategoriesViewModel : IMapFrom<MainCategory>
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
+
+        public string FontAwesomeIcon { get; set; }
 
         public IEnumerable<SubcategoryNameViewModel> Subcategories { get; set; }
     }
