@@ -1,0 +1,40 @@
+﻿@using XeMart.Common
+@model IEnumerable<XeMart.Web.ViewModels.Categories.MainCategoriesWithSubcategoriesViewModel>
+
+<section class="mobile-menu-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mobile-menu">
+                    <nav id="dropdown">
+                        <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/logo.png"></a>
+                        <partial name="_MobileLoginPartial" />
+                        <ul class="list-unstyled">
+                            <li>
+                                <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li>
+                                <a>Categories</a>
+                                <ul class="list-unstyled">
+                                    @foreach (var mainCategory in Model)
+                                    {
+                                        <li><a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@mainCategory.Id">@mainCategory.Name</a></li>
+                                    }
+                                </ul>
+                            </li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <li><a target="_blank" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a></li>
+                            }
+                            @if (this.User.IsInRole(GlobalConstants.PartnerRoleName))
+                            {
+                                <li><a asp-area="" asp-controller="Partners" asp-action="Edit" title="Partner">Partner</a></li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

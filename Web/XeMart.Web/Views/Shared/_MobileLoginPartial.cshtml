@@ -1,0 +1,17 @@
+﻿@using XeMart.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (this.SignInManager.IsSignedIn(this.User))
+{
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))" class="d-inline-block float-right">
+        <button type="submit" class="btn">Logout</button>
+    </form>
+    <a asp-area="Identity" asp-page="/Account/Manage/Index"><span>Account</span></a>
+}
+else
+{
+    <a asp-area="Identity" asp-page="/Account/Register"><span>Register</span></a>
+    <a asp-area="Identity" asp-page="/Account/Login"><span>Login</span></a>
+}
