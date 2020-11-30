@@ -27,6 +27,7 @@
                           {
                               new RolesSeeder(),
                               new AdminAndPartnersSeeder(),
+                              new CategoriesSeeder(),
                           };
 
             foreach (var seeder in seeders)
