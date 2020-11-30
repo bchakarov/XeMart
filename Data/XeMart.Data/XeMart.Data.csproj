@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\XeMart.Services.Data\XeMart.Services.Data.csproj" />
     <ProjectReference Include="..\..\XeMart.Common\XeMart.Common.csproj" />
     <ProjectReference Include="..\XeMart.Data.Common\XeMart.Data.Common.csproj" />
     <ProjectReference Include="..\XeMart.Data.Models\XeMart.Data.Models.csproj" />
