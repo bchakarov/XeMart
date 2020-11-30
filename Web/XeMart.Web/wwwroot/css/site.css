@@ -6856,6 +6856,7 @@ input:focus, textarea:focus {
 
 .shopping-cart .cart-table .table tbody tr td.t-pro .t-img a img {
   margin-right: 20px;
+  height:80px;
 }
 
 .shopping-cart .cart-table .table tbody tr td.t-pro .t-content p a {
@@ -6868,15 +6869,15 @@ input:focus, textarea:focus {
   color: #5677fc;
 }
 
-.shopping-cart .cart-table .table tbody tr td.t-pro .t-content ul.rate {
+.shopping-cart .cart-table .table tbody tr td.t-pro .t-content ul.fav {
   margin-bottom: 8px;
 }
 
-.shopping-cart .cart-table .table tbody tr td.t-pro .t-content ul.rate li {
+.shopping-cart .cart-table .table tbody tr td.t-pro .t-content ul.fav li {
   margin-right: 0;
 }
 
-.shopping-cart .cart-table .table tbody tr td.t-pro .t-content ul.rate li i {
+.shopping-cart .cart-table .table tbody tr td.t-pro .t-content ul.fav li i {
   font-size: 13px;
   color: #fdba2d;
 }

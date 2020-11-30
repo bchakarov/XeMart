@@ -1,5 +1,4 @@
-﻿@using System.Globalization;
-@using System.Security.Claims;
+﻿@using System.Security.Claims;
 @using XeMart.Common
 @using XeMart.Web.ViewModels.Products;
 @model ProductDetailsViewModel
@@ -80,7 +79,7 @@
                                     <a href="" class="cart"><i class="fas fa-shopping-cart"></i>Add To Cart</a>
                                 </div>
                                 <div class="pro-btns mb-5 pl-3">
-                                    <a href="" class="cart"><i class="fas fa-heart"></i>Add To Favourites</a>
+                                    <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@Model.Id" class="cart"><i class="fas fa-heart"></i>Add To Favourites</a>
                                 </div>
                                 @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                 {

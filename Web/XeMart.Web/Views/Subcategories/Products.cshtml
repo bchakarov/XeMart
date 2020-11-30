@@ -50,7 +50,7 @@
                                             <div class="tab-img">
                                                 <img class="main-img img-fluid" src="@product.ImageUrl">
                                                 <div class="layer-box">
-                                                    <a href="" class="it-fav" data-toggle="tooltip" data-placement="left" title="Favourite"><i class="fas fa-heart mr-0 pt-1"></i></a>
+                                                    <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@product.Id" class="it-fav" data-toggle="tooltip" data-placement="left" title="Favourite"><i class="fas fa-heart mr-0 pt-1"></i></a>
                                                 </div>
                                             </div>
                                             <div class="tab-heading">

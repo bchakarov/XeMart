@@ -1,0 +1,67 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Favourites.FavouriteProductViewModel>
+
+@{ 
+    this.ViewData["Title"] = "Favourite Products";
+}
+
+<!-- Wishlist -->
+<section class="shopping-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-table wsh-list table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="t-pro">Product</th>
+                                <th class="t-price">Price</th>
+                                <th class="t-total">Add To Cart</th>
+                                <th class="t-rem"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model)
+                            {
+                                <tr>
+                                    <td class="t-pro d-flex">
+                                        <div class="t-img">
+                                            <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId"><img src="@product.ImageUrl"></a>
+                                        </div>
+                                        <div class="t-content">
+                                            <p class="t-heading"><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@product.ProductName</a></p>
+                                            <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating, ShowAverageRating = false }" />
+                                        </div>
+                                    </td>
+                                    <td class="t-price">$@product.ProductPrice</td>
+                                    <td class="t-add"><button type="button" name="button">Add to Cart</button></td>
+                                    <td class="t-rem"><a asp-area="" asp-controller="Favourites" asp-action="Delete" asp-route-id="@product.ProductId"><i class="fa fa-trash-o"></i></a></td>
+                                </tr>
+                            }
+                            @*<tr>
+                                <td class="t-pro d-flex">
+                                    <div class="t-img">
+                                        <a href=""><img src="~/images/subcategories/sbar-1.png" alt=""></a>
+                                    </div>
+                                    <div class="t-content">
+                                        <p class="t-heading"><a href="">Samsung Smart Led Tv</a></p>
+                                        <ul class="list-unstyled list-inline rate">
+                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td class="t-price">$129.00</td>
+                                <td class="t-add"><button type="button" name="button">Add to Cart</button></td>
+                                <td class="t-rem"><a href=""><i class="fa fa-trash-o"></i></a></td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Wishlist -->
