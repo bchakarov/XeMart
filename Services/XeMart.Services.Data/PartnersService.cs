@@ -44,6 +44,8 @@
             await this.partnersRepository.AddAsync(partner);
             await this.partnersRepository.SaveChangesAsync();
 
+            await this.UpdateManager(managerId, partner.Id);
+
             return true;
         }
 
@@ -139,6 +141,8 @@
             this.partnersRepository.Delete(partner);
             await this.partnersRepository.SaveChangesAsync();
 
+            await this.UpdateManager(partner.ManagerId, null);
+
             return true;
         }
 
@@ -152,6 +156,8 @@
 
             this.partnersRepository.Undelete(partner);
             await this.partnersRepository.SaveChangesAsync();
+
+            await this.UpdateManager(partner.ManagerId, partner.Id);
 
             return true;
         }
@@ -176,5 +182,12 @@
             this.partnersRepository.AllAsNoTrackingWithDeleted()
             .Where(x => x.IsDeleted && x.Id == id)
             .FirstOrDefault();
+
+        private async Task UpdateManager(string managerId, int? partnerId)
+        {
+            var manager = await this.userManager.FindByIdAsync(managerId);
+            manager.PartnerId = partnerId;
+            await this.userManager.UpdateAsync(manager);
+        }
     }
 }
