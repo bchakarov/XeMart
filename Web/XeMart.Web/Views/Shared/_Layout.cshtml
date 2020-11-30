@@ -132,42 +132,8 @@
     </div>
     <div class="cart-overlay"></div>
     <!-- End Cart Body -->
-    
     <!-- Menu Area 2 -->
-    <section class="menu-area2">
-        <div class="container">
-            <div class="row">
-                <vc:menu-all-categories></vc:menu-all-categories>
-                <div class="col-lg-9 col-md-12">
-                    <div class="main-menu">
-                        <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Index">HOME</a></li>
-                            <li class="list-inline-item">
-                                <a>PAGE'S <i class="fa fa-angle-down"></i></a>
-                                <ul class="dropdown list-unstyled">
-                                    <li><a href="03-about-us.html">About Us</a></li>
-                                    <li><a href="04-category.html">Category</a></li>
-                                    <li><a href="05-single-product.html">Single Product</a></li>
-                                    <li><a href="06-shopping-cart.html">Shopping Cart</a></li>
-                                    <li><a href="07-checkout.html">Checkout</a></li>
-                                    <li><a href="08-login.html">Log In</a></li>
-                                    <li><a href="09-register.html">Register</a></li>
-                                    <li><a href="10-wishlist.html">Wishlist</a></li>
-                                    <li><a href="11-compare.html">Compare</a></li>
-                                    <li><a href="15-track-order.html">Track Order</a></li>
-                                    <li><a href="12-terms-condition.html">Terms & Condition</a></li>
-                                    <li><a href="13-faq.html">Faq</a></li>
-                                    <li><a href="14-404.html">404</a></li>
-                                </ul>
-                            </li>
-                            <li class="list-inline-item"><a asp-area="" asp-controller="Partners" asp-action="Create">PARTNERS</a></li>
-                            <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Contact">CONTACT</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <vc:menu-area></vc:menu-area>
     <!-- End Menu Area 2 -->
     <!-- Mobile Menu -->
     <vc:mobile-menu></vc:mobile-menu>

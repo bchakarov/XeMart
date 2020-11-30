@@ -1,0 +1,52 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Categories.MainCategoriesWithSubcategoriesViewModel>
+
+<section class="menu-area2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-0">
+                <div class="sidemenu">
+                    <p>All Categories <i class="fa fa-bars"></i></p>
+                    <ul class="list-unstyled gt-menu">
+                        @foreach (var mainCategory in Model)
+                        {
+                            <li>
+                                <a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@mainCategory.Id"><i class="@mainCategory.FontAwesomeIcon" style="position:absolute"></i> <span class="pl-4">@mainCategory.Name</span><i class="fa fa-angle-right"></i></a>
+                                <div class="mega-menu pb-4 pt-4 w-auto">
+                                    <div class="row">
+                                        <h6 class="pb-1">@mainCategory.Name</h6>
+                                        @foreach (var subcategory in mainCategory.Subcategories)
+                                        {
+                                            <div class="col-md-12">
+                                                <div class="smartphone">
+                                                    <a asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-subcategoryId="@subcategory.Id" class="dropdown-item">- @subcategory.Name</a>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <div class="main-menu">
+                    <ul class="list-unstyled list-inline">
+                        <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Index">HOME</a></li>
+                        <li class="list-inline-item categories-mobile">
+                            <a>Categories <i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown list-unstyled">
+                                @foreach (var mainCategory in Model)
+	                            {
+                                    <li><a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@mainCategory.Id">@mainCategory.Name</a></li>
+	                            }
+                            </ul>
+                        </li>
+                        <li class="list-inline-item"><a asp-area="" asp-controller="Partners" asp-action="Create">PARTNERS</a></li>
+                        <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Contact">CONTACT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

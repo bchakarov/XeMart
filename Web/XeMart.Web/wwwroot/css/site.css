@@ -9512,3 +9512,13 @@ a > i {
     background: #5677fc;
     border-color: #5677fc;
 }
+
+.categories-mobile {
+    display: none;
+}
+
+@media (max-width: 990px) {
+    .categories-mobile {
+        display: inline-block;
+    }
+}
