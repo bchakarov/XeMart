@@ -1,5 +1,6 @@
 ﻿namespace XeMart.Web
 {
+    using System;
     using System.Reflection;
 
     using CloudinaryDotNet;
@@ -49,6 +50,12 @@
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
+
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
 
             Account cloudinaryCredentials = new Account(
                 this.configuration["Cloudinary:CloudName"],
@@ -120,6 +127,8 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(
                 endpoints =>
