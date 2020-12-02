@@ -1,0 +1,18 @@
+﻿@model XeMart.Web.ViewModels.FavouritesAndShoppingCart.FavouritesAndShoppingCartNavbarViewModel
+
+<div class="col-lg-3 col-md-2">
+    <div class="carts-area d-flex">
+        <div class="wsh-box ml-auto">
+            <a asp-area="" asp-controller="Favourites" asp-action="All" data-toggle="tooltip" data-placement="top" title="Wishlist">
+                <img src="~/images/heart.png" alt="favorite">
+                <span>@Model.FavouriteProductsCount</span>
+            </a>
+        </div>
+        <div class="cart-box ml-4">
+            <a href="" data-toggle="tooltip" data-placement="top" title="Shopping Cart" class="cart-btn">
+                <img src="~/images/cart.png" alt="cart">
+                <span>@Model.ShoppingCartProductsCount</span>
+            </a>
+        </div>
+    </div>
+</div>

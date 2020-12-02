@@ -86,7 +86,7 @@
                     ProductPrice = product.Price,
                     ImageUrl = product.ImageUrl,
                     AverageRating = product.AverageRating,
-                    Quantity = 1,
+                    Quantity = quantity,
                 };
 
                 shoppingCartSession.Add(shoppingCartProduct);
@@ -97,49 +97,38 @@
             }
         }
 
-        public async Task<bool> DeleteAllProductsAsync(string userId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<bool> DeleteProductAsync(bool isUserAuthenticated, ISession session, string userId, string productId)
+        public async Task<IEnumerable<T>> GetAllProducts<T>(bool isUserAuthenticated, ISession session, string userId)
         {
             if (isUserAuthenticated)
             {
                 var user = await this.userManager.FindByIdAsync(userId);
                 var shoppingCartId = user.ShoppingCartId;
 
-                var shoppingCart = this.GetShoppingCartByIdAndProductId(productId, shoppingCartId);
-
-                if (shoppingCart == null)
-                {
-                    return false;
-                }
-
-                this.shoppingCartProductRepository.Delete(shoppingCart);
-                await this.shoppingCartProductRepository.SaveChangesAsync();
-
-                return true;
+                return this.shoppingCartProductRepository.AllAsNoTracking()
+                    .Where(x => x.ShoppingCartId == shoppingCartId)
+                    .To<T>().ToList();
             }
             else
             {
-                var shoppingCartSession = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(session, GlobalConstants.SessionShoppingCartKey);
-                if (shoppingCartSession == null)
-                {
-                    return false;
-                }
+                var products = SessionHelper.GetObjectFromJson<List<T>>(session, GlobalConstants.SessionShoppingCartKey);
+                return products;
+            }
+        }
 
-                var product = shoppingCartSession.FirstOrDefault(x => x.ProductId == productId);
-                if (product == null)
-                {
-                    return false;
-                }
+        public async Task<int> GetProductsCount(bool isUserAuthenticated, ISession session, string userId)
+        {
+            if (isUserAuthenticated)
+            {
+                var user = await this.userManager.FindByIdAsync(userId);
+                var shoppingCartId = user.ShoppingCartId;
 
-                shoppingCartSession.Remove(product);
-
-                SessionHelper.SetObjectAsJson(session, GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
-
-                return true;
+                return this.shoppingCartProductRepository.AllAsNoTracking()
+                    .Count(x => x.ShoppingCartId == shoppingCartId);
+            }
+            else
+            {
+                var products = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(session, GlobalConstants.SessionShoppingCartKey);
+                return (products == null) ? 0 : products.Count;
             }
         }
 
@@ -206,31 +195,45 @@
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllProducts<T>(bool isUserAuthenticated, ISession session, string userId)
+        public async Task<bool> DeleteProductAsync(bool isUserAuthenticated, ISession session, string userId, string productId)
         {
             if (isUserAuthenticated)
             {
                 var user = await this.userManager.FindByIdAsync(userId);
                 var shoppingCartId = user.ShoppingCartId;
 
-                return this.shoppingCartProductRepository.AllAsNoTracking()
-                    .Where(x => x.ShoppingCartId == shoppingCartId)
-                    .To<T>().ToList();
+                var shoppingCart = this.GetShoppingCartByIdAndProductId(productId, shoppingCartId);
+
+                if (shoppingCart == null)
+                {
+                    return false;
+                }
+
+                this.shoppingCartProductRepository.Delete(shoppingCart);
+                await this.shoppingCartProductRepository.SaveChangesAsync();
+
+                return true;
             }
             else
             {
-                var products = SessionHelper.GetObjectFromJson<List<T>>(session, GlobalConstants.SessionShoppingCartKey);
-                return products;
+                var shoppingCartSession = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(session, GlobalConstants.SessionShoppingCartKey);
+                if (shoppingCartSession == null)
+                {
+                    return false;
+                }
+
+                var product = shoppingCartSession.FirstOrDefault(x => x.ProductId == productId);
+                if (product == null)
+                {
+                    return false;
+                }
+
+                shoppingCartSession.Remove(product);
+
+                SessionHelper.SetObjectAsJson(session, GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
+
+                return true;
             }
-        }
-
-        public async Task<bool> HasAnyProducts(string userId)
-        {
-            var user = await this.userManager.FindByIdAsync(userId);
-            var shoppingCartId = user.ShoppingCartId;
-
-            return this.shoppingCartProductRepository.AllAsNoTracking()
-                .Any(x => x.ShoppingCartId == shoppingCartId);
         }
 
         private ShoppingCartProduct GetShoppingCartByIdAndProductId(string productId, string shoppingCartId) =>

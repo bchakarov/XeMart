@@ -6955,7 +6955,7 @@ input:focus, textarea:focus {
   font-weight: 600;
 }
 
-.shopping-cart .cart-table .table tbody tr td.t-add button {
+.shopping-cart .cart-table .table tbody tr td.t-add a {
   color: #fff;
   background: #5677fc;
   padding: 5px 15px;
@@ -6966,7 +6966,7 @@ input:focus, textarea:focus {
   border-radius: 30px;
 }
 
-.shopping-cart .cart-table .table tbody tr td.t-add button:hover {
+.shopping-cart .cart-table .table tbody tr td.t-add a:hover {
   background: #e45151;
 }
 
@@ -9522,4 +9522,8 @@ a > i {
     .categories-mobile {
         display: inline-block;
     }
+}
+
+.custom-cart-img {
+    height: 70px;
 }

@@ -104,7 +104,7 @@
                                                     </div>
                                                     <div class="item-content">
                                                         <p>@product.Description</p>
-                                                        <a href="" class="it-cart"><span class="it-img"><i class="fas fa-shopping-cart"></i></span><span class="it-title">Add To Cart</span></a>
+                                                        <a asp-area="" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@product.Id" class="it-cart"><span class="it-img"><i class="fas fa-shopping-cart"></i></span><span class="it-title">Add To Cart</span></a>
                                                         <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@product.Id" class="it-fav" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="fas fa-heart mr-0 pt-1"></i></a>
                                                     </div>
                                                 </div>

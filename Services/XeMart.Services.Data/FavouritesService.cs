@@ -82,6 +82,10 @@
             .Where(x => x.UserId == userId)
             .To<T>().ToList();
 
+        public int GetCount(string userId) =>
+            this.favouritesRepository.AllAsNoTracking()
+            .Count(x => x.UserId == userId);
+
         private Product GetProductById(string id) =>
             this.productsRepository.AllAsNoTracking()
             .FirstOrDefault(x => x.Id == id);

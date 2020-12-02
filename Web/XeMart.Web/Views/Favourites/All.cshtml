@@ -33,30 +33,10 @@
                                         </div>
                                     </td>
                                     <td class="t-price">$@product.ProductPrice</td>
-                                    <td class="t-add"><button type="button" name="button">Add to Cart</button></td>
+                                    <td class="t-add"><a class="btn" asp-area="" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@product.ProductId">Add to Cart</a></td>
                                     <td class="t-rem"><a asp-area="" asp-controller="Favourites" asp-action="Delete" asp-route-id="@product.ProductId"><i class="fa fa-trash-o"></i></a></td>
                                 </tr>
                             }
-                            @*<tr>
-                                <td class="t-pro d-flex">
-                                    <div class="t-img">
-                                        <a href=""><img src="~/images/subcategories/sbar-1.png" alt=""></a>
-                                    </div>
-                                    <div class="t-content">
-                                        <p class="t-heading"><a href="">Samsung Smart Led Tv</a></p>
-                                        <ul class="list-unstyled list-inline rate">
-                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td class="t-price">$129.00</td>
-                                <td class="t-add"><button type="button" name="button">Add to Cart</button></td>
-                                <td class="t-rem"><a href=""><i class="fa fa-trash-o"></i></a></td>
-                            </tr>*@
                         </tbody>
                     </table>
                 </div>

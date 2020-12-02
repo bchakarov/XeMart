@@ -15,7 +15,7 @@
                     <p><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></p>
                     <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating }"/>
                     <ul class="list-unstyled list-inline price">
-                        <li class="list-inline-item">@product.Price</li>
+                        <li class="list-inline-item">$@product.Price</li>
                         <li class="list-inline-item"></li>
                     </ul>
                 </div>

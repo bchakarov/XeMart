@@ -76,7 +76,7 @@
                             </div>
                             <div class="colo-siz row">
                                 <div class="pro-btns mb-5 pl-3">
-                                    <a href="" class="cart"><i class="fas fa-shopping-cart"></i>Add To Cart</a>
+                                    <a asp-area="" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@Model.Id" class="cart"><i class="fas fa-shopping-cart"></i>Add To Cart</a>
                                 </div>
                                 <div class="pro-btns mb-5 pl-3">
                                     <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@Model.Id" class="cart"><i class="fas fa-heart"></i>Add To Favourites</a>
