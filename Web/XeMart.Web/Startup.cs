@@ -56,6 +56,7 @@
             services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
                 options.IdleTimeout = TimeSpan.FromMinutes(60);
             });
 
