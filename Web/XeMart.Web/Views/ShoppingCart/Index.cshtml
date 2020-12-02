@@ -1,0 +1,69 @@
+﻿@model XeMart.Web.ViewModels.ShoppingCart.ShoppingCartViewModel
+
+@{
+    this.ViewData["Title"] = "Shopping Cart";
+}
+
+<!-- Shopping Cart -->
+<section class="shopping-cart">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="cart-table table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="t-pro">Product</th>
+                                <th class="t-price">Price</th>
+                                <th class="t-qty">Quantity</th>
+                                <th class="t-total">Total</th>
+                                <th class="t-rem"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td class="t-pro d-flex">
+                                        <div class="t-img">
+                                            <a href=""><img src="@product.ImageUrl" class="custom-image-box"></a>
+                                        </div>
+                                        <div class="t-content">
+                                            <p class="t-heading"><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@product.ProductName</a></p>
+                                            <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating, ShowAverageRating = false }" />
+                                        </div>
+                                    </td>
+                                    <td class="t-price">$@product.ProductPrice</td>
+                                    <td class="t-qty">
+                                        <div class="qty-box">
+                                            <div class="quantity buttons_added">
+                                                <a asp-area="" asp-controller="ShoppingCart" asp-action="UpdateQuantity" asp-route-productId="@product.ProductId" asp-route-increase="false" class="minus">-</a>
+                                                <input type="number" step="1" min="1" max="100" value="@product.Quantity" class="qty text" size="4" readonly>
+                                                <a asp-area="" asp-controller="ShoppingCart" asp-action="UpdateQuantity" asp-route-productId="@product.ProductId" asp-route-increase="true" class="plus">+</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="t-total">$@product.TotalPrice</td>
+                                    <td class="t-rem"><a asp-area="" asp-controller="ShoppingCart" asp-action="Delete" asp-route-id="@product.ProductId"><i class="fa fa-trash-o"></i></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-4 text-center">
+                        <div class="crt-sumry">
+                            <h5>Grand Total: $@Model.GrandTotalPrice</h5>
+                            <div class="cart-btns">
+                                <button type="button" class="chq-out">Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Shopping Cart -->

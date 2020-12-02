@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -13,7 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using XeMart.Common;
+using XeMart.Data;
 using XeMart.Data.Models;
+using XeMart.Services.Data;
+using XeMart.Web.Infrastructure.SessionHelpers;
+using XeMart.Web.ViewModels.ShoppingCart;
 
 namespace XeMart.Web.Areas.Identity.Pages.Account
 {
@@ -24,17 +28,23 @@ namespace XeMart.Web.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IShoppingCartService _shoppingCartService;
+        private readonly ApplicationDbContext _dbContext;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IShoppingCartService shoppingCartService,
+            ApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _shoppingCartService = shoppingCartService;
+            _dbContext = dbContext;
         }
 
         [BindProperty]
@@ -75,8 +85,11 @@ namespace XeMart.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var shoppingCart = new ShoppingCart();
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, ShoppingCart = shoppingCart };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                shoppingCart.User = user;
+                await _dbContext.SaveChangesAsync();
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -99,6 +112,18 @@ namespace XeMart.Web.Areas.Identity.Pages.Account
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
+
+                        var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(this.HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
+                        if (cart != null)
+                        {
+                            foreach (var product in cart)
+                            {
+                                await _shoppingCartService.AddProductAsync(true, this.HttpContext.Session, user.Id, product.ProductId, product.Quantity);
+                            }
+
+                            this.HttpContext.Session.Remove(GlobalConstants.SessionShoppingCartKey);
+                        }
+
                         return LocalRedirect(returnUrl);
                     }
                 }

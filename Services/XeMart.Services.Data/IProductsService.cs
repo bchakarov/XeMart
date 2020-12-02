@@ -1,13 +1,9 @@
 ﻿namespace XeMart.Services.Data
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
-
-    using XeMart.Data.Models;
 
     public interface IProductsService
     {
@@ -34,5 +30,7 @@
         public Task<bool> DeleteReviewAsync(string id);
 
         public T GetById<T>(string id);
+
+        public bool HasProduct(string id);
     }
 }

@@ -11,5 +11,7 @@
         public const string ImageNotFoundPath = "\\images\\image-not-found.jpg";
 
         public const string DateTimeFormat = "dd-MMM-yyyy HH:mm";
+
+        public const string SessionShoppingCartKey = "shoppingCart";
     }
 }

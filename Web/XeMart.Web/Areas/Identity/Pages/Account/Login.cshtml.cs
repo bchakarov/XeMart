@@ -12,6 +12,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using XeMart.Data.Models;
+using XeMart.Web.Infrastructure.SessionHelpers;
+using XeMart.Web.ViewModels.ShoppingCart;
+using XeMart.Common;
+using XeMart.Services.Data;
 
 namespace XeMart.Web.Areas.Identity.Pages.Account
 {
@@ -19,14 +23,17 @@ namespace XeMart.Web.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IShoppingCartService _shoppingCartService;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IShoppingCartService shoppingCartService)
         {
             _userManager = userManager;
+            _shoppingCartService = shoppingCartService;
             _signInManager = signInManager;
             _logger = logger;
         }
@@ -84,6 +91,18 @@ namespace XeMart.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(this.HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
+                    if (cart != null)
+                    {
+                        foreach (var product in cart)
+                        {
+                            var user = await this._userManager.FindByEmailAsync(Input.Email);
+                            await _shoppingCartService.AddProductAsync(true, this.HttpContext.Session, user.Id, product.ProductId, product.Quantity);
+                        }
+
+                        this.HttpContext.Session.Remove(GlobalConstants.SessionShoppingCartKey);
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

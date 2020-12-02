@@ -1,22 +1,20 @@
 ﻿namespace XeMart.Web.Infrastructure.SessionHelpers
 {
-    using System.Text.Json;
-
     using Microsoft.AspNetCore.Http;
+
+    using Newtonsoft.Json;
 
     public static class SessionHelper
     {
-        public static void Set<T>(this ISession session, string key, T value)
+        public static void SetObjectAsJson(this ISession session, string key, object value)
         {
-            session.Set(key, JsonSerializer.SerializeToUtf8Bytes(value));
+            session.SetString(key, JsonConvert.SerializeObject(value));
         }
 
-        public static T Get<T>(this ISession session, string key)
+        public static T GetObjectFromJson<T>(this ISession session, string key)
         {
-            var value = session.Get<T>(key);
-
-            return value == null ? default :
-                JsonSerializer.Deserialize<T>(value.ToString());
+            var value = session.GetString(key);
+            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
     }
 }

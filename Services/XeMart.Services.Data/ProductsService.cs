@@ -192,6 +192,10 @@
             .To<T>()
             .FirstOrDefault();
 
+        public bool HasProduct(string id) =>
+            this.productsRepository.AllAsNoTracking()
+            .Any(x => x.Id == id);
+
         private Product GetById(string id) =>
              this.productsRepository.All().Include(x => x.Images)
             .FirstOrDefault(x => x.Id == id);

@@ -18,7 +18,7 @@
             {
                 var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-                await SeedUserAsync(userManager, "test@example.com", "test@example.com", GlobalConstants.AdministratorRoleName);
+                await SeedUserAsync(dbContext, userManager, "test@example.com", "test@example.com", GlobalConstants.AdministratorRoleName);
 
                 var logos = new string[]
                 {
@@ -37,21 +37,27 @@
                     var companyName = $"Company {i}";
                     var companyUrl = "https://google.com";
 
-                    await SeedUserAsync(userManager, email, email, GlobalConstants.PartnerRoleName);
+                    await SeedUserAsync(dbContext, userManager, email, email, GlobalConstants.PartnerRoleName);
                     await AddApprovedPartnerAsync(userManager, dbContext, email, companyName, companyUrl, logos[i - 1]);
                 }
             }
         }
 
-        private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager, string email, string password, string roleName)
+        private static async Task SeedUserAsync(ApplicationDbContext db, UserManager<ApplicationUser> userManager, string email, string password, string roleName)
         {
+            var shoppingCart = new ShoppingCart();
+
             var user = new ApplicationUser()
             {
                 Email = email,
                 UserName = email,
+                ShoppingCart = shoppingCart,
             };
 
             await userManager.CreateAsync(user, password);
+            shoppingCart.User = user;
+            await db.SaveChangesAsync();
+
             if (!string.IsNullOrEmpty(roleName))
             {
                 var createdUser = await userManager.FindByNameAsync(email);
