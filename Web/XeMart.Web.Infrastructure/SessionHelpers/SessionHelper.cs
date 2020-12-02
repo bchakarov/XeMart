@@ -15,7 +15,7 @@
         {
             var value = session.Get<T>(key);
 
-            return value == null ? default(T) :
+            return value == null ? default :
                 JsonSerializer.Deserialize<T>(value.ToString());
         }
     }
