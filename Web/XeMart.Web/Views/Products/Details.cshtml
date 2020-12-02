@@ -131,8 +131,12 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <vc:categories-sidebar></vc:categories-sidebar>
-                <vc:new-products-sidebar subcategory-id="@Model.Subcategory.Id" products-to-take="5"></vc:new-products-sidebar>
+                <cache expires-after="TimeSpan.FromMinutes(5)">
+                    <vc:categories-sidebar></vc:categories-sidebar>
+                </cache>
+                <cache expires-after="TimeSpan.FromSeconds(30)">
+                    <vc:new-products-sidebar subcategory-id="@Model.Subcategory.Id" products-to-take="5"></vc:new-products-sidebar>
+                </cache>
             </div>
         </div>
     </div>
