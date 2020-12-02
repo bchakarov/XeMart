@@ -7162,7 +7162,7 @@ input:focus, textarea:focus {
   background: #5677fc;
 }
 
-.shopping-cart .crt-sumry button.chq-out {
+.shopping-cart .crt-sumry a.chq-out {
   font-size: 15px;
   color: #fff;
   background: #e45151;
@@ -7176,7 +7176,7 @@ input:focus, textarea:focus {
   margin-left: 10px;
 }
 
-.shopping-cart .crt-sumry button.chq-out:hover {
+.shopping-cart .crt-sumry a.chq-out:hover {
   color: #e45151;
   background: transparent;
 }
