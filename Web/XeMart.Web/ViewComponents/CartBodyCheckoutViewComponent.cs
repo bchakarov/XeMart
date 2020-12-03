@@ -32,7 +32,7 @@
             {
                 foreach (var product in products)
                 {
-                    product.ProductName = this.stringService.TruncateAtWord(product.ProductName, 15);
+                    product.ProductName = this.stringService.TruncateAtWord(product.ProductName, 30);
                 }
             }
 

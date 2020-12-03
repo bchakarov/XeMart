@@ -10,8 +10,10 @@
                 {
                     <li class="d-flex justify-content-between">
                         <div class="pro">
-                            <img src="@product.ImageUrl" />
-                            <p>@product.ProductName</p>
+                            <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
+                                <img src="@product.ImageUrl" />
+                                <p>@product.ProductName</p>
+                            </a>
                             <span>@product.Quantity X $@product.ProductPrice</span>
                         </div>
                         <div class="prc">

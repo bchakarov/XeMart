@@ -7386,6 +7386,10 @@ input:focus, textarea:focus {
   font-weight: 600;
 }
 
+.checkout .order-review .review-box ul li div.pro p:hover {
+  color: #007bff;
+}
+
 .checkout .order-review .review-box ul li div.pro span {
   font-size: 13px;
   color: #666666;
@@ -7435,6 +7439,7 @@ input:focus, textarea:focus {
   padding: 12px 0;
   margin-bottom: 0;
   font-weight: 600;
+  border-top: 1px solid #dddddd;
 }
 
 .checkout .order-review .review-box ul li:last-child span {
