@@ -78,7 +78,9 @@
     <vc:cart-body></vc:cart-body>
     <!-- End Cart Body -->
     <!-- Menu Area 2 -->
-    <vc:menu-area></vc:menu-area>
+    <cache expires-after="TimeSpan.FromMinutes(1)">
+        <vc:menu-area></vc:menu-area>
+    </cache>
     <!-- End Menu Area 2 -->
     <!-- Mobile Menu -->
     <vc:mobile-menu></vc:mobile-menu>
@@ -107,7 +109,9 @@
     </div>
     <!-- End Content -->
     <!-- Brand area 2 -->
-    <vc:partners></vc:partners>
+    <cache expires-after="TimeSpan.FromMinutes(1)">
+        <vc:partners></vc:partners>
+    </cache>
     <!-- End Brand area 2 -->
     <!-- Footer Area -->
     <section class="footer-top">
@@ -142,18 +146,18 @@
                         </div>
                     </div>
                 </div>
-                <vc:categories-footer></vc:categories-footer>
+                <cache expires-after="TimeSpan.FromMinutes(1)">
+                    <vc:categories-footer></vc:categories-footer>
+                </cache>
                 <div class="col-md-3">
                     <div class="f-link">
                         <h5>Quick Links</h5>
                         <ul class="list-unstyled">
-                            <li><a href=""><i class="fa fa-angle-right"></i>My Account</a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i>Shopping Cart</a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i>My Wishlist</a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i>Checkout</a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i>Order History</a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i>Log In</a></li>
-                            <li><a href=""><i class="fa fa-angle-right"></i>Our Locations</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-angle-right"></i>My Account</a></li>
+                            <li><a asp-area="" asp-controller="ShoppingCart" asp-action="Index"><i class="fa fa-angle-right"></i>Shopping Cart</a></li>
+                            <li><a asp-area="" asp-controller="Favourites" asp-action="All"><i class="fa fa-angle-right"></i>Favourites</a></li>
+                            <li><a asp-area="" asp-controller="Orders" asp-action="Create"><i class="fa fa-angle-right"></i>Checkout</a></li>
+                            <li><a asp-area="" asp-controller="Orders" asp-action="History"><i class="fa fa-angle-right"></i>Order History</a></li>
                         </ul>
                     </div>
                 </div>
@@ -178,7 +182,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>Copyright &copy; XeMart @DateTime.UtcNow.Year | Designed With <i class="fa fa-heart"></i> by <a href="#" target="_blank">SnazzyTheme</a></p>
+                    <p>Copyright &copy; XeMart @DateTime.UtcNow.Year | Designed With <i class="fa fa-heart"></i> by <a href="https://wrapbootstrap.com/user/snazzytheme" target="_blank">SnazzyTheme</a></p>
                 </div>
                 <div class="col-md-6 text-right">
                     <img src="~/images/payment.png" alt="" class="img-fluid">
