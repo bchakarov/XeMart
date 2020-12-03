@@ -1,0 +1,26 @@
+﻿@model XeMart.Web.ViewModels.ShoppingCart.ShoppingCartViewModel
+
+<div class="col-md-12">
+    <div class="order-review">
+        <h5>Order Review</h5>
+        <div class="review-box">
+            <ul class="list-unstyled">
+                <li>Product <span>Total</span></li>
+                @foreach (var product in Model.Products)
+                {
+                    <li class="d-flex justify-content-between">
+                        <div class="pro">
+                            <img src="@product.ImageUrl" />
+                            <p>@product.ProductName</p>
+                            <span>@product.Quantity X $@product.ProductPrice</span>
+                        </div>
+                        <div class="prc">
+                            <p>$@product.TotalPrice</p>
+                        </div>
+                    </li>
+                }
+                <li>Grand Total <span>$@Model.GrandTotalPrice</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
