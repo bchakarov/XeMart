@@ -22,7 +22,7 @@
 
                 foreach (var (name, priceToHome, priceToOffice, isDefault) in suppliers)
                 {
-                    dbContext.Add(new Supplier
+                    dbContext.Suppliers.Add(new Supplier
                     {
                         Name = name,
                         PriceToHome = priceToHome,

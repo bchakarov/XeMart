@@ -29,6 +29,7 @@
                               new AdminAndPartnersSeeder(),
                               new CategoriesSeeder(),
                               new SuppliersSeeder(),
+                              new CountriesSeeder(),
                           };
 
             foreach (var seeder in seeders)
