@@ -4,7 +4,6 @@ namespace XeMart.Data.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using Microsoft.AspNetCore.Identity;
 
@@ -43,7 +42,6 @@ namespace XeMart.Data.Models
         public virtual ICollection<UserProductReview> Reviews { get; set; }
 
         [Required]
-        [ForeignKey(nameof(ShoppingCart))]
         public string ShoppingCartId { get; set; }
 
         public virtual ShoppingCart ShoppingCart { get; set; }
