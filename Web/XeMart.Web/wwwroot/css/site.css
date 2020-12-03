@@ -7209,7 +7209,7 @@ input:focus, textarea:focus {
   font-weight: 600;
 }
 
-.checkout form div div input[type=text] {
+.checkout form div div input {
   border: 1px solid #dddddd;
   width: 100%;
   height: 45px;
@@ -7221,32 +7221,32 @@ input:focus, textarea:focus {
   margin-bottom: 20px;
 }
 
-.checkout form div div input[type=text].placeholder {
+.checkout form div div input.placeholder {
   font-style: italic;
   color: #969696;
 }
 
-.checkout form div div input[type=text]:-moz-placeholder {
+.checkout form div div input:-moz-placeholder {
   font-style: italic;
   color: #969696;
 }
 
-.checkout form div div input[type=text]::-moz-placeholder {
+.checkout form div div input::-moz-placeholder {
   font-style: italic;
   color: #969696;
 }
 
-.checkout form div div input[type=text]:-ms-input-placeholder {
+.checkout form div div input:-ms-input-placeholder {
   font-style: italic;
   color: #969696;
 }
 
-.checkout form div div input[type=text]::-webkit-input-placeholder {
+.checkout form div div input::-webkit-input-placeholder {
   font-style: italic;
   color: #969696;
 }
 
-.checkout form div div input[type=text]:focus {
+.checkout form div div input:focus {
   border-color: #5677fc;
 }
 
@@ -7526,6 +7526,27 @@ input:focus, textarea:focus {
 }
 
 .checkout button.ord-btn:hover {
+  background: #5677fc;
+}
+
+.checkout button.ord-btn-address {
+  font-size: 15px;
+  color: #fff;
+  background: #e45151;
+  border: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 100%;
+  height: 35px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+  margin-top: 5px;
+}
+
+.checkout button.ord-btn-address:hover {
   background: #5677fc;
 }
 

@@ -13,6 +13,8 @@
 
         public Task<int> GetProductsCount(bool isUserAuthenticated, ISession session, string userId);
 
+        public Task<bool> AnyProducts(string userId);
+
         public Task<bool> UpdateQuantityAsync(bool isUserAuthenticated, ISession session, string userId, string productId, bool increase);
 
         public Task<bool> DeleteProductAsync(bool isUserAuthenticated, ISession session, string userId, string productId);

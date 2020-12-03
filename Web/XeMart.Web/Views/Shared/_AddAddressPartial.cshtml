@@ -1,0 +1,36 @@
+﻿@model XeMart.Web.ViewModels.Addresses.AddressInputViewModel
+
+<form asp-area="" asp-controller="Addresses" asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <label asp-for="Street"></label>
+            <input asp-for="Street" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 contry">
+            <label asp-for="CountryId"></label>
+            <select class="country" asp-for="CountryId" asp-items="Model.Countries.Select(x => new SelectListItem(x.Name, x.Id.ToString()))"></select>
+            <span asp-validation-for="CountryId" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="City"></label>
+            <input asp-for="City" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="ZIPCode"></label>
+            <input asp-for="ZIPCode" />
+            <span asp-validation-for="ZIPCode" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" rows="3"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <input asp-for="UserId" hidden />
+        <div class="col-4">
+            <button type="submit" class="ord-btn-address">Add Address</button>
+        </div>
+    </div>
+</form>

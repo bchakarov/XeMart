@@ -9,7 +9,7 @@
     {
         public Supplier()
         {
-            this.Orders = new HashSet<OrderProduct>();
+            this.Orders = new HashSet<Order>();
             this.IsDefault = false;
         }
 
@@ -22,6 +22,6 @@
 
         public bool IsDefault { get; set; }
 
-        public virtual ICollection<OrderProduct> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

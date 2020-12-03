@@ -16,12 +16,6 @@
 
         public virtual Product Product { get; set; }
 
-        public int SupplierId { get; set; }
-
-        public virtual Supplier Supplier { get; set; }
-
         public int Quantity { get; set; }
-
-        public decimal Price { get; set; }
     }
 }

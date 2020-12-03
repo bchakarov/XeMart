@@ -12,8 +12,11 @@
         public Order()
         {
             this.Id = Guid.NewGuid().ToString();
-            this.OrderProducts = new HashSet<OrderProduct>();
+            this.Products = new HashSet<OrderProduct>();
         }
+
+        [Required]
+        public string UserFullName { get; set; }
 
         [Required]
         public string UserId { get; set; }
@@ -27,10 +30,20 @@
 
         public PaymentStatus PaymentStatus { get; set; }
 
+        public OrderStatus Status { get; set; }
+
+        public decimal TotalPrice { get; set; }
+
         public bool IsDelivered { get; set; }
 
         public DateTime? DeliveredOn { get; set; }
 
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public int SupplierId { get; set; }
+
+        public virtual Supplier Supplier { get; set; }
+
+        public DeliveryType DeliveryType { get; set; }
+
+        public virtual ICollection<OrderProduct> Products { get; set; }
     }
 }

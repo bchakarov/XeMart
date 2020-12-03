@@ -1,0 +1,140 @@
+﻿@using XeMart.Web.ViewModels.Addresses;
+@using System.Security.Claims;
+
+@model XeMart.Web.ViewModels.Orders.CreateOrderInputViewModel
+
+@{
+    this.ViewData["Title"] = "Checkout";
+}
+
+<!-- Checkout -->
+<section class="checkout">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <form action="#">
+                    <h5>Billing Information</h5>
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="FullName"></label>
+                            <input asp-for="FullName" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Phone"></label>
+                            <input asp-for="Phone" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <h4 class="mb-2">Choose Address</h4>
+                    <div class="form-group border-primary mb-0">
+                        <ul class="list-group">
+                            @foreach (var address in Model.Addresses)
+                            {
+                                <li class="list-group-item">
+                                    <label>
+                                        <input asp-for="AddressId" type="radio" value="@address.Id" checked />
+                                        @address.Street @address.CityName, @address.CityZIPCode,  @address.CityCountryName@(string.IsNullOrEmpty(address.Description) ? string.Empty : ", " + address.Description)
+                                    </label>
+                                    <div class="float-right"><a asp-area="" asp-controller="Addresses" asp-action="Delete" asp-route-id="@address.Id"><i class="fas fa-trash"></i></a></div>
+                                </li>
+                            }
+                        </ul>
+                        <span asp-validation-for="AddressId" class="text-danger"></span>
+                    </div>
+                    <a class="btn btn-primary mt-2" data-toggle="collapse" href="#addressForm" role="button" aria-expanded="false" aria-controls="addressForm">Add</a>
+                </form>
+                <hr />
+                <div class="collapse" id="addressForm">
+                    <h4 class="mb-5">Add Address</h4>
+                    <partial name="_AddAddressPartial" model="new AddressInputViewModel { UserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier), Countries = Model.Countries }" />
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="order-review">
+                            <h5>Order Review</h5>
+                            <div class="review-box">
+                                <ul class="list-unstyled">
+                                    <li>Product <span>Total</span></li>
+                                    <li class="d-flex justify-content-between">
+                                        <div class="pro">
+                                            <img src="images/sbar-1.png" alt="">
+                                            <p>Product name here</p>
+                                            <span>1 X $49.00</span>
+                                        </div>
+                                        <div class="prc">
+                                            <p>$49.00</p>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <div class="pro">
+                                            <img src="images/sbar-2.png" alt="">
+                                            <p>Product name here</p>
+                                            <span>1 X $89.00</span>
+                                        </div>
+                                        <div class="prc">
+                                            <p>$89.00</p>
+                                        </div>
+                                    </li>
+                                    <li class="d-flex justify-content-between">
+                                        <div class="pro">
+                                            <img src="images/sbar-3.png" alt="">
+                                            <p>Product name here</p>
+                                            <span>1 X $29.00</span>
+                                        </div>
+                                        <div class="prc">
+                                            <p>$29.00</p>
+                                        </div>
+                                    </li>
+                                    <li>Sub Total <span>$167.00</span></li>
+                                    <li>Shipping & Tax <span>$00.00</span></li>
+                                    <li>Grand Total <span>$167.00</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="pay-meth">
+                            <h5>Payment Method</h5>
+                            <div class="pay-box">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <input type="radio" id="pay1" name="payment" value="pay1" checked>
+                                        <label for="pay1"><span><i class="fa fa-circle"></i></span>Cash On Delivery</label>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque sint placeat illo animi quis minus accusantium ad doloribus, odit explicabo asperiores quidem.</p>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="pay2" name="payment" value="pay2">
+                                        <label for="pay2"><span><i class="fa fa-circle"></i></span>Direct Bank Transfer</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="pay3" name="payment" value="pay3">
+                                        <label for="pay3"><span><i class="fa fa-circle"></i></span>Cheque Payment</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="pay4" name="payment" value="pay4">
+                                        <label for="pay4"><span><i class="fa fa-circle"></i></span>Paypal</label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" id="pay5" name="payment" value="pay5">
+                                        <label for="pay5"><span><i class="fa fa-circle"></i></span>Payoneer</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <button type="button" name="button" class="ord-btn">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Checkout -->
