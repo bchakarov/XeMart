@@ -8,8 +8,7 @@
     @if (this.SignInManager.IsSignedIn(this.User))
     {
         <li class="list-inline-item"><a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa fa-user"></i>@(this.User.Identity.Name)</a></li>
-        @*<li class="list-inline-item"><a href=""><i class="fa fa-heart"></i>Wishlist</a></li>*@
-        <li class="list-inline-item"><a href=""><i class="fa fa-arrow-alt-circle-right"></i>Checkout</a></li>
+        <li class="list-inline-item"><a asp-area="" asp-controller="Orders" asp-action="Create"><i class="fa fa-arrow-alt-circle-right"></i>Checkout</a></li>
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
             <li class="list-inline-item"><a target="_blank" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin"><i class="fas fa-cogs" style="font-size:15px;margin-right: 5px;"></i>Admin</a></li>
