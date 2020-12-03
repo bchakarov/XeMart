@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using XeMart.Data.Models;
-using XeMart.Web.Infrastructure.SessionHelpers;
+using XeMart.Web.Infrastructure.ExtensionMethods;
 using XeMart.Web.ViewModels.ShoppingCart;
 using XeMart.Common;
 using XeMart.Services.Data;
@@ -91,7 +91,7 @@ namespace XeMart.Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(this.HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
+                    var cart = this.HttpContext.Session.GetObjectFromJson<List<ShoppingCartProductViewModel>>(GlobalConstants.SessionShoppingCartKey);
                     if (cart != null)
                     {
                         foreach (var product in cart)

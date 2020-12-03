@@ -16,7 +16,7 @@ using XeMart.Common;
 using XeMart.Data;
 using XeMart.Data.Models;
 using XeMart.Services.Data;
-using XeMart.Web.Infrastructure.SessionHelpers;
+using XeMart.Web.Infrastructure.ExtensionMethods;
 using XeMart.Web.ViewModels.ShoppingCart;
 
 namespace XeMart.Web.Areas.Identity.Pages.Account
@@ -113,7 +113,7 @@ namespace XeMart.Web.Areas.Identity.Pages.Account
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
 
-                        var cart = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(this.HttpContext.Session, GlobalConstants.SessionShoppingCartKey);
+                        var cart = this.HttpContext.Session.GetObjectFromJson<List<ShoppingCartProductViewModel>>(GlobalConstants.SessionShoppingCartKey);
                         if (cart != null)
                         {
                             foreach (var product in cart)

@@ -12,7 +12,7 @@
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
-    using XeMart.Web.Infrastructure.SessionHelpers;
+    using XeMart.Web.Infrastructure.ExtensionMethods;
     using XeMart.Web.ViewModels.Products;
     using XeMart.Web.ViewModels.ShoppingCart;
 
@@ -67,7 +67,7 @@
             }
             else
             {
-                var shoppingCartSession = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(session, GlobalConstants.SessionShoppingCartKey);
+                var shoppingCartSession = session.GetObjectFromJson<List<ShoppingCartProductViewModel>>(GlobalConstants.SessionShoppingCartKey);
                 if (shoppingCartSession == null)
                 {
                     shoppingCartSession = new List<ShoppingCartProductViewModel>();
@@ -91,7 +91,7 @@
 
                 shoppingCartSession.Add(shoppingCartProduct);
 
-                SessionHelper.SetObjectAsJson(session, GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
+                session.SetObjectAsJson(GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
 
                 return true;
             }
@@ -110,7 +110,7 @@
             }
             else
             {
-                var products = SessionHelper.GetObjectFromJson<List<T>>(session, GlobalConstants.SessionShoppingCartKey);
+                var products = session.GetObjectFromJson<List<T>>(GlobalConstants.SessionShoppingCartKey);
                 return products;
             }
         }
@@ -127,7 +127,7 @@
             }
             else
             {
-                var products = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(session, GlobalConstants.SessionShoppingCartKey);
+                var products = session.GetObjectFromJson<List<ShoppingCartProductViewModel>>(GlobalConstants.SessionShoppingCartKey);
                 return (products == null) ? 0 : products.Count;
             }
         }
@@ -165,7 +165,7 @@
             }
             else
             {
-                var shoppingCartSession = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(session, GlobalConstants.SessionShoppingCartKey);
+                var shoppingCartSession = session.GetObjectFromJson<List<ShoppingCartProductViewModel>>(GlobalConstants.SessionShoppingCartKey);
                 if (shoppingCartSession == null)
                 {
                     return false;
@@ -189,7 +189,7 @@
 
                 product.Quantity = quantity;
 
-                SessionHelper.SetObjectAsJson(session, GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
+                session.SetObjectAsJson(GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
 
                 return true;
             }
@@ -216,7 +216,7 @@
             }
             else
             {
-                var shoppingCartSession = SessionHelper.GetObjectFromJson<List<ShoppingCartProductViewModel>>(session, GlobalConstants.SessionShoppingCartKey);
+                var shoppingCartSession = session.GetObjectFromJson<List<ShoppingCartProductViewModel>>(GlobalConstants.SessionShoppingCartKey);
                 if (shoppingCartSession == null)
                 {
                     return false;
@@ -230,7 +230,7 @@
 
                 shoppingCartSession.Remove(product);
 
-                SessionHelper.SetObjectAsJson(session, GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
+                session.SetObjectAsJson(GlobalConstants.SessionShoppingCartKey, shoppingCartSession);
 
                 return true;
             }
