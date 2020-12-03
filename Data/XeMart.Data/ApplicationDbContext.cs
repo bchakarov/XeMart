@@ -40,6 +40,8 @@
 
         public virtual DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
 
+        public virtual DbSet<Country> Countries { get; set; }
+
         public virtual DbSet<City> Cities { get; set; }
 
         public virtual DbSet<Address> Addresses { get; set; }
