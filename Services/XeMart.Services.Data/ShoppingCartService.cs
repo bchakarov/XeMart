@@ -245,6 +245,23 @@
             }
         }
 
+        public async Task DeleteAllProductsAsync(string userId)
+        {
+            var user = await this.userManager.FindByIdAsync(userId);
+            var shoppingCartId = user.ShoppingCartId;
+
+            var products = this.shoppingCartProductRepository.All()
+                .Where(x => x.ShoppingCartId == shoppingCartId)
+                .ToList();
+
+            foreach (var product in products)
+            {
+                this.shoppingCartProductRepository.Delete(product);
+            }
+
+            await this.shoppingCartProductRepository.SaveChangesAsync();
+        }
+
         private ShoppingCartProduct GetShoppingCartByIdAndProductId(string productId, string shoppingCartId) =>
             this.shoppingCartProductRepository.All()
             .FirstOrDefault(x => x.ShoppingCartId == shoppingCartId && x.ProductId == productId);

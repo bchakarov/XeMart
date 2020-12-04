@@ -1,0 +1,66 @@
+﻿@model XeMart.Web.ViewModels.Orders.OrderViewModel
+
+@{
+    var productClassName = string.Empty;
+
+}
+<div class="col-md-7">
+    <form>
+        <h5>Order Information</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <label asp-for="UserFullName"></label>
+                <input asp-for="UserFullName" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Phone"></label>
+                <input asp-for="Phone" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Address"></label>
+                <input asp-for="Address" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Id"></label>
+                <input asp-for="Id" disabled />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-md-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="order-review">
+                <h5>Order Review</h5>
+                <div class="review-box">
+                    <ul class="list-unstyled">
+                        <li>Product <span>Total</span></li>
+                        @foreach (var product in Model.Products)
+                        {
+                            productClassName = (product.ProductId == Model.Products.Last().ProductId) ? "last-product" : string.Empty;
+                            <li class="d-flex justify-content-between @productClassName">
+                                <div class="pro">
+                                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
+                                        <img src="@product.ImageUrl" />
+                                        <p>@product.ProductName</p>
+                                    </a>
+                                    <span>@product.Quantity X $@product.Price</span>
+                                </div>
+                                <div class="prc">
+                                    <p>$@product.TotalPrice</p>
+                                </div>
+                            </li>
+                        }
+                        <li class="sub-total">Sub Total <span>$@(Model.TotalPrice - Model.DeliveryPrice)</span></li>
+                        <li class="shipping-and-tax">Shipping <span>$@Model.DeliveryPrice</span></li>
+                        <li>Grand Total <span>$@Model.TotalPrice</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,14 +12,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-7">
-                <form action="#">
+                <form method="post" asp-controller="Orders" asp-action="Create" id="orderForm">
                     <h5>Billing Information</h5>
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label asp-for="FullName"></label>
-                            <input asp-for="FullName" />
-                            <span asp-validation-for="FullName" class="text-danger"></span>
+                            <label asp-for="UserFullName"></label>
+                            <input asp-for="UserFullName" />
+                            <span asp-validation-for="UserFullName" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="Email"></label>
@@ -32,6 +32,45 @@
                             <span asp-validation-for="Phone" class="text-danger"></span>
                         </div>
                     </div>
+                    <h4 class="mb-2">Choose Supplier</h4>
+                    <div class="form-group border-primary mb-0">
+                        <ul class="list-group">
+                            @foreach (var supplier in Model.Suppliers)
+                            {
+                                <li class="list-group-item">
+                                    <label>
+                                        @if (supplier.IsDefault)
+                                        {
+                                            <input asp-for="SupplierId" type="radio" value="@supplier.Id" checked />
+                                        }
+                                        else
+                                        {
+                                            <input asp-for="SupplierId" type="radio" value="@supplier.Id" />
+                                        }
+                                        <span class="font-weight-bold">@supplier.Name</span>
+                                        <span class="font-weight-normal"> ( Price to home: $@supplier.PriceToHome | Price to office: $@supplier.PriceToOffice)</span>
+                                    </label>
+                                </li>
+                            }
+                        </ul>
+                        <span asp-validation-for="SupplierId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group border-primary mb-0">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <label>
+                                    <input asp-for="DeliveryType" type="radio" id="Home" value="Home" checked>
+                                    <span class="font-weight-bold mr-2">To Home</span>
+                                </label>
+                                <label>
+                                    <input asp-for="DeliveryType" type="radio" id="Office" value="Office">
+                                    <span class="font-weight-bold">To Office</span>
+                                </label>
+                            </li>
+                        </ul>
+                        <span asp-validation-for="DeliveryType" class="text-danger"></span>
+                    </div>
+                    <hr />
                     <h4 class="mb-2">Choose Address</h4>
                     <div class="form-group border-primary mb-0">
                         <ul class="list-group">
@@ -49,6 +88,7 @@
                         <span asp-validation-for="AddressId" class="text-danger"></span>
                     </div>
                     <a class="btn btn-primary mt-2" data-toggle="collapse" href="#addressForm" role="button" aria-expanded="false" aria-controls="addressForm">Add</a>
+                    <input asp-for="PaymentType" hidden value="CashOnDelivery" />
                 </form>
                 <hr />
                 <div class="collapse" id="addressForm">
@@ -65,30 +105,18 @@
                             <div class="pay-box">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <input type="radio" id="pay1" name="payment" value="pay1" checked>
-                                        <label for="pay1"><span><i class="fa fa-circle"></i></span>Cash On Delivery</label>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque sint placeat illo animi quis minus accusantium ad doloribus, odit explicabo asperiores quidem.</p>
+                                        <input type="radio" name="payment" id="cashOnDeliveryInput" value="CashOnDelivery" checked />
+                                        <label for="cashOnDeliveryInput"><span><i class="fa fa-circle"></i></span>Cash On Delivery</label>
                                     </li>
                                     <li>
-                                        <input type="radio" id="pay2" name="payment" value="pay2">
-                                        <label for="pay2"><span><i class="fa fa-circle"></i></span>Direct Bank Transfer</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="pay3" name="payment" value="pay3">
-                                        <label for="pay3"><span><i class="fa fa-circle"></i></span>Cheque Payment</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="pay4" name="payment" value="pay4">
-                                        <label for="pay4"><span><i class="fa fa-circle"></i></span>Paypal</label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="pay5" name="payment" value="pay5">
-                                        <label for="pay5"><span><i class="fa fa-circle"></i></span>Payoneer</label>
+                                        <input type="radio" name="payment" id="stripeInput" value="Stripe" />
+                                        <label for="stripeInput"><span><i class="fa fa-circle"></i></span>Stripe</label>
                                     </li>
                                 </ul>
                             </div>
+                            <span asp-validation-for="PaymentType" class="text-danger"></span>
                         </div>
-                        <button type="button" name="button" class="ord-btn">Place Order</button>
+                        <button type="button" name="button" class="ord-btn" id="orderButton">Place Order</button>
                     </div>
                 </div>
             </div>
@@ -96,3 +124,19 @@
     </div>
 </section>
 <!-- End Checkout -->
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#orderButton").click(function () {
+                $("#orderForm").submit();
+            });
+            $("#cashOnDeliveryInput").click(function () {
+                $("#PaymentType").val($(this).val());
+            });
+            $("#stripeInput").click(function () {
+                $("#PaymentType").val($(this).val());
+            });
+        });
+    </script>
+}

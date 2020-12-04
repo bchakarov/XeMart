@@ -4,47 +4,61 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+
+    using XeMart.Data.Models.Enums;
     using XeMart.Services;
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels.Addresses;
+    using XeMart.Web.ViewModels.Administration.Suppliers;
     using XeMart.Web.ViewModels.Orders;
 
     [Authorize]
     public class OrdersController : BaseController
     {
+        private const string ShoppingCartIsEmptyMessage = "The shopping cart is empty.";
+
         private readonly IOrdersService ordersService;
+        private readonly ISuppliersService suppliersService;
         private readonly IAddressesService addressesService;
         private readonly ICountriesService countriesService;
         private readonly IShoppingCartService shoppingCartService;
         private readonly IStringService stringService;
 
+        private readonly string userId;
+
         public OrdersController(
             IOrdersService ordersService,
+            ISuppliersService suppliersService,
             IAddressesService addressesService,
             ICountriesService countriesService,
             IShoppingCartService shoppingCartService,
-            IStringService stringService)
+            IStringService stringService,
+            IHttpContextAccessor contextAccessor)
         {
             this.ordersService = ordersService;
+            this.suppliersService = suppliersService;
             this.addressesService = addressesService;
             this.countriesService = countriesService;
             this.shoppingCartService = shoppingCartService;
             this.stringService = stringService;
+
+            this.userId = contextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
         public async Task<IActionResult> Create()
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var hasProducts = await this.shoppingCartService.AnyProducts(userId);
+            var hasProducts = await this.shoppingCartService.AnyProducts(this.userId);
             if (!hasProducts)
             {
-                this.TempData["Error"] = "The shopping cart is empty.";
+                this.TempData["Error"] = ShoppingCartIsEmptyMessage;
                 return this.RedirectToAction("Index", "Home");
             }
 
-            var addresses = this.addressesService.GetAll<AddressViewModel>(userId);
+            var suppliers = this.suppliersService.GetAll<SupplierViewModel>();
+
+            var addresses = this.addressesService.GetAll<AddressViewModel>(this.userId);
 
             foreach (var address in addresses)
             {
@@ -53,10 +67,11 @@
 
             var countries = this.countriesService.GetAll();
 
-            var email = this.User.FindFirstValue(ClaimTypes.Email);
+            var email = this.User.Identity.Name;
 
             var model = new CreateOrderInputViewModel
             {
+                Suppliers = suppliers,
                 Addresses = addresses,
                 Email = email,
                 Countries = countries,
@@ -65,21 +80,63 @@
             return this.View(model);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(CreateSubcategoryInputViewModel model)
-        //{
-        //    if (!this.ModelState.IsValid)
-        //    {
-        //        var mainCategories = this.mainCategoriesService.GetAll();
-        //        model.MainCategories = mainCategories;
-        //        return this.View(model);
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateOrderInputViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                var hasProducts = await this.shoppingCartService.AnyProducts(this.userId);
+                if (!hasProducts)
+                {
+                    this.TempData["Error"] = ShoppingCartIsEmptyMessage;
+                    return this.RedirectToAction("Index", "Home");
+                }
 
-        //    await this.subcategoriesService.CreateAsync<CreateSubcategoryInputViewModel>(model, model.Image, SubcategoriesImagesDirectoryPath, this.webHostEnvironment.WebRootPath);
+                var suppliers = this.suppliersService.GetAll<SupplierViewModel>();
 
-        //    this.TempData["Alert"] = "Successfully created subcategory.";
+                var addresses = this.addressesService.GetAll<AddressViewModel>(this.userId);
 
-        //    return this.RedirectToAction(nameof(this.All));
-        //}
+                foreach (var address in addresses)
+                {
+                    address.Description = this.stringService.TruncateAtWord(address.Description, 30);
+                }
+
+                var countries = this.countriesService.GetAll();
+
+                var email = this.User.Identity.Name;
+
+                model.Suppliers = suppliers;
+                model.Addresses = addresses;
+                model.Email = email;
+                model.Countries = countries;
+
+                return this.View(model);
+            }
+
+            await this.ordersService.CreateAsync<CreateOrderInputViewModel>(model, this.userId);
+
+            return this.RedirectToAction(nameof(this.Complete));
+        }
+
+        public async Task<IActionResult> Complete()
+        {
+            var hasProducts = await this.shoppingCartService.AnyProducts(this.userId);
+            if (!hasProducts)
+            {
+                this.TempData["Error"] = ShoppingCartIsEmptyMessage;
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            var orderId = await this.ordersService.CompleteOrderAsync(this.userId);
+
+            if (this.ordersService.GetPaymentTypeById(orderId) == PaymentType.CashOnDelivery)
+            {
+                // TODO: send email
+                this.TempData["Alert"] = "Successfully registered order.";
+            }
+
+            this.ViewBag.OrderId = orderId;
+            return this.View();
+        }
     }
 }

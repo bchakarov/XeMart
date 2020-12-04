@@ -7402,11 +7402,11 @@ input:focus, textarea:focus {
   padding-top: 18px;
 }
 
-.checkout .order-review .review-box ul li:nth-child(4) {
+.checkout .order-review .review-box ul li.last-product {
   padding-bottom: 10px;
 }
 
-.checkout .order-review .review-box ul li:nth-child(5) {
+.checkout .order-review .review-box ul li.sub-total {
   font-size: 16px;
   color: #666666;
   border-top: 1px solid #e5e5e5;
@@ -7416,11 +7416,11 @@ input:focus, textarea:focus {
   font-weight: 600;
 }
 
-.checkout .order-review .review-box ul li:nth-child(5) span {
+.checkout .order-review .review-box ul li.sub-total span {
   float: right;
 }
 
-.checkout .order-review .review-box ul li:nth-child(6) {
+.checkout .order-review .review-box ul li.shipping-and-tax {
   font-size: 16px;
   color: #666666;
   border-bottom: 1px solid #dddddd;
@@ -7429,7 +7429,7 @@ input:focus, textarea:focus {
   font-weight: 600;
 }
 
-.checkout .order-review .review-box ul li:nth-child(6) span {
+.checkout .order-review .review-box ul li.shipping-and-tax span {
   float: right;
 }
 

@@ -1,5 +1,9 @@
 ﻿@model XeMart.Web.ViewModels.ShoppingCart.ShoppingCartViewModel
 
+@{ 
+    var productClassName = string.Empty;
+}
+
 <div class="col-md-12">
     <div class="order-review">
         <h5>Order Review</h5>
@@ -8,7 +12,8 @@
                 <li>Product <span>Total</span></li>
                 @foreach (var product in Model.Products)
                 {
-                    <li class="d-flex justify-content-between">
+                    productClassName = (product.ProductId == Model.Products.Last().ProductId) ? "last-product" : string.Empty;
+                    <li class="d-flex justify-content-between @productClassName">
                         <div class="pro">
                             <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">
                                 <img src="@product.ImageUrl" />

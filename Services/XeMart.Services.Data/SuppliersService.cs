@@ -6,6 +6,7 @@
 
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
+    using XeMart.Data.Models.Enums;
     using XeMart.Services.Mapping;
 
     public class SuppliersService : ISuppliersService
@@ -114,6 +115,19 @@
             .Where(x => x.Id == id)
             .To<T>()
             .FirstOrDefault();
+
+        public decimal GetDeliveryPrice(int id, DeliveryType deliveryType)
+        {
+            var supplier = this.suppliersRepository.AllAsNoTracking()
+                .FirstOrDefault(x => x.Id == id);
+
+            if (deliveryType == DeliveryType.Office)
+            {
+                return supplier.PriceToOffice;
+            }
+
+            return supplier.PriceToHome;
+        }
 
         private Supplier GetById(int id) =>
             this.suppliersRepository.AllAsNoTracking()

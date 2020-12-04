@@ -1,0 +1,14 @@
+﻿@{
+    this.ViewData["Title"] = "Complete Order";
+    var orderId = Convert.ToString(this.ViewBag.OrderId);
+}
+
+<!-- Complete Order -->
+<section class="checkout">
+    <div class="container">
+        <div class="row">
+            <vc:order-details order-id="@orderId"></vc:order-details>
+        </div>
+    </div>
+</section>
+<!-- End Complete Order -->

@@ -18,5 +18,7 @@
         public Task<bool> UpdateQuantityAsync(bool isUserAuthenticated, ISession session, string userId, string productId, bool increase);
 
         public Task<bool> DeleteProductAsync(bool isUserAuthenticated, ISession session, string userId, string productId);
+
+        public Task DeleteAllProductsAsync(string userId);
     }
 }

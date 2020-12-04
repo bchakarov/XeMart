@@ -3,6 +3,8 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using XeMart.Data.Models.Enums;
+
     public interface ISuppliersService
     {
         public Task CreateAsync<T>(T supplier);
@@ -20,5 +22,7 @@
         public Task<bool> UndeleteAsync(int id);
 
         public T GetById<T>(int id);
+
+        public decimal GetDeliveryPrice(int id, DeliveryType deliveryType);
     }
 }
