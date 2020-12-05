@@ -143,6 +143,11 @@
         [HttpGet("/Orders/History/{pageNumber?}")]
         public IActionResult History(int pageNumber = 1)
         {
+            if (pageNumber <= 0)
+            {
+                return this.History();
+            }
+
             var itemsPerPage = 6;
             var orders = this.ordersService.TakeOrdersByUserId<OrderSummaryViewModel>(this.userId, pageNumber, itemsPerPage);
             var ordersCount = this.ordersService.GetCountByUserId(this.userId);
@@ -153,6 +158,9 @@
                 ItemsPerPage = itemsPerPage,
                 PageNumber = pageNumber,
                 Orders = orders,
+                Area = string.Empty,
+                Controller = "Orders",
+                Action = nameof(this.History),
             };
 
             return this.View(viewModel);

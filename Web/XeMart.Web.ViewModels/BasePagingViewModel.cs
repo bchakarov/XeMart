@@ -19,5 +19,11 @@
         public int ItemsCount { get; set; }
 
         public int ItemsPerPage { get; set; }
+
+        public string Area { get; set; } = string.Empty;
+
+        public string Controller { get; set; }
+
+        public string Action { get; set; }
     }
 }

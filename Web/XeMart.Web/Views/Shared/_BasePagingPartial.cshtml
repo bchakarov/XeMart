@@ -3,13 +3,13 @@
 <nav aria-label="...">
     <ul class="pagination justify-content-center">
         <li class="page-item @if (!Model.HasPreviousPage) { <text>disabled</text> }">
-            <a class="page-link" asp-area="" asp-controller="Orders" asp-action="History" asp-route-pageNumber="@Model.PreviousPageNumber">Previous</a>
+            <a class="page-link" asp-area="@Model.Area" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pageNumber="@Model.PreviousPageNumber">Previous</a>
         </li>
         @for (int i = Model.PageNumber - 4; i < Model.PageNumber; i++)
         {
             if (i > 0)
             {
-                <li class="page-item"><a class="page-link" asp-area="" asp-controller="Orders" asp-action="History" asp-route-pageNumber="@i">@i</a></li>
+                <li class="page-item"><a class="page-link" asp-area="@Model.Area" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pageNumber="@i">@i</a></li>
             }
         }
         <li class="page-item active" aria-current="page">
@@ -21,11 +21,11 @@
         {
             if (i <= Model.PagesCount)
             {
-                <li class="page-item"><a class="page-link" asp-area="" asp-controller="Orders" asp-action="History" asp-route-pageNumber="@i">@i</a></li>
+                <li class="page-item"><a class="page-link" asp-area="@Model.Area" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pageNumber="@i">@i</a></li>
             }
         }
         <li class="page-item @if (!Model.HasNextPage) { <text>disabled</text> }">
-            <a class="page-link" asp-area="" asp-controller="Orders" asp-action="History" asp-route-pageNumber="@Model.NextPageNumber">Next</a>
+            <a class="page-link" asp-area="@Model.Area" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-pageNumber="@Model.NextPageNumber">Next</a>
         </li>
     </ul>
 </nav>

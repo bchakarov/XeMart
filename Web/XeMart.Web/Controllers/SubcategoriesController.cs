@@ -91,6 +91,9 @@
                 ItemsPerPageValues = this.itemsPerPageValues,
                 Sorting = sorting,
                 SortingValues = this.sortingValues,
+                Area = string.Empty,
+                Controller = "Subcategories",
+                Action = nameof(this.Products),
             };
 
             return this.View(subcategory);
