@@ -1,5 +1,6 @@
 ﻿namespace XeMart.Web.Controllers
 {
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -139,10 +140,22 @@
             return this.View();
         }
 
-        public IActionResult History()
+        [HttpGet("/Orders/History/{pageNumber?}")]
+        public IActionResult History(int pageNumber = 1)
         {
-            var orders = this.ordersService.GetAll<OrderHistoryViewModel>(this.userId);
-            return this.View(orders);
+            var itemsPerPage = 6;
+            var orders = this.ordersService.TakeOrdersByUserId<OrderSummaryViewModel>(this.userId, pageNumber, itemsPerPage);
+            var ordersCount = this.ordersService.GetCountByUserId(this.userId);
+
+            var viewModel = new OrderHistoryViewModel
+            {
+                ItemsCount = ordersCount,
+                ItemsPerPage = itemsPerPage,
+                PageNumber = pageNumber,
+                Orders = orders,
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Details(string id)

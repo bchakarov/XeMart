@@ -86,11 +86,17 @@
             return order.Id;
         }
 
-        public IEnumerable<T> GetAll<T>(string userId) =>
+        public IEnumerable<T> TakeOrdersByUserId<T>(string userId, int page, int ordersToTake) =>
             this.ordersRepository.AllAsNoTracking()
             .Where(x => x.UserId == userId)
             .OrderByDescending(x => x.CreatedOn)
+            .Skip((page - 1) * ordersToTake)
+            .Take(ordersToTake)
             .To<T>().ToList();
+
+        public int GetCountByUserId(string userId) =>
+            this.ordersRepository.AllAsNoTracking()
+            .Count(x => x.UserId == userId);
 
         public T GetById<T>(string id) =>
             this.ordersRepository.AllAsNoTracking()

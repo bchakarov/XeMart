@@ -11,7 +11,9 @@
 
         public Task<string> CompleteOrderAsync(string userId);
 
-        public IEnumerable<T> GetAll<T>(string userId);
+        public IEnumerable<T> TakeOrdersByUserId<T>(string userId, int page, int ordersToTake);
+
+        public int GetCountByUserId(string userId);
 
         public T GetById<T>(string id);
 
