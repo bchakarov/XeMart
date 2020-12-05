@@ -22,7 +22,6 @@
         public IViewComponentResult Invoke(string orderId)
         {
             var order = this.ordersService.GetById<OrderViewModel>(orderId);
-            order.Id = order.Id.Substring(0, 8);
 
             foreach (var product in order.Products)
             {

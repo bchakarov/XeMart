@@ -1,0 +1,33 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Orders.OrderHistoryViewModel>
+
+@{ 
+    this.ViewData["Title"] = "Order History";
+}
+
+<section>
+        <table class="table table-bordered col-md-12 mt-5 mb-5">
+            <thead class="thead-light">
+                <tr class="text-center">
+                    <th scope="col">Created On</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Payment Type</th>
+                    <th scope="col">Payment Status</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr class="text-center">
+                        <td scope="row">@order.CreatedOn</td>
+                        <td>@order.Status</td>
+                        <td>@order.PaymentType</td>
+                        <td>@order.PaymentStatus</td>
+                        <td>$@order.TotalPrice</td>
+                        <td><a class="btn btn-primary" asp-area="" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id">Details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</section>

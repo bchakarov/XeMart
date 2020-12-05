@@ -28,6 +28,37 @@
                 <label asp-for="Id"></label>
                 <input asp-for="Id" disabled />
             </div>
+            <div class="col-md-6">
+                <label asp-for="CreatedOn"></label>
+                <input asp-for="CreatedOn" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="PaymentType"></label>
+                <input asp-for="PaymentType" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="PaymentStatus"></label>
+                <input asp-for="PaymentStatus" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Status"></label>
+                <input asp-for="Status" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="SupplierName"></label>
+                <input asp-for="SupplierName" disabled />
+            </div>
+            <div class="col-md-6">
+                <label asp-for="DeliveryType"></label>
+                <input asp-for="DeliveryType" disabled />
+            </div>
+            @if (Model.IsDelivered)
+            {
+                <div class="col-md-6">
+                    <label asp-for="DeliveredOn"></label>
+                    <input asp-for="DeliveredOn" disabled />
+                </div>
+            }
         </div>
     </form>
 </div>

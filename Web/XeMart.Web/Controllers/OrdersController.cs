@@ -135,7 +135,25 @@
                 this.TempData["Alert"] = "Successfully registered order.";
             }
 
-            this.ViewBag.OrderId = orderId;
+            this.ViewData["OrderId"] = orderId;
+            return this.View();
+        }
+
+        public IActionResult History()
+        {
+            var orders = this.ordersService.GetAll<OrderHistoryViewModel>(this.userId);
+            return this.View(orders);
+        }
+
+        public IActionResult Details(string id)
+        {
+            if (!this.ordersService.UserHasOrder(this.userId, id))
+            {
+                this.TempData["Error"] = "Order not found.";
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            this.ViewData["OrderId"] = id;
             return this.View();
         }
     }

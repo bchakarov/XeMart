@@ -34,14 +34,15 @@
                     <ul class="list-unstyled list-inline">
                         <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Index">HOME</a></li>
                         <li class="list-inline-item categories-mobile">
-                            <a>Categories <i class="fa fa-angle-down"></i></a>
+                            <a>CATEGORIES <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown list-unstyled">
                                 @foreach (var mainCategory in Model)
-	                            {
+                                {
                                     <li><a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@mainCategory.Id">@mainCategory.Name</a></li>
-	                            }
+                                }
                             </ul>
                         </li>
+                        <li class="list-inline-item"><a asp-area="" asp-controller="Orders" asp-action="History">ORDERS</a></li>
                         <li class="list-inline-item"><a asp-area="" asp-controller="Partners" asp-action="Create">PARTNERS</a></li>
                         <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Contact">CONTACT</a></li>
                     </ul>

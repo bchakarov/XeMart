@@ -22,6 +22,7 @@
                                     }
                                 </ul>
                             </li>
+                            <li><a asp-area="" asp-controller="Orders" asp-action="History">Orders</a></li>
                             <li><a asp-area="" asp-controller="Orders" asp-action="Create">Checkout</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                             @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))

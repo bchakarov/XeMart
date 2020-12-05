@@ -86,6 +86,12 @@
             return order.Id;
         }
 
+        public IEnumerable<T> GetAll<T>(string userId) =>
+            this.ordersRepository.AllAsNoTracking()
+            .Where(x => x.UserId == userId)
+            .OrderByDescending(x => x.CreatedOn)
+            .To<T>().ToList();
+
         public T GetById<T>(string id) =>
             this.ordersRepository.AllAsNoTracking()
             .Where(x => x.Id == id)
@@ -95,6 +101,10 @@
             this.ordersRepository.AllAsNoTracking()
             .FirstOrDefault(x => x.Id == id)
             .PaymentType;
+
+        public bool UserHasOrder(string userId, string orderId) =>
+            this.ordersRepository.AllAsNoTracking()
+            .Any(x => x.UserId == userId && x.Id == orderId);
 
         private Order GetProcessingOrder(string userId) =>
             this.ordersRepository.All()
