@@ -10,6 +10,7 @@
     using XeMart.Services.Data;
 
     [Route("api/[controller]")]
+    [ApiController]
     [IgnoreAntiforgeryToken]
     public class StripeWebHookController : BaseController
     {
