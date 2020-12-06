@@ -36,7 +36,7 @@
 
         public bool UserHasOrder(string userId, string orderId);
 
-        public Task FulfillOrderById(string id);
+        public Task FulfillOrderById(string orderId, string stripeId);
 
         public Task CancelAnyProcessingOrders(string userId);
 

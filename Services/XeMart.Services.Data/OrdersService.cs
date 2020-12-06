@@ -73,7 +73,6 @@
             if (order.PaymentType == PaymentType.CashOnDelivery || order.PaymentStatus == PaymentStatus.Paid)
             {
                 await this.shoppingCartService.DeleteAllProductsAsync(userId);
-                order.Status = OrderStatus.Unprocessed;
             }
 
             order.TotalPrice = order.Products.Sum(x => x.Quantity * x.Price) + order.DeliveryPrice;
@@ -109,7 +108,6 @@
             {
                 order.IsDelivered = false;
                 order.DeliveredOn = null;
-                order.PaymentStatus = PaymentStatus.Unpaid;
             }
 
             this.ordersRepository.Update(order);
@@ -180,12 +178,14 @@
             this.ordersRepository.AllAsNoTracking()
             .Any(x => x.UserId == userId && x.Id == orderId);
 
-        public async Task FulfillOrderById(string id)
+        public async Task FulfillOrderById(string orderId, string stripeId)
         {
             // TODO: send email
-            var order = this.GetOrderById(id);
+            var order = this.GetOrderById(orderId);
 
             order.PaymentStatus = PaymentStatus.Paid;
+            order.Status = OrderStatus.Unprocessed;
+            order.StripeId = stripeId;
 
             this.ordersRepository.Update(order);
             await this.ordersRepository.SaveChangesAsync();

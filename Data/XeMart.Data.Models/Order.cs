@@ -41,6 +41,8 @@
 
         public PaymentType PaymentType { get; set; }
 
+        public string StripeId { get; set; }
+
         public OrderStatus Status { get; set; }
 
         public decimal TotalPrice { get; set; }

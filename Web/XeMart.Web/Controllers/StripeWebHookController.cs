@@ -40,7 +40,7 @@
                     // Fulfill the purchase...
                     if (session.PaymentStatus == "paid")
                     {
-                        await this.ordersService.FulfillOrderById(session.Metadata["order_id"]);
+                        await this.ordersService.FulfillOrderById(session.Metadata["order_id"], session.PaymentIntentId);
                     }
                 }
 
