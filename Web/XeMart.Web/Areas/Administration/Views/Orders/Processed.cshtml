@@ -1,0 +1,62 @@
+﻿@model XeMart.Web.ViewModels.Orders.OrderListViewModel
+
+@{
+    this.ViewData["Title"] = "Processed Orders";
+}
+
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr class="row">
+                    <th scope="col" class="col-2 d-flex justify-content-center">Created On</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Status</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Payment Type</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Payment Status</th>
+                    <th scope="col" class="col-4 d-flex justify-content-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Orders.Any())
+                {
+                    <tr class="row">
+                        <td class="col-12 d-flex justify-content-center"><strong>No processed orders</strong></td>
+                    </tr>
+                }
+                @foreach (var order in Model.Orders)
+                {
+                    <tr class="row">
+                        <td class="col-2 d-flex justify-content-center">
+                            @order.CreatedOn
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @order.Status
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @order.PaymentType
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @order.PaymentStatus
+                        </td>
+                        <td class="col-md-4 d-flex justify-content-around">
+                            <div class="mr-2">
+                                <a asp-controller="Orders" asp-action="SetStatus" asp-route-id="@order.Id" asp-route-status="@XeMart.Data.Models.Enums.OrderStatus.Delivered.ToString()" class="btn btn-primary btn-sm">Deliver</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id" class="btn btn-success btn-sm">Details</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="Orders" asp-action="SetStatus" asp-route-id="@order.Id" asp-route-status="@XeMart.Data.Models.Enums.OrderStatus.Unprocessed.ToString()" class="btn btn-danger btn-sm">Unprocess</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <partial name="_BasePagingPartial" />
+    </div>
+</div>

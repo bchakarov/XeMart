@@ -61,8 +61,10 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">All</a>
-                        <a class="collapse-item" href="#">Delivered</a>
+                        <a class="collapse-item" asp-area="Administration" asp-controller="Orders" asp-action="Unprocessed">Unprocessed</a>
+                        <a class="collapse-item" asp-area="Administration" asp-controller="Orders" asp-action="Processed">Processed</a>
+                        <a class="collapse-item" asp-area="Administration" asp-controller="Orders" asp-action="Delivered">Delivered</a>
+                        <a class="collapse-item" asp-area="Administration" asp-controller="Orders" asp-action="Deleted">Deleted</a>
                     </div>
                 </div>
             </li>

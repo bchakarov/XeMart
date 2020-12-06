@@ -13,6 +13,8 @@
             this.MaxMessagesToDisplay = 5;
         }
 
+        public int UnprocessedOrdersCount { get; set; }
+
         public int PartnerRequestsCount { get; set; }
 
         public IEnumerable<UserMessageNavbarViewModel> UnreadUserMessages { get; set; }

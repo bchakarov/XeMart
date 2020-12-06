@@ -21,6 +21,12 @@
 
         public PaymentStatus PaymentStatus { get; set; }
 
+        public bool IsDelivered { get; set; }
+
+        public string DeliveredOn { get; set; }
+
+        public string DeletedOn { get; set; }
+
         public decimal TotalPrice { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
@@ -28,7 +34,13 @@
             configuration.CreateMap<Order, OrderSummaryViewModel>()
             .ForMember(
                 source => source.CreatedOn,
-                destination => destination.MapFrom(member => member.CreatedOn.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)));
+                destination => destination.MapFrom(member => member.CreatedOn.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)))
+            .ForMember(
+                source => source.DeliveredOn,
+                destination => destination.MapFrom(member => (member.DeliveredOn == null) ? null : member.DeliveredOn.Value.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)))
+            .ForMember(
+                source => source.DeletedOn,
+                destination => destination.MapFrom(member => (member.DeletedOn == null) ? null : member.DeletedOn.Value.ToString(GlobalConstants.DateTimeFormat, CultureInfo.InvariantCulture)));
         }
     }
 }

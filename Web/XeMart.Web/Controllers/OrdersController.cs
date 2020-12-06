@@ -1,6 +1,5 @@
 ﻿namespace XeMart.Web.Controllers
 {
-    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -150,9 +149,9 @@
 
             var itemsPerPage = 6;
             var orders = this.ordersService.TakeOrdersByUserId<OrderSummaryViewModel>(this.userId, pageNumber, itemsPerPage);
-            var ordersCount = this.ordersService.GetCountByUserId(this.userId);
+            var ordersCount = this.ordersService.GetOrdersCountByUserId(this.userId);
 
-            var viewModel = new OrderHistoryViewModel
+            var viewModel = new OrderListViewModel
             {
                 ItemsCount = ordersCount,
                 ItemsPerPage = itemsPerPage,

@@ -1,5 +1,6 @@
 ﻿namespace XeMart.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -28,7 +29,7 @@
 
         public async Task CreateAsync<T>(T model, string userId)
         {
-            var order = this.GetProcessingOrder(userId);
+            var order = this.GetProcessingOrderByUserId(userId);
             if (order == null)
             {
                 order = AutoMapperConfig.MapperInstance.Map<Order>(model);
@@ -47,7 +48,7 @@
 
         public async Task<string> CompleteOrderAsync(string userId)
         {
-            var order = this.GetProcessingOrder(userId);
+            var order = this.GetProcessingOrderByUserId(userId);
             if (order == null)
             {
                 return null;
@@ -86,6 +87,38 @@
             return order.Id;
         }
 
+        public async Task<bool> SetOrderStatusAsync(string id, string status)
+        {
+            var order = this.GetOrderById(id);
+            if (order == null)
+            {
+                return false;
+            }
+
+            var statusResult = Enum.TryParse<OrderStatus>(status, out var statusParsed);
+            if (!statusResult)
+            {
+                return false;
+            }
+
+            order.Status = statusParsed;
+            if (statusParsed == OrderStatus.Delivered)
+            {
+                order.IsDelivered = true;
+                order.DeliveredOn = DateTime.UtcNow;
+            }
+            else
+            {
+                order.IsDelivered = false;
+                order.DeliveredOn = null;
+            }
+
+            this.ordersRepository.Update(order);
+            await this.ordersRepository.SaveChangesAsync();
+
+            return true;
+        }
+
         public IEnumerable<T> TakeOrdersByUserId<T>(string userId, int page, int ordersToTake) =>
             this.ordersRepository.AllAsNoTracking()
             .Where(x => x.UserId == userId)
@@ -94,9 +127,41 @@
             .Take(ordersToTake)
             .To<T>().ToList();
 
-        public int GetCountByUserId(string userId) =>
+        public IEnumerable<T> TakeOrdersByStatus<T>(OrderStatus status, int page, int ordersToTake) =>
+            this.ordersRepository.AllAsNoTracking()
+            .Where(x => x.Status == status)
+            .OrderByDescending(x => x.CreatedOn)
+            .Skip((page - 1) * ordersToTake)
+            .Take(ordersToTake)
+            .To<T>().ToList();
+
+        public IEnumerable<T> TakeProcessingAndUnprocessedOrders<T>(int page, int ordersToTake) =>
+            this.ordersRepository.AllAsNoTracking()
+            .Where(x => x.Status == OrderStatus.Processing || x.Status == OrderStatus.Unprocessed)
+            .OrderByDescending(x => x.CreatedOn)
+            .Skip((page - 1) * ordersToTake)
+            .Take(ordersToTake)
+            .To<T>().ToList();
+
+        public IEnumerable<T> TakeDeletedOrders<T>(int page, int ordersToTake) =>
+            this.ordersRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted)
+            .OrderByDescending(x => x.DeletedOn)
+            .Skip((page - 1) * ordersToTake)
+            .Take(ordersToTake)
+            .To<T>().ToList();
+
+        public int GetOrdersCountByUserId(string userId) =>
             this.ordersRepository.AllAsNoTracking()
             .Count(x => x.UserId == userId);
+
+        public int GetOrdersCountByStatus(OrderStatus status) =>
+            this.ordersRepository.AllAsNoTracking()
+            .Count(x => x.Status == status);
+
+        public int GetDeletedOrdersCount() =>
+            this.ordersRepository.AllAsNoTrackingWithDeleted()
+            .Count(x => x.IsDeleted);
 
         public T GetById<T>(string id) =>
             this.ordersRepository.AllAsNoTracking()
@@ -112,7 +177,44 @@
             this.ordersRepository.AllAsNoTracking()
             .Any(x => x.UserId == userId && x.Id == orderId);
 
-        private Order GetProcessingOrder(string userId) =>
+        public async Task<bool> DeleteAsync(string id)
+        {
+            var order = this.GetOrderById(id);
+            if (order == null)
+            {
+                return false;
+            }
+
+            this.ordersRepository.Delete(order);
+            await this.ordersRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UndeleteAsync(string id)
+        {
+            var order = this.GetDeletedOrderById(id);
+            if (order == null)
+            {
+                return false;
+            }
+
+            this.ordersRepository.Undelete(order);
+            await this.ordersRepository.SaveChangesAsync();
+
+            return true;
+        }
+
+        private Order GetOrderById(string id) =>
+            this.ordersRepository.All()
+            .FirstOrDefault(x => x.Id == id);
+
+        private Order GetDeletedOrderById(string id) =>
+            this.ordersRepository.AllAsNoTrackingWithDeleted()
+            .Where(x => x.IsDeleted && x.Id == id)
+            .FirstOrDefault();
+
+        private Order GetProcessingOrderByUserId(string userId) =>
             this.ordersRepository.All()
             .FirstOrDefault(x => x.UserId == userId && x.Status == OrderStatus.Processing);
     }

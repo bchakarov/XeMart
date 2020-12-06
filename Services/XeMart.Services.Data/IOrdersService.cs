@@ -11,14 +11,30 @@
 
         public Task<string> CompleteOrderAsync(string userId);
 
+        public Task<bool> SetOrderStatusAsync(string id, string status);
+
         public IEnumerable<T> TakeOrdersByUserId<T>(string userId, int page, int ordersToTake);
 
-        public int GetCountByUserId(string userId);
+        public IEnumerable<T> TakeOrdersByStatus<T>(OrderStatus status, int page, int ordersToTake);
+
+        public IEnumerable<T> TakeProcessingAndUnprocessedOrders<T>(int page, int ordersToTake);
+
+        public IEnumerable<T> TakeDeletedOrders<T>(int page, int ordersToTake);
+
+        public int GetOrdersCountByUserId(string userId);
+
+        public int GetOrdersCountByStatus(OrderStatus status);
+
+        public int GetDeletedOrdersCount();
 
         public T GetById<T>(string id);
 
         public PaymentType GetPaymentTypeById(string id);
 
         public bool UserHasOrder(string userId, string orderId);
+
+        public Task<bool> DeleteAsync(string id);
+
+        public Task<bool> UndeleteAsync(string id);
     }
 }

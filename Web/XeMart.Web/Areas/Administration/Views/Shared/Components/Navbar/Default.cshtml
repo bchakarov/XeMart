@@ -1,10 +1,13 @@
 ﻿@model XeMart.Web.ViewModels.Administration.ViewComponents.NavbarViewModel
 <!-- Nav Item - Orders -->
 <li class="nav-item no-arrow mx-1">
-    <a class="nav-link" href="#">
+    <a class="nav-link" asp-area="Administration" asp-controller="Orders" asp-action="Unprocessed">
         <i class="fas fa-box"></i>
-        <!-- Counter - Alerts -->
-        <span class="badge badge-danger badge-counter">1</span>
+        @if (Model.UnprocessedOrdersCount > 0)
+        {
+            <!-- Counter - Unprocessed Orders -->
+            <span class="badge badge-danger badge-counter">@Model.UnprocessedOrdersCount</span>
+        }
     </a>
 </li>
 
@@ -12,9 +15,9 @@
 <li class="nav-item no-arrow mx-1">
     <a class="nav-link" asp-area="Administration" asp-controller="Partners" asp-action="Requests">
         <i class="fas fa-handshake"></i>
-        <!-- Counter - Alerts -->
         @if (Model.PartnerRequestsCount > 0)
         {
+            <!-- Counter - Partner Requests -->
             <span class="badge badge-danger badge-counter">@Model.PartnerRequestsCount</span>
         }
     </a>
@@ -25,9 +28,9 @@
     <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-envelope fa-fw"></i>
-        <!-- Counter - Messages -->
         @if (Model.UnreadUserMessages.Count() > 0)
         {
+            <!-- Counter - Messages -->
             <span class="badge badge-danger badge-counter">@Model.UnreadUserMessages.Count()</span>
         }
     </a>
