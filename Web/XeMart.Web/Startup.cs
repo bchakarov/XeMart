@@ -14,6 +14,8 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
+    using Stripe;
+
     using XeMart.Data;
     using XeMart.Data.Common;
     using XeMart.Data.Common.Repositories;
@@ -25,6 +27,8 @@
     using XeMart.Services.Mapping;
     using XeMart.Services.Messaging;
     using XeMart.Web.ViewModels;
+
+    using Account = CloudinaryDotNet.Account;
 
     public class Startup
     {
@@ -49,6 +53,7 @@
                     {
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
+                        options.Secure = CookieSecurePolicy.Always;
                     });
 
             services.AddDistributedMemoryCache();
@@ -68,12 +73,19 @@
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
             services.AddSingleton(cloudinaryUtility);
 
+            StripeConfiguration.ApiKey = this.configuration["Stripe:SecretKey"];
+
             services.AddControllersWithViews(
                 options =>
                     {
                         options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                     }).AddRazorRuntimeCompilation();
             services.AddRazorPages();
+
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
 
             services.AddSingleton(this.configuration);
 

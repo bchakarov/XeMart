@@ -77,6 +77,9 @@
                 Countries = countries,
             };
 
+            // cancel any processing orders
+            await this.ordersService.CancelAnyProcessingOrders(this.userId);
+
             return this.View(model);
         }
 
@@ -135,8 +138,9 @@
                 this.TempData["Alert"] = "Successfully registered order.";
             }
 
-            this.ViewData["OrderId"] = orderId;
-            return this.View();
+            var order = this.ordersService.GetById<OrderPaymentStatusViewModel>(orderId);
+
+            return this.View(order);
         }
 
         [HttpGet("/Orders/History/{pageNumber?}")]

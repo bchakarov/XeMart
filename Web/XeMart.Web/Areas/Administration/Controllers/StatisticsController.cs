@@ -8,7 +8,6 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    using XeMart.Common;
     using XeMart.Data.Models;
     using XeMart.Web.ViewModels.Administration.Statistics;
 

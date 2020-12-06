@@ -1,14 +1,58 @@
-﻿@{
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@model XeMart.Web.ViewModels.Orders.OrderPaymentStatusViewModel
+
+@{
     this.ViewData["Title"] = "Complete Order";
-    var orderId =this.ViewData["OrderId"];
 }
 
 <!-- Complete Order -->
 <section class="checkout">
     <div class="container">
         <div class="row">
-            <vc:order-details order-id="@orderId"></vc:order-details>
+            <vc:order-details order-id="@Model.Id"></vc:order-details>
+            @if (Model.PaymentStatus != XeMart.Data.Models.Enums.PaymentStatus.Paid)
+            {
+                <vc:payment-order order-id="@Model.Id"></vc:payment-order>
+            }
         </div>
     </div>
 </section>
 <!-- End Complete Order -->
+
+@section Scripts{
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+        // Create an instance of the Stripe object with your publishable API key
+        var stripe = Stripe("@Configuration["Stripe:PublicKey"]");
+        var antiForgeryToken = document.querySelector("#antiForgeryForm > input[type=hidden]").value;
+        var checkoutButton = document.getElementById("checkout-button");
+        checkoutButton.addEventListener("click", function () {
+            fetch("/api/checkout", {
+                method: "POST",
+                headers: {
+                    "X-CSRF-TOKEN": antiForgeryToken,
+                }
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (session) {
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                })
+                .then(function (result) {
+                    // If redirectToCheckout fails due to a browser or network
+                    // error, you should display the localized error message to your
+                    // customer using error.message.
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error:", error);
+                });
+        });
+    </script>
+}

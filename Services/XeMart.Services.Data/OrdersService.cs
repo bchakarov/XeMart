@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
     using XeMart.Data.Models.Enums;
@@ -29,21 +31,13 @@
 
         public async Task CreateAsync<T>(T model, string userId)
         {
-            var order = this.GetProcessingOrderByUserId(userId);
-            if (order == null)
-            {
-                order = AutoMapperConfig.MapperInstance.Map<Order>(model);
-                order.DeliveryPrice = this.suppliersService.GetDeliveryPrice(order.SupplierId, order.DeliveryType);
-                order.UserId = userId;
-                await this.ordersRepository.AddAsync(order);
-                await this.ordersRepository.SaveChangesAsync();
-            }
-            else
-            {
-                order.DeliveryPrice = this.suppliersService.GetDeliveryPrice(order.SupplierId, order.DeliveryType);
-                this.ordersRepository.Update(order);
-                await this.ordersRepository.SaveChangesAsync();
-            }
+            await this.CancelAnyProcessingOrders(userId);
+
+            var order = AutoMapperConfig.MapperInstance.Map<Order>(model);
+            order.DeliveryPrice = this.suppliersService.GetDeliveryPrice(order.SupplierId, order.DeliveryType);
+            order.UserId = userId;
+            await this.ordersRepository.AddAsync(order);
+            await this.ordersRepository.SaveChangesAsync();
         }
 
         public async Task<string> CompleteOrderAsync(string userId)
@@ -60,8 +54,6 @@
                 return null;
             }
 
-            var orderProducts = new List<OrderProduct>();
-
             foreach (var shoppingCartProduct in shoppingCartProducts)
             {
                 var orderProduct = new OrderProduct
@@ -72,13 +64,18 @@
                     Price = shoppingCartProduct.ProductPrice,
                 };
 
-                orderProducts.Add(orderProduct);
+                if (!this.OrderHasProduct(order.Id, shoppingCartProduct.ProductId))
+                {
+                    order.Products.Add(orderProduct);
+                }
             }
 
-            await this.shoppingCartService.DeleteAllProductsAsync(userId);
+            if (order.PaymentType == PaymentType.CashOnDelivery || order.PaymentStatus == PaymentStatus.Paid)
+            {
+                await this.shoppingCartService.DeleteAllProductsAsync(userId);
+                order.Status = OrderStatus.Unprocessed;
+            }
 
-            order.Status = OrderStatus.Unprocessed;
-            order.Products = orderProducts;
             order.TotalPrice = order.Products.Sum(x => x.Quantity * x.Price) + order.DeliveryPrice;
 
             this.ordersRepository.Update(order);
@@ -106,11 +103,13 @@
             {
                 order.IsDelivered = true;
                 order.DeliveredOn = DateTime.UtcNow;
+                order.PaymentStatus = PaymentStatus.Paid;
             }
             else
             {
                 order.IsDelivered = false;
                 order.DeliveredOn = null;
+                order.PaymentStatus = PaymentStatus.Unpaid;
             }
 
             this.ordersRepository.Update(order);
@@ -168,6 +167,10 @@
             .Where(x => x.Id == id)
             .To<T>().FirstOrDefault();
 
+        public Order GetProcessingOrderByUserId(string userId) =>
+            this.ordersRepository.All().Include(x => x.Products)
+            .FirstOrDefault(x => x.UserId == userId && x.Status == OrderStatus.Processing);
+
         public PaymentType GetPaymentTypeById(string id) =>
             this.ordersRepository.AllAsNoTracking()
             .FirstOrDefault(x => x.Id == id)
@@ -176,6 +179,28 @@
         public bool UserHasOrder(string userId, string orderId) =>
             this.ordersRepository.AllAsNoTracking()
             .Any(x => x.UserId == userId && x.Id == orderId);
+
+        public async Task FulfillOrderById(string id)
+        {
+            // TODO: send email
+            var order = this.GetOrderById(id);
+
+            order.PaymentStatus = PaymentStatus.Paid;
+
+            this.ordersRepository.Update(order);
+            await this.ordersRepository.SaveChangesAsync();
+        }
+
+        public async Task CancelAnyProcessingOrders(string userId)
+        {
+            var order = this.GetProcessingOrderByUserId(userId);
+            if (order != null)
+            {
+                order.Status = OrderStatus.Cancelled;
+                this.ordersRepository.Update(order);
+                await this.ordersRepository.SaveChangesAsync();
+            }
+        }
 
         public async Task<bool> DeleteAsync(string id)
         {
@@ -214,8 +239,8 @@
             .Where(x => x.IsDeleted && x.Id == id)
             .FirstOrDefault();
 
-        private Order GetProcessingOrderByUserId(string userId) =>
-            this.ordersRepository.All()
-            .FirstOrDefault(x => x.UserId == userId && x.Status == OrderStatus.Processing);
+        private bool OrderHasProduct(string orderId, string productId) =>
+            this.ordersRepository.AllAsNoTracking()
+            .Any(x => x.Id == orderId && x.Products.Any(x => x.ProductId == productId));
     }
 }
