@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="@Model.UserMessageViewModel.CreatedOn">Created on:</label>
-                            <input asp-for="@Model.UserMessageViewModel.CreatedOn" class="form-control" disabled placeholder="Created on" />
+                            <time class="form-control disabled" datetime="@Model.UserMessageViewModel.CreatedOn"></time>
                         </div>
                         <div class="form-group">
                             <label asp-for="@Model.UserMessageViewModel.IP">IP:</label>

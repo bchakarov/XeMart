@@ -39,13 +39,13 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label asp-for="CreatedOn" class="control-label"></label>
-                    <input asp-for="CreatedOn" class="form-control" disabled />
+                    <time class="form-control disabled" datetime="@Model.CreatedOn"></time>
                 </div>
                 <div class="form-group col-md-3">
                     <label asp-for="DeliveredOn" class="control-label"></label>
                     @if (Model.IsDelivered)
                     {
-                        <input asp-for="DeliveredOn" class="form-control" disabled /> 
+                        <time class="form-control disabled" datetime="@Model.DeliveredOn"></time>
                     }
                     else
                     {
@@ -88,32 +88,34 @@
                 </div>
             </div>
             <hr />
-            <table class="table table-hover">
-            <thead class="thead-light">
-                <tr class="row">
-                    <th scope="col" class="col-6 d-flex justify-content-center">Product</th>
-                    <th scope="col" class="col-3 d-flex justify-content-center">Price (USD)</th>
-                    <th scope="col" class="col-3 d-flex justify-content-center">Quantity</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model.Products)
-                {
-                    <tr class="row">
-                        <td class="col-6 d-flex justify-content-center">
-                            <img src="@product.ImageUrl" class="custom-image-box" />
-                            <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId" target="_blank">@product.ProductName</a>
-                        </td>
-                        <td class="col-3 d-flex justify-content-around">
-                            @product.Price
-                        </td>
-                        <td class="col-3 d-flex justify-content-around">
-                            @product.Quantity
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead class="thead-light">
+                        <tr class="row">
+                            <th scope="col" class="col-6 d-flex justify-content-center">Product</th>
+                            <th scope="col" class="col-3 d-flex justify-content-center">Price (USD)</th>
+                            <th scope="col" class="col-3 d-flex justify-content-center">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model.Products)
+                        {
+                            <tr class="row">
+                                <td class="col-6 d-flex justify-content-center">
+                                    <img src="@product.ImageUrl" class="custom-image-box" />
+                                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId" target="_blank">@product.ProductName</a>
+                                </td>
+                                <td class="col-3 d-flex justify-content-around">
+                                    @product.Price
+                                </td>
+                                <td class="col-3 d-flex justify-content-around">
+                                    @product.Quantity
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

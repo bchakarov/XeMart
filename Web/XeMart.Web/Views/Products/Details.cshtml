@@ -106,7 +106,7 @@
                                         <div class="review-box d-flex">
                                             <div class="rv-content">
                                                 <h6>
-                                                    @review.Name <span>(@review.CreatedOn)</span>
+                                                    @review.Name <span>(<time datetime="@review.CreatedOn"></time>)</span>
                                                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                                     {
                                                         <span>(@review.UserEmail)</span>

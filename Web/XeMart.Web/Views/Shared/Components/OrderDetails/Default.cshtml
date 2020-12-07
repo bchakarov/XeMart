@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-6">
                 <label asp-for="CreatedOn"></label>
-                <input asp-for="CreatedOn" disabled />
+                <time class="disabled" datetime="@Model.CreatedOn"></time>
             </div>
             <div class="col-md-6">
                 <label asp-for="PaymentType"></label>
@@ -56,7 +56,7 @@
             {
                 <div class="col-md-6">
                     <label asp-for="DeliveredOn"></label>
-                    <input asp-for="DeliveredOn" disabled />
+                    <time class="disabled" datetime="@Model.DeliveredOn"></time>
                 </div>
             }
         </div>

@@ -39,9 +39,9 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/js/site.min.js",
+    "outputFileName": "wwwroot/js/time.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/js/time.js"
     ],
     // Optionally specify minification options
     "minify": {

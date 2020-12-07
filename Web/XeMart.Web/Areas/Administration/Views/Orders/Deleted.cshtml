@@ -29,13 +29,13 @@
                 {
                     <tr class="row">
                         <td class="col-2 d-flex justify-content-center">
-                            @order.CreatedOn
+                            <time datetime="@order.CreatedOn"></time>
                         </td>
                         <td class="col-2 d-flex justify-content-center">
                             @order.Status
                         </td>
                         <td class="col-2 d-flex justify-content-center">
-                            @order.DeletedOn
+                            <time datetime="@order.DeletedOn"></time>
                         </td>
                         <td class="col-1 d-flex justify-content-center">
                             @order.PaymentType

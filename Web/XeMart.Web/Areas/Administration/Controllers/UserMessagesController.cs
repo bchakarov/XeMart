@@ -102,7 +102,7 @@
             var unreadResult = await this.userMessagesService.SetIsReadAsync(id, false);
             if (unreadResult)
             {
-                this.TempData["Alert"] = "Successfully marked message as unread";
+                this.TempData["Alert"] = "Successfully marked message as unread.";
             }
             else
             {

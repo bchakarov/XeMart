@@ -11250,3 +11250,8 @@ body.sidebar-toggled footer.sticky-footer {
 .custom-image-box {
   height: 50px;
 }
+
+time.disabled {
+    background-color: #eaecf4;
+    opacity: 1;
+}
