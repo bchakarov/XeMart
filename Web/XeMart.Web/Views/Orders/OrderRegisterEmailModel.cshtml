@@ -1,0 +1,40 @@
+﻿@model XeMart.Web.ViewModels.Orders.OrderViewModel
+
+@if (Model.Status == XeMart.Data.Models.Enums.OrderStatus.Unprocessed)
+{
+    <h1>Your order was successfully registered</h1>
+}
+else if (Model.Status == XeMart.Data.Models.Enums.OrderStatus.Delivered)
+{
+    <h1>Your order was successfully delivered</h1>
+}
+
+<h2>Order id: @Model.Id</h2>
+<p>The order was registered to:</p>
+<ul>
+    <li>Name: @Model.UserFullName</li>
+    <li>Phone: @Model.Phone</li>
+    <li>Address: @Model.Address</li>
+</ul>
+<p>Order details:</p>
+<ul>
+    <li>Payment type: @Model.PaymentType</li>
+    <li>Payment status: @Model.PaymentStatus</li>
+    <li>Order status: @Model.Status</li>
+    <li>Total price: @Model.TotalPrice</li>
+</ul>
+<p>Delivery details:</p>
+<ul>
+    <li>Supplier: @Model.SupplierName</li>
+    <li>Delivery type: @Model.DeliveryType</li>
+    <li>Delivery price: $@Model.DeliveryPrice</li>
+</ul>
+<p>You ordered the following products:</p>
+<ul>
+    @foreach (var product in Model.Products)
+    {
+        <li>@product.ProductName - @product.Quantity X $@product.Price</li>
+    }
+</ul>
+
+<span>If you need any help contact support@@xemart.com</span>

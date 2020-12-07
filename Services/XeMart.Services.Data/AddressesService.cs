@@ -47,7 +47,7 @@
             address.City = city;
 
             var addressExists = this.addressRepository.AllAsNoTracking()
-                .Any(x => x.Street == address.Street && x.Description == address.Description && x.CityId == city.Id);
+                .Any(x => x.Street == address.Street && x.Description == address.Description && x.CityId == city.Id && x.UserId == model.UserId);
 
             if (addressExists)
             {

@@ -11,6 +11,8 @@
     using XeMart.Data.Models;
     using XeMart.Data.Models.Enums;
     using XeMart.Services.Mapping;
+    using XeMart.Services.Messaging;
+    using XeMart.Web.ViewModels.Orders;
     using XeMart.Web.ViewModels.ShoppingCart;
 
     public class OrdersService : IOrdersService
@@ -18,15 +20,21 @@
         private readonly IDeletableEntityRepository<Order> ordersRepository;
         private readonly ISuppliersService suppliersService;
         private readonly IShoppingCartService shoppingCartService;
+        private readonly IEmailSender emailSender;
+        private readonly IViewRenderService viewRenderService;
 
         public OrdersService(
             IDeletableEntityRepository<Order> ordersRepository,
             ISuppliersService suppliersService,
-            IShoppingCartService shoppingCartService)
+            IShoppingCartService shoppingCartService,
+            IEmailSender emailSender,
+            IViewRenderService viewRenderService)
         {
             this.ordersRepository = ordersRepository;
             this.suppliersService = suppliersService;
             this.shoppingCartService = shoppingCartService;
+            this.emailSender = emailSender;
+            this.viewRenderService = viewRenderService;
         }
 
         public async Task CreateAsync<T>(T model, string userId)
@@ -70,13 +78,21 @@
                 }
             }
 
+            order.TotalPrice = order.Products.Sum(x => x.Quantity * x.Price) + order.DeliveryPrice;
+
             if (order.PaymentType == PaymentType.CashOnDelivery || order.PaymentStatus == PaymentStatus.Paid)
             {
                 await this.shoppingCartService.DeleteAllProductsAsync(userId);
                 order.Status = OrderStatus.Unprocessed;
-            }
 
-            order.TotalPrice = order.Products.Sum(x => x.Quantity * x.Price) + order.DeliveryPrice;
+                // Send Email With Order Details
+                var orderViewModel = this.GetById<OrderViewModel>(order.Id);
+                orderViewModel.Status = order.Status;
+                orderViewModel.TotalPrice = order.TotalPrice;
+
+                var emailContent = await this.viewRenderService.RenderToStringAsync("/Views/Orders/OrderRegisterEmailModel.cshtml", orderViewModel);
+                await this.emailSender.SendEmailAsync("borko5283@abv.bg", "XeMart", orderViewModel.Email, "Successfully registered order", emailContent);
+            }
 
             this.ordersRepository.Update(order);
             await this.ordersRepository.SaveChangesAsync();

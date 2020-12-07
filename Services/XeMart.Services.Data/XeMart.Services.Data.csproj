@@ -25,6 +25,7 @@
     <ProjectReference Include="..\..\Web\XeMart.Web.ViewModels\XeMart.Web.ViewModels.csproj" />
     <ProjectReference Include="..\..\XeMart.Common\XeMart.Common.csproj" />
     <ProjectReference Include="..\XeMart.Services.Mapping\XeMart.Services.Mapping.csproj" />
+    <ProjectReference Include="..\XeMart.Services.Messaging\XeMart.Services.Messaging.csproj" />
     <ProjectReference Include="..\XeMart.Services\XeMart.Services.csproj" />
   </ItemGroup>
 

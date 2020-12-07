@@ -100,10 +100,13 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
+            services.AddTransient<IViewRenderService, ViewRenderService>();
             services.AddTransient<IStringService, StringService>();
             services.AddTransient<ITimeSpanService, TimeSpanService>();
             services.AddTransient<IImagesService, ImagesService>();
+
+            // Data services
             services.AddTransient<IUserMessagesService, UserMessagesService>();
             services.AddTransient<ISuppliersService, SuppliersService>();
             services.AddTransient<IMainCategoriesService, MainCategoriesService>();
