@@ -6,53 +6,66 @@
 <div class="shadow card">
     <div class="card-header h3 text-center">@ViewData["Title"]</div>
     <div class="card-body">
-        <table class="table table-hover">
-            <thead class="thead-light">
-                <tr class="row">
-                    <th scope="col" class="col-1 d-flex justify-content-center">#</th>
-                    <th scope="col" class="col-3 d-flex justify-content-center">Name</th>
-                    <th scope="col" class="col-2 d-flex justify-content-center">Image</th>
-                    <th scope="col" class="col-2 d-flex justify-content-center">Main Category</th>
-                    <th scope="col" class="col-1 d-flex justify-content-center">Products</th>
-                    <th scope="col" class="col-3 d-flex justify-content-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (!Model.Any())
-                {
-                    <tr class="row">
-                        <td class="col-12 d-flex justify-content-center"><strong>No subcategories</strong></td>
+        <div class="table-responsive">
+            <table id="customTable" class="table table-bordered text-center" width="100%" cellspacing="0">
+                <thead class="thead-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Main Category</th>
+                        <th>Products</th>
+                        <th>Actions</th>
                     </tr>
-                }
-                @foreach (var subcategory in Model)
-                {
-                    <tr class="row">
-                        <td class="col-1 d-flex justify-content-center">
-                            @subcategory.Id
-                        </td>
-                        <td class="col-3 d-flex justify-content-center">
-                            @subcategory.Name
-                        </td>
-                        <td class="col-2 d-flex justify-content-center">
-                            <img src="@subcategory.ImageUrl" class="custom-image-box" />
-                        </td>
-                        <td class="col-2 d-flex justify-content-center">
-                            @subcategory.MainCategoryName
-                        </td>
-                        <td class="col-1 d-flex justify-content-center">
-                            @subcategory.ProductsCount
-                        </td>
-                        <td class="col-md-3 d-flex justify-content-around">
-                            <div class="mr-2">
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr class="row">
+                            <td class="col-12 d-flex justify-content-center"><strong>No subcategories</strong></td>
+                        </tr>
+                    }
+                    @foreach (var subcategory in Model)
+                    {
+                        <tr>
+                            <td>
+                                @subcategory.Id
+                            </td>
+                            <td>
+                                @subcategory.Name
+                            </td>
+                            <td>
+                                <img src="@subcategory.ImageUrl" class="custom-image-box" />
+                            </td>
+                            <td>
+                                @subcategory.MainCategoryName
+                            </td>
+                            <td>
+                                @subcategory.ProductsCount
+                            </td>
+                            <td>
                                 <a asp-controller="Subcategories" asp-action="Edit" asp-route-id="@subcategory.Id" class="btn btn-success btn-sm">Edit</a>
-                            </div>
-                            <div class="mr-2">
                                 <a asp-controller="Subcategories" asp-action="Delete" asp-route-id="@subcategory.Id" class="btn btn-danger btn-sm">Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+@section Styles{
+    <!-- Datatables -->
+    <link href="~/lib/datatables-js/css/dataTables.bootstrap4.min.css" rel="stylesheet" asp-append-version="true" />
+}
+
+@section Scripts{
+    <script src="~/lib/datatables-js/js/jquery.dataTables.min.js" asp-append-version="true"></script>
+    <script src="~/lib/datatables-js/js/dataTables.bootstrap4.min.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            $('#customTable').DataTable();
+        });
+    </script>
+}
