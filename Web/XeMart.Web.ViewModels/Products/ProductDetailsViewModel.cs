@@ -5,20 +5,29 @@
     using System.Linq;
 
     using AutoMapper;
+
     using Ganss.XSS;
+
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
 
     public class ProductDetailsViewModel : IMapFrom<Product>, IHaveCustomMappings
     {
+        private readonly HtmlSanitizer sanitizer;
+
+        public ProductDetailsViewModel()
+        {
+            this.sanitizer = new HtmlSanitizer();
+            this.sanitizer.AllowedTags.Add("iframe");
+        }
+
         public string Id { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
-
+        public string SanitizedDescription => this.sanitizer.Sanitize(this.Description);
 
         public decimal Price { get; set; }
 
