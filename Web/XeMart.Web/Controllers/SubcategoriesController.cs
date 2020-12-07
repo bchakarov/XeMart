@@ -1,6 +1,8 @@
 ﻿namespace XeMart.Web.Controllers
 {
     using System.Collections.Generic;
+    using System.Net;
+    using System.Text.RegularExpressions;
 
     using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +13,7 @@
 
     public class SubcategoriesController : BaseController
     {
-        private const int DescriptionMaxLength = 200;
+        private const int DescriptionMaxLength = 100;
         private readonly List<int> itemsPerPageValues = new List<int> { 6, 12, 18, 24 };
         private readonly List<string> sortingValues = new List<string> { "Price asc", "Price desc", "Newest", "Oldest" };
 
@@ -77,7 +79,8 @@
 
             foreach (var product in products)
             {
-                product.Description = this.stringService.TruncateAtWord(product.Description, DescriptionMaxLength);
+                var descriptionText = WebUtility.HtmlDecode(Regex.Replace(product.Description, @"<[^>]+>", string.Empty));
+                product.Description = this.stringService.TruncateAtWord(descriptionText, DescriptionMaxLength);
             }
 
             var subcategory = new SubcategoryProductsViewModel

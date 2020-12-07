@@ -98,7 +98,7 @@
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane fade show active" id="pro-det" role="tabpanel">
-                                    <p>@Model.Description</p>
+                                    <p>@this.Html.Raw(Model.SanitizedDescription)</p>
                                 </div>
                                 <div class="tab-pane fade" id="rev" role="tabpanel">
                                     @foreach (var review in Model.Reviews)

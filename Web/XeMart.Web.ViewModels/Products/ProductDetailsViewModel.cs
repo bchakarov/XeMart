@@ -5,7 +5,7 @@
     using System.Linq;
 
     using AutoMapper;
-
+    using Ganss.XSS;
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
 
@@ -16,6 +16,9 @@
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
+
 
         public decimal Price { get; set; }
 

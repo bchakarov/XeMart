@@ -16,7 +16,6 @@
         [MaxLength(100, ErrorMessage = "The name can be maximum 100 characters long.")]
         public string Name { get; set; }
 
-        [MaxLength(2000, ErrorMessage = "The desciption can be maximum 2000 characters long.")]
         public string Description { get; set; }
 
         [Range(1, (double)int.MaxValue)]
