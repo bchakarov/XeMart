@@ -186,7 +186,7 @@
 
             order.PaymentStatus = PaymentStatus.Paid;
             order.StripeId = stripeId;
-            
+
             this.ordersRepository.Update(order);
             await this.ordersRepository.SaveChangesAsync();
         }

@@ -122,6 +122,18 @@
             return this.View(viewModel);
         }
 
+        public IActionResult Details(string id)
+        {
+            var order = this.ordersService.GetById<OrderDetailsViewModel>(id);
+            if (order == null)
+            {
+                this.TempData["Error"] = "Order not found.";
+                return this.RedirectToAction(nameof(this.Unprocessed));
+            }
+
+            return this.View(order);
+        }
+
         public async Task<IActionResult> SetStatus(string id, string status)
         {
             var actionResult = await this.ordersService.SetOrderStatusAsync(id, status);
