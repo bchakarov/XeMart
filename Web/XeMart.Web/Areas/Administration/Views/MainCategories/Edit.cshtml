@@ -1,7 +1,5 @@
 ﻿@model XeMart.Web.ViewModels.Administration.MainCategories.EditMainCategoryViewModel
-@{ 
-    ViewData["Title"] = "Edit Main Category"; 
-}
+@{ ViewData["Title"] = "Edit Main Category"; }
 
 <div class="shadow card">
     <div class="card-header h3 text-center">@ViewData["Title"]</div>
@@ -19,9 +17,9 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label asp-for="FontAwesomeIcon" class="control-label"></label>
-                    <input asp-for="FontAwesomeIcon" class="form-control" />
+                    <input asp-for="FontAwesomeIcon" class="form-control icp-auto" data-input-search="true" />
                 </div>
-                
+
             </div>
             <input asp-for="Id" class="form-control" hidden />
             <div class="form-group text-center">
@@ -30,3 +28,22 @@
         </form>
     </div>
 </div>
+
+@section Styles{
+    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" rel="stylesheet">
+    <link href="~/css/fontawesome-iconpicker.min.css" rel="stylesheet" asp-append-version="true" />
+    <style>
+        .fade:not(.show) {
+            opacity: unset;
+        }
+    </style>
+}
+
+@section Scripts{
+    <script src="~/js/fontawesome-iconpicker.min.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            $('.icp-auto').iconpicker();
+        })()
+    </script>
+}

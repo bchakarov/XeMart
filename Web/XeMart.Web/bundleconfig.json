@@ -90,5 +90,11 @@
     "inputFiles": [
       "wwwroot/js/chart-js/registered-users-area-chart.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/fontawesome-iconpicker.min.js",
+    "inputFiles": [
+      "wwwroot/js/fontawesome-iconpicker.js"
+    ]
   }
 ]

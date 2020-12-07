@@ -91,7 +91,7 @@
                 orderViewModel.TotalPrice = order.TotalPrice;
 
                 var emailContent = await this.viewRenderService.RenderToStringAsync("/Views/Orders/OrderRegisterEmailModel.cshtml", orderViewModel);
-                await this.emailSender.SendEmailAsync("borko5283@abv.bg", "XeMart", orderViewModel.Email, "Successfully registered order", emailContent);
+                await this.emailSender.SendEmailAsync("xemart@abv.bg", "XeMart", orderViewModel.Email, "Successfully registered order", emailContent);
             }
 
             this.ordersRepository.Update(order);
