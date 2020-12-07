@@ -56,7 +56,12 @@
                         options.Secure = CookieSecurePolicy.Always;
                     });
 
-            services.AddDistributedMemoryCache();
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = this.configuration.GetConnectionString("DefaultConnection");
+                options.SchemaName = "dbo";
+                options.TableName = "CacheRecords";
+            });
 
             services.AddSession(options =>
             {
