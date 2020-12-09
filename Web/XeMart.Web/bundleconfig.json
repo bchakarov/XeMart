@@ -96,5 +96,11 @@
     "inputFiles": [
       "wwwroot/js/fontawesome-iconpicker.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/chat.min.js",
+    "inputFiles": [
+      "wwwroot/js/chat.js"
+    ]
   }
 ]

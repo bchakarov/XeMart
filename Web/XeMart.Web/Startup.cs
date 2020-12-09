@@ -26,6 +26,7 @@
     using XeMart.Services.Data;
     using XeMart.Services.Mapping;
     using XeMart.Services.Messaging;
+    using XeMart.Web.Hubs;
     using XeMart.Web.ViewModels;
 
     using Account = CloudinaryDotNet.Account;
@@ -80,6 +81,11 @@
 
             StripeConfiguration.ApiKey = this.configuration["Stripe:SecretKey"];
 
+            services.AddSignalR(o =>
+            {
+                o.EnableDetailedErrors = true;
+            });
+
             services.AddControllersWithViews(
                 options =>
                     {
@@ -118,6 +124,7 @@
             services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<IAddressesService, AddressesService>();
             services.AddTransient<ICountriesService, CountriesService>();
+            services.AddTransient<IChatService, ChatService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -160,6 +167,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<ChatHub>("/chat");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
