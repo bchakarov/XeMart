@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class OrderListViewModel : BasePagingViewModel
+    public class OrderListViewModel : PagingViewModel
     {
         public IEnumerable<OrderSummaryViewModel> Orders { get; set; }
     }

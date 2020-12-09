@@ -51,41 +51,20 @@
                 return this.RedirectToAction("Index", "Home");
             }
 
-            var columnName = string.Empty;
-            var isAscending = true;
-
-            sorting = sorting.ToLower();
-
-            if (sorting == "price desc")
-            {
-                columnName = "Price";
-                isAscending = false;
-            }
-            else if (sorting == "price asc")
-            {
-                columnName = "Price";
-            }
-            else if (sorting == "newest")
-            {
-                columnName = "CreatedOn";
-                isAscending = false;
-            }
-            else if (sorting == "oldest")
-            {
-                columnName = "CreatedOn";
-            }
-
-            var products = this.productsService.TakeProductsBySubcategoryId<ProductViewModel>(subcategoryId, pageNumber, itemsPerPage, columnName, isAscending);
+            var products = this.productsService.TakeProductsBySubcategoryId<ProductViewModel>(subcategoryId, pageNumber, itemsPerPage, sorting);
 
             foreach (var product in products)
             {
-                var descriptionText = WebUtility.HtmlDecode(Regex.Replace(product.Description, @"<[^>]+>", string.Empty));
-                product.Description = this.stringService.TruncateAtWord(descriptionText, DescriptionMaxLength);
+                if (!string.IsNullOrEmpty(product.Description))
+                {
+                    var descriptionText = WebUtility.HtmlDecode(Regex.Replace(product.Description, @"<[^>]+>", string.Empty));
+                    product.Description = this.stringService.TruncateAtWord(descriptionText, DescriptionMaxLength);
+                }
             }
 
             var subcategory = new SubcategoryProductsViewModel
             {
-                SubcategoryId = subcategoryNameAndProductCount.Id,
+                Id = subcategoryNameAndProductCount.Id,
                 Name = subcategoryNameAndProductCount.Name,
                 ItemsCount = subcategoryNameAndProductCount.ProductsCount,
                 ItemsPerPage = itemsPerPage,

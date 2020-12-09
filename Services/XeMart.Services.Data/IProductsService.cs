@@ -13,7 +13,11 @@
 
         public IEnumerable<T> GetAll<T>();
 
-        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake, string columnName, bool isAscending);
+        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake, string sorting);
+
+        public IEnumerable<T> TakeProductsBySearchStringAndMainCategoryId<T>(string search, int? mainCategoryId, int page, int productsToTake, string sorting);
+
+        public int GetProductsCountBySearchStringAndMainCategoryId(string search, int? mainCategoryId);
 
         public IEnumerable<T> GetAllDeleted<T>();
 

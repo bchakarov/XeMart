@@ -21,7 +21,6 @@
             this.ordersService = ordersService;
         }
 
-        [HttpGet("/Administration/Orders/Unprocessed/{pageNumber?}")]
         public IActionResult Unprocessed(int pageNumber = 1)
         {
             if (pageNumber <= 0)
@@ -47,7 +46,6 @@
             return this.View(viewModel);
         }
 
-        [HttpGet("/Administration/Orders/Processed/{pageNumber?}")]
         public IActionResult Processed(int pageNumber = 1)
         {
             if (pageNumber <= 0)
@@ -72,7 +70,6 @@
             return this.View(viewModel);
         }
 
-        [HttpGet("/Administration/Orders/Delivered/{pageNumber?}")]
         public IActionResult Delivered(int pageNumber = 1)
         {
             if (pageNumber <= 0)
@@ -97,7 +94,6 @@
             return this.View(viewModel);
         }
 
-        [HttpGet("/Administration/Orders/Deleted/{pageNumber?}")]
         public IActionResult Deleted(int pageNumber = 1)
         {
             if (pageNumber <= 0)

@@ -1,7 +1,9 @@
 ﻿namespace XeMart.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
@@ -71,13 +73,83 @@
             this.productsRepository.AllAsNoTracking()
             .To<T>().ToList();
 
-        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake, string columnName, bool isAscending) =>
-            this.productsRepository.AllAsNoTracking()
-            .Where(x => x.SubcategoryId == subcategoryId)
-            .MyOrderBy(columnName, isAscending)
-            .Skip((page - 1) * productsToTake)
-            .Take(productsToTake)
-            .To<T>().ToList();
+        public IEnumerable<T> TakeProductsBySubcategoryId<T>(int subcategoryId, int page, int productsToTake, string sorting)
+        {
+            var columnName = string.Empty;
+            var isAscending = true;
+
+            sorting = sorting.ToLower();
+
+            if (sorting == "price desc")
+            {
+                columnName = "Price";
+                isAscending = false;
+            }
+            else if (sorting == "price asc")
+            {
+                columnName = "Price";
+            }
+            else if (sorting == "newest")
+            {
+                columnName = "CreatedOn";
+                isAscending = false;
+            }
+            else if (sorting == "oldest")
+            {
+                columnName = "CreatedOn";
+            }
+
+            return this.productsRepository.AllAsNoTracking()
+                .Where(x => x.SubcategoryId == subcategoryId)
+                .MyOrderBy(columnName, isAscending)
+                .Skip((page - 1) * productsToTake)
+                .Take(productsToTake)
+                .To<T>().ToList();
+        }
+
+        public IEnumerable<T> TakeProductsBySearchStringAndMainCategoryId<T>(string search, int? mainCategoryId, int page, int productsToTake, string sorting)
+        {
+            var predicateExpression = this.BuildSearchPredicateExpression(search, mainCategoryId);
+
+            var columnName = string.Empty;
+            var isAscending = true;
+
+            sorting = sorting.ToLower();
+
+            if (sorting == "price desc")
+            {
+                columnName = "Price";
+                isAscending = false;
+            }
+            else if (sorting == "price asc")
+            {
+                columnName = "Price";
+            }
+            else if (sorting == "newest")
+            {
+                columnName = "CreatedOn";
+                isAscending = false;
+            }
+            else if (sorting == "oldest")
+            {
+                columnName = "CreatedOn";
+            }
+
+            return this.productsRepository.AllAsNoTracking()
+                .Where(predicateExpression)
+                .MyOrderBy(columnName, isAscending)
+                .Skip((page - 1) * productsToTake)
+                .Take(productsToTake)
+                .To<T>().ToList();
+        }
+
+        public int GetProductsCountBySearchStringAndMainCategoryId(string search, int? mainCategoryId)
+        {
+            var predicateExpression = this.BuildSearchPredicateExpression(search, mainCategoryId);
+
+            return this.productsRepository.AllAsNoTracking()
+                .Count(predicateExpression);
+        }
 
         public IEnumerable<T> GetAllDeleted<T>() =>
             this.productsRepository.AllAsNoTrackingWithDeleted()
@@ -212,5 +284,16 @@
         private UserProductReview GetReviewById(string id) =>
             this.userProductReviewsRepository.All()
             .FirstOrDefault(x => x.Id == id);
+
+        private Expression<Func<Product, bool>> BuildSearchPredicateExpression(string search, int? mainCategoryId)
+        {
+            Expression<Func<Product, bool>> predicateExpression = x => x.Name.Contains(search);
+            if (mainCategoryId != null)
+            {
+                predicateExpression = x => x.Name.Contains(search) && x.Subcategory.MainCategoryId == mainCategoryId;
+            }
+
+            return predicateExpression;
+        }
     }
 }
