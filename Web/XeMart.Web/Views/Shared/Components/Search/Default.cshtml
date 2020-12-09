@@ -1,0 +1,14 @@
+﻿@model XeMart.Web.ViewModels.Search.SearchInputViewModel
+
+<div class="col-lg-6 col-md-7 padding-fix">
+    <form method="get" class="search-bar d-flex" asp-controller="Search" asp-action="Index">
+    <span asp-validation-for="SearchTerm" class="text-danger"></span>
+        <input asp-for="SearchTerm" class="" placeholder="I'm looking for...">
+        <div class="search-cat">
+            <select class="form-control scat-id" asp-for="MainCategoryId" asp-items="Model.MainCategories.Select(x => new SelectListItem(x.Name, x.Id.ToString()))">
+                <option value="null">All Categories</option>
+            </select>
+        </div>
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>

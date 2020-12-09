@@ -1,0 +1,147 @@
+﻿@model XeMart.Web.ViewModels.Search.SearchProductsViewModel
+
+@{
+    this.ViewData["Title"] = "Search";
+}
+
+<!-- Search -->
+<section class="category">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-box">
+                    <div class="cat-box d-flex justify-content-between">
+                        <!-- Nav tabs -->
+                        <div class="view">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#grid"><i class="fa fa-th-large"></i></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#list"><i class="fa fa-th-list"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sortby">
+                            <span>Sort By</span>
+                            <select class="sort-box" onchange="submitForm()" asp-for="@Model.Sorting" asp-items="@Model.SortingValues.Select(x => new SelectListItem(x.ToString(), x.ToString().ToLower()))">
+                            </select>
+                        </div>
+                        <div class="show-item">
+                            <span>Show</span>
+                            <select class="show-box" onchange="submitForm()" asp-for="@Model.ItemsPerPage" asp-items="@Model.ItemsPerPageValues.Select(x => new SelectListItem(x.ToString(), x.ToString()))">
+                            </select>
+                        </div>
+                        <div class="page">
+                            <p>Page @Model.PageNumber of @Model.PagesCount</p>
+                        </div>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="grid" role="tabpanel">
+                            <div class="row">
+                                @foreach (var product in Model.Products)
+                                {
+                                    <div class="col-lg-4 col-md-6">
+                                        <div class="tab-item">
+                                            <div class="tab-img">
+                                                <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img class="main-img img-fluid" src="@product.ImageUrl"></a>
+                                                <div class="layer-box">
+                                                    <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@product.Id" class="it-fav" data-toggle="tooltip" data-placement="left" title="Favourite"><i class="fas fa-heart mr-0 pt-1"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="tab-heading">
+                                                <p><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></p>
+                                            </div>
+                                            <div class="img-content d-flex justify-content-between">
+                                                <div>
+                                                    <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating, ShowAverageRating = false }" />
+                                                    <ul class="list-unstyled list-inline price">
+                                                        <li class="list-inline-item">$@product.Price</li>
+                                                        <li class="list-inline-item"></li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <a asp-area="" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@product.Id" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="list" role="tabpanel">
+                            <div class="row">
+                                @foreach (var product in Model.Products)
+                                {
+                                    <div class="col-lg-12 col-md-6">
+                                        <div class="tab-item2">
+                                            <div class="row">
+                                                <div class="col-lg-4 col-md-12">
+                                                    <div class="tab-img">
+                                                        <img class="main-img img-fluid" src="@product.ImageUrl">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8 col-md-12">
+                                                    <div class="item-heading d-flex justify-content-between">
+                                                        <div class="item-top">
+                                                            <ul class="list-unstyled list-inline cate">
+                                                                <li class="list-inline-item"><a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@product.SubcategoryMaincategoryId">@product.SubcategoryMaincategoryName,</a></li>
+                                                                <li class="list-inline-item"><a asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-subcategoryId="@product.SubcategoryId">@product.SubcategoryName</a></li>
+                                                            </ul>
+                                                            <p><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></p>
+                                                            <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating, ShowAverageRating = false }" />
+                                                        </div>
+                                                        <div class="item-price">
+                                                            <ul class="list-unstyled list-inline price">
+                                                                <li class="list-inline-item">$@product.Price</li>
+                                                                <li class="list-inline-item"></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="item-content">
+                                                        <p>@product.Description</p>
+                                                        <a asp-area="" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@product.Id" class="it-cart mt-3 mb-3"><span class="it-img"><i class="fas fa-shopping-cart"></i></span><span class="it-title">Add To Cart</span></a>
+                                                        <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@product.Id" class="it-fav" data-toggle="tooltip" data-placement="top" title="Favourite"><i class="fas fa-heart mr-0 pt-1"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <partial name="_PagingPartial" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="get" id="hiddenForm" asp-controller="Search" asp-action="Index" hidden>
+        <input asp-for="@Model.SearchTerm" />
+        <input asp-for="@Model.MainCategoryId" />
+        <input asp-for="@Model.ItemsPerPage" />
+        <input asp-for="@Model.Sorting" />
+    </form>
+</section>
+<!-- End Search -->
+
+@section Scripts {
+    <script>
+        function submitForm() {
+            var form = this.document.getElementById("hiddenForm");
+
+            // Items per page
+            var itemsPerPageSelectBox = this.document.querySelector("select#ItemsPerPage");
+            var itemsPerPageInputField = this.document.querySelector("input#ItemsPerPage");
+            itemsPerPageInputField.setAttribute("value", itemsPerPageSelectBox.value);
+
+            // Sorting criteria
+            var sortingSelectBox = this.document.querySelector("select#Sorting");
+            var sortingInputField = this.document.querySelector("input#Sorting");
+            sortingInputField.setAttribute("value", sortingSelectBox.value);
+
+            form.submit();
+        }
+    </script>
+}
