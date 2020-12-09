@@ -1,4 +1,268 @@
-﻿@{
+﻿@model XeMart.Web.ViewModels.Home.IndexViewModel
+
+@{
     this.ViewData["Title"] = "Home Page";
 }
 
+@section Slider{
+    <!-- Slider Area 2 -->
+    <section class="slider-area2">
+        <div class="slider-wrapper owl-carousel">
+            <div class="slider-item slider1">
+                <div class="slider-table">
+                    <div class="slider-tablecell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-0">
+                                    <div class="img1 wow fadeInRight effect" data-wow-duration="1s" data-wow-delay="0s">
+                                        <img src="images/sm-1.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="slider-box">
+                                        <div class="wow fadeInUp effect" data-wow-duration="1.2s" data-wow-delay="0.5s">
+                                            <h4>Smartphone Deal</h4>
+                                        </div>
+                                        <div class="wow fadeInUp effect" data-wow-duration="1.2s" data-wow-delay="0.6s">
+                                            <h1>Huawei Honor 8x | 8x Max</h1>
+                                        </div>
+                                        <div class="wow fadeInUp effect" data-wow-duration="1.2s" data-wow-delay="0.7s">
+                                            <p>The Smart Power In Your Hand</p>
+                                        </div>
+                                        <div class="wow fadeInUp effect" data-wow-duration="1.2s" data-wow-delay="0.8s">
+                                            <a href="#">Learn More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-item slider2">
+                <div class="slider-table">
+                    <div class="slider-tablecell">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="slider-box">
+                                        <div class="wow fadeInUp effect" data-wow-duration="1.2s" data-wow-delay="0.5s">
+                                            <h4>Smartphone Deal</h4>
+                                        </div>
+                                        <div class="wow fadeInUp effect" data-wow-duration="1.2s" data-wow-delay="0.6s">
+                                            <h1>Samsung Galaxy S9 | S9+</h1>
+                                        </div>
+                                        <div class="wow fadeInUp effect" data-wow-duration="1.2s" data-wow-delay="0.7s">
+                                            <p>The Camera Re-Imagined</p>
+                                        </div>
+                                        <div class="wow fadeInUp effect" data-wow-duration="1.2s" data-wow-delay="0.8s">
+                                            <a href="#">Learn More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="img2 wow fadeInRight effect" data-wow-duration="1s" data-wow-delay="0s">
+                                        <img src="images/sm-2.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Slider Area 2 -->
+}
+
+<!-- Top Seller Product Area -->
+<section class="feat-pro2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="sec-title">
+                    <h5>Top Seller</h5>
+                </div>
+                <div class="feat-box">
+                    <img src="images/appliance.jpg" alt="" class="img-fluid">
+                    <div class="ft-bx-content">
+                        <h5>Most Bought Products</h5>
+                        <p>Discover the most bought products in our store.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12 padding-fix-l20">
+                        <div class="ftr-product">
+                            <div class="tab-box d-flex justify-content-end">
+                            </div>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="all" role="tabpanel">
+                                    <div class="tab-slider owl-carousel">
+                                        @foreach (var product in Model.MostBoughtProducts)
+                                        {
+                                            <div class="tab-item">
+                                                <div class="tab-img">
+                                                    <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
+                                                        <img class="main-img img-fluid" src="@product.ImageUrl" />
+                                                    </a>
+                                                    <div class="layer-box">
+                                                        <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@product.Id" class="it-fav" data-toggle="tooltip" data-placement="left" title="Favourite"><i class="fas fa-heart mr-0 pt-1"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-heading">
+                                                    <p><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></p>
+                                                </div>
+                                                <div class="img-content d-flex justify-content-between">
+                                                    <div>
+                                                        <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating, ShowAverageRating = false }" />
+                                                        <ul class="list-unstyled list-inline price">
+                                                            <li class="list-inline-item">$@product.Price</li>
+                                                            <li class="list-inline-item"></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <a asp-area="" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@product.Id" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Top Seller Product Area -->
+<!-- Service Area -->
+<section class="service-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service-box d-flex">
+                    <div class="sr-img">
+                        <img src="images/service-1.png" alt="">
+                    </div>
+                    <div class="">
+                        <h6>Fast Shipping</h6>
+                        <p>Transport to the entrance of the building within 2 work days.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-box d-flex">
+                    <div class="sr-img">
+                        <img src="images/service-2.png" alt="">
+                    </div>
+                    <div class="">
+                        <h6>Money Back Guarantee</h6>
+                        <p>You have got 14 days to return your items to us.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-box d-flex">
+                    <div class="sr-img">
+                        <img src="images/service-3.png" alt="">
+                    </div>
+                    <div class="">
+                        <h6>Secure Payment</h6>
+                        <p>Pay online using Stripe payments platform.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Service Area -->
+
+<!-- Product Area-->
+<section class="product-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="bt-deal">
+                            <div class="sec-title">
+                                <h6>Top Rated</h6>
+                            </div>
+                            <div class="bt-body owl-carousel">
+                                <div class="bt-items">
+                                    @foreach (var product in Model.TopRatedProducts)
+	                                {
+                                        <div class="bt-box d-flex">
+                                            <div class="bt-img">
+                                                <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img src="@product.ImageUrl" /></a>
+                                            </div>
+                                            <div class="bt-content">
+                                                <p><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></p>
+                                                <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating, ShowAverageRating = false }" />
+                                                <ul class="list-unstyled list-inline price">
+                                                    <li class="list-inline-item">$@product.Price</li>
+                                                    <li class="list-inline-item"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+	                                }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="row">
+                    <div class="col-md-12 padding-fix-l20">
+                        <div class="new-product">
+                            <div class="sec-title">
+                                <h5>New Product</h5>
+                            </div>
+                            <div class="new-slider owl-carousel">
+                                @foreach (var product in Model.NewestProducts)
+                                {
+                                    <div class="new-item">
+                                        <div class="tab-heading">
+                                            <ul class="list-unstyled list-inline">
+                                                <li class="list-inline-item"><a asp-area="" asp-controller="MainCategories" asp-action="Subcategories" asp-route-mainCategoryId="@product.SubcategoryMaincategoryId">@product.SubcategoryMaincategoryName,</a></li>
+                                                <li class="list-inline-item"><a asp-area="" asp-controller="Subcategories" asp-action="Products" asp-route-subcategoryId="@product.SubcategoryId">@product.SubcategoryName</a></li>
+                                            </ul>
+                                            <p><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></p>
+                                        </div>
+                                        <div class="new-img">
+                                            <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">
+                                                <img class="main-img img-fluid" src="@product.ImageUrl" />
+                                            </a>
+                                            <div class="layer-box">
+                                                <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@product.Id" class="it-fav" data-toggle="tooltip" data-placement="left" title="Favourite"><i class="fas fa-heart mr-0 pt-1"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="img-content d-flex justify-content-between">
+                                            <div>
+                                                <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating, ShowAverageRating = false }" />
+                                                <ul class="list-unstyled list-inline price">
+                                                    <li class="list-inline-item">$@product.Price</li>
+                                                    <li class="list-inline-item"></li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <a asp-area="" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@product.Id" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Product Area -->

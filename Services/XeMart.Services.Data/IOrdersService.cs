@@ -22,6 +22,8 @@
 
         public IEnumerable<T> TakeDeletedOrders<T>(int page, int ordersToTake);
 
+        public IEnumerable<T> GetMostBoughtProducts<T>(int productsToTake);
+
         public int GetOrdersCountByUserId(string userId);
 
         public int GetOrdersCountByStatus(OrderStatus status);

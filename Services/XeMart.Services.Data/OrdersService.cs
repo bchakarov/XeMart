@@ -13,11 +13,14 @@
     using XeMart.Services.Mapping;
     using XeMart.Services.Messaging;
     using XeMart.Web.ViewModels.Orders;
+    using XeMart.Web.ViewModels.Products;
     using XeMart.Web.ViewModels.ShoppingCart;
 
     public class OrdersService : IOrdersService
     {
         private readonly IDeletableEntityRepository<Order> ordersRepository;
+        private readonly IRepository<OrderProduct> orderProductsRepository;
+        private readonly IProductsService productsService;
         private readonly ISuppliersService suppliersService;
         private readonly IShoppingCartService shoppingCartService;
         private readonly IEmailSender emailSender;
@@ -25,12 +28,16 @@
 
         public OrdersService(
             IDeletableEntityRepository<Order> ordersRepository,
+            IRepository<OrderProduct> orderProductsRepository,
+            IProductsService productsService,
             ISuppliersService suppliersService,
             IShoppingCartService shoppingCartService,
             IEmailSender emailSender,
             IViewRenderService viewRenderService)
         {
             this.ordersRepository = ordersRepository;
+            this.orderProductsRepository = orderProductsRepository;
+            this.productsService = productsService;
             this.suppliersService = suppliersService;
             this.shoppingCartService = shoppingCartService;
             this.emailSender = emailSender;
@@ -164,6 +171,26 @@
             .Skip((page - 1) * ordersToTake)
             .Take(ordersToTake)
             .To<T>().ToList();
+
+        public IEnumerable<T> GetMostBoughtProducts<T>(int productsToTake)
+        {
+            var productIds = this.orderProductsRepository.AllAsNoTracking()
+                .Where(x => x.Order.Status == OrderStatus.Delivered)
+                .GroupBy(x => x.ProductId)
+                .Select(x => new { ProductId = x.Key, Total = x.Count() })
+                .OrderByDescending(x => x.Total)
+                .Take(productsToTake)
+                .ToList();
+
+            var products = new List<T>();
+            foreach (var product in productIds)
+            {
+                var mappedProduct = this.productsService.GetById<T>(product.ProductId);
+                products.Add(mappedProduct);
+            }
+
+            return products;
+        }
 
         public int GetOrdersCountByUserId(string userId) =>
             this.ordersRepository.AllAsNoTracking()

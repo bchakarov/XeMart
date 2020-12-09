@@ -68,22 +68,29 @@
     <!-- Mobile Menu -->
     <vc:mobile-menu></vc:mobile-menu>
     <!-- End Mobile Menu -->
-    <!-- Breadcrumb Area -->
-    <section class="breadcrumb-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="breadcrumb-box text-center">
-                        <ul class="list-unstyled list-inline">
-                            <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li class="list-inline-item"><span>||</span> @this.ViewData["Title"].ToString().ToUpper()</li>
-                        </ul>
+    @if (IsSectionDefined("Slider"))
+    {
+        @await this.RenderSectionAsync("Slider", required: false)
+    }
+    else
+    {
+        <!-- Breadcrumb Area -->
+        <section class="breadcrumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="breadcrumb-box text-center">
+                            <ul class="list-unstyled list-inline">
+                                <li class="list-inline-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="list-inline-item"><span>||</span> @this.ViewData["Title"].ToString().ToUpper()</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- End Breadcrumb Area -->
+        </section>
+        <!-- End Breadcrumb Area -->
+    }
     <!-- Begin Content -->
     <partial name="_AlertsPartial" />
     <partial name="_CookieConsentPartial" />

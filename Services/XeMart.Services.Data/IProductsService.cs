@@ -23,6 +23,10 @@
 
         public IEnumerable<T> GetNewestBySubcategoryId<T>(int subcategoryId, int productsToTake);
 
+        public IEnumerable<T> GetNewest<T>(int productsToTake);
+
+        public IEnumerable<T> GetTopRated<T>(int productsToTake);
+
         public Task<bool> EditAsync<T>(T model, IEnumerable<IFormFile> images, string fullDirectoryPath, string webRootPath);
 
         public Task<bool> DeleteAsync(string id);

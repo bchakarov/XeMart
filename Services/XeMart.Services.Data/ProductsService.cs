@@ -58,7 +58,7 @@
             var productReview = AutoMapperConfig.MapperInstance.Map<UserProductReview>(model);
             var product = this.GetById(productReview.ProductId);
 
-            if (product == null || this.userProductReviewsRepository.AllAsNoTracking().Any(x => x.UserId == productReview.UserId))
+            if (product == null || this.userProductReviewsRepository.AllAsNoTracking().Any(x => x.ProductId == productReview.ProductId && x.UserId == productReview.UserId))
             {
                 return false;
             }
@@ -159,8 +159,35 @@
         public IEnumerable<T> GetNewestBySubcategoryId<T>(int subcategoryId, int productsToTake) =>
             this.productsRepository.AllAsNoTracking()
             .Where(x => x.SubcategoryId == subcategoryId)
+            .OrderByDescending(x => x.CreatedOn)
             .Take(productsToTake)
             .To<T>().ToList();
+
+        public IEnumerable<T> GetNewest<T>(int productsToTake) =>
+            this.productsRepository.AllAsNoTracking()
+            .OrderByDescending(x => x.CreatedOn)
+            .Take(productsToTake)
+            .To<T>().ToList();
+
+        public IEnumerable<T> GetTopRated<T>(int productsToTake)
+        {
+            var productIds = this.userProductReviewsRepository.AllAsNoTracking()
+                .GroupBy(x => x.ProductId)
+                .Select(x => new { ProductId = x.Key, Total = x.Count(), AvgRating = x.Average(r => r.Rating) })
+                .OrderByDescending(x => x.AvgRating)
+                .ThenByDescending(x => x.Total)
+                .Take(productsToTake)
+                .ToList();
+
+            var products = new List<T>();
+            foreach (var product in productIds)
+            {
+                var mappedProduct = this.GetById<T>(product.ProductId);
+                products.Add(mappedProduct);
+            }
+
+            return products;
+        }
 
         public async Task<bool> EditAsync<T>(T model, IEnumerable<IFormFile> images, string fullDirectoryPath, string webRootPath)
         {

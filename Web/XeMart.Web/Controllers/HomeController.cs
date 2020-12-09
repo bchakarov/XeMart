@@ -9,19 +9,39 @@
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Home;
+    using XeMart.Web.ViewModels.Products;
 
     public class HomeController : BaseController
     {
         private readonly IUserMessagesService userMessagesService;
+        private readonly IOrdersService ordersService;
+        private readonly IProductsService productsService;
 
-        public HomeController(IUserMessagesService userMessagesService)
+        public HomeController(
+            IUserMessagesService userMessagesService,
+            IOrdersService ordersService,
+            IProductsService productsService)
         {
+
             this.userMessagesService = userMessagesService;
+            this.ordersService = ordersService;
+            this.productsService = productsService;
         }
 
         public IActionResult Index()
         {
-            return this.View();
+            var mostBoughtProducts = this.ordersService.GetMostBoughtProducts<ProductSidebarViewModel>(10);
+            var newestProducts = this.productsService.GetNewest<ProductViewModel>(10);
+            var topRatedProducts = this.productsService.GetTopRated<ProductSidebarViewModel>(4);
+
+            var viewModel = new IndexViewModel
+            {
+                MostBoughtProducts = mostBoughtProducts,
+                NewestProducts = newestProducts,
+                TopRatedProducts = topRatedProducts,
+            };
+
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()
