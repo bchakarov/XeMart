@@ -60,6 +60,7 @@
     $("#chat-circle").click(function () {
         $("#chat-circle").toggle('scale');
         $(".chat-box").toggle('scale');
+        $(".chat-logs").stop().animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
     })
 
     $(".chat-box-toggle").click(function () {
