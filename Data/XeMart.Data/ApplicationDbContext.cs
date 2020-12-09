@@ -56,6 +56,10 @@
 
         public virtual DbSet<Partner> Partners { get; set; }
 
+        public virtual DbSet<ChatRoom> ChatRooms { get; set; }
+
+        public virtual DbSet<RoomMessage> RoomMessages { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

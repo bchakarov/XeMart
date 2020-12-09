@@ -49,5 +49,9 @@ namespace XeMart.Data.Models
         public int? PartnerId { get; set; }
 
         public virtual Partner Partner { get; set; }
+
+        public string ChatRoomId { get; set; }
+
+        public virtual ChatRoom ChatRoom { get; set; }
     }
 }
