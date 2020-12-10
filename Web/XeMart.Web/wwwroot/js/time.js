@@ -1,4 +1,5 @@
-﻿jQuery.parseTime = function parseTime () {
+﻿// We attach it to the jQuery object in order to easily invoke it in chat.js and chat-admin.js
+jQuery.parseTime = function parseTime() {
     $("time").each(function (i, e) {
         const dateTimeValue = $(e).attr("datetime");
         if (!dateTimeValue) {
