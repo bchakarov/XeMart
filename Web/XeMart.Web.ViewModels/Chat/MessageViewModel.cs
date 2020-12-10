@@ -14,6 +14,8 @@
 
         public string Message { get; set; }
 
+        public string SenderUsername { get; set; }
+
         public bool IsByRoomOwner { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

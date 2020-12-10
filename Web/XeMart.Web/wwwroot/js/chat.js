@@ -7,7 +7,7 @@
     async function start() {
         try {
             await connection.start();
-            connection.invoke("LoadMessages");
+            await connection.invoke("LoadMessages");
         } catch (err) {
             console.error(err);
             setTimeout(start, 5000);
@@ -20,14 +20,15 @@
     start();
 
     var INDEX = 0;
-    $("#chat-submit").click(function (e) {
+    var submitButton = document.querySelector("#chat-submit");
+    submitButton.addEventListener("click", async function (e) {
         e.preventDefault();
         var msg = $("#chat-input").val();
         if (msg.trim() == '') {
             return false;
         }
-        connection.invoke("Send", msg);
-    })
+        await connection.invoke("Send", msg);
+    });
 
     connection.on("NewMessage",
         function (roomMessages) {
@@ -51,7 +52,7 @@
             type = "user";
         }
         str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + "\">";
-        str += "          <div class=\"cm-msg-text\">";
+        str += "          <div class=\"cm-msg-text\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"XeMart\">";
         str += escapeHtml(msg.message);
         str += "          <\/div>";
         str += "        <\/div>";

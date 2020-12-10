@@ -95,7 +95,7 @@
         }
 
         str += "        <p>" + escapeHtml(msg.message) + "</p>";
-        str += "            <span class=\"time_date\"><time datetime=\"" + msg.createdOn + "\"></time></span>";
+        str += "            <span class=\"time_date\"><time datetime=\"" + msg.createdOn + "\"></time>" + " By: " + msg.senderUsername + "</span>";
         str += "    </div>";
         str += "</div>";
         $(".msg_history").append(str);
