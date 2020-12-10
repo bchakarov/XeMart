@@ -1,8 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using XeMart.Common
 @using XeMart.Data.Models
 @inject SignInManager<ApplicationUser> SignInManager
 
-@if (this.SignInManager.IsSignedIn(this.User))
+@if (this.SignInManager.IsSignedIn(this.User) && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
 {
     <!-- Chat -->
     <div id="body">
