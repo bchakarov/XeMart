@@ -102,5 +102,11 @@
     "inputFiles": [
       "wwwroot/js/chat.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/chat-admin.min.js",
+    "inputFiles": [
+      "wwwroot/js/chat-admin.js"
+    ]
   }
 ]

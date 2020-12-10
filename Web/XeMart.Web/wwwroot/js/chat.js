@@ -34,19 +34,25 @@
             if (Array.isArray(roomMessages)) {
                 $(".chat-logs").val('');
                 for (var i = 0; i < roomMessages.length; i++) {
-                    generate_message(roomMessages[i].message, 'self');
+                    generate_message(roomMessages[i]);
                 }
             } else {
-                generate_message(roomMessages.message, 'self');
+                generate_message(roomMessages);
             }
         });
 
-    function generate_message(msg, type) {
+    function generate_message(msg) {
         INDEX++;
         var str = "";
+        var type = "";
+        if (msg.isByRoomOwner) {
+            type = "self";
+        } else {
+            type = "user";
+        }
         str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + "\">";
         str += "          <div class=\"cm-msg-text\">";
-        str += escapeHtml(msg);
+        str += escapeHtml(msg.message);
         str += "          <\/div>";
         str += "        <\/div>";
         $(".chat-logs").append(str);

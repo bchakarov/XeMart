@@ -5,10 +5,14 @@
 
     public interface IChatService
     {
-        public Task<string> CreateOrGetRoomAsync(string userId);
+        public Task<T> CreateRoomAsync<T>(string userId);
 
-        public Task AddMessageAsync(string roomId, string message, string senderId);
+        public Task<T> AddMessageAsync<T>(string roomId, string message, string senderId);
+
+        public IEnumerable<T> GetAllRooms<T>();
 
         public IEnumerable<T> GetAllMessagesByRoomId<T>(string roomId);
+
+        public string GetRoomIdByOwnerId(string ownerId);
     }
 }

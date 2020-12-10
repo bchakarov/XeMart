@@ -1,4 +1,4 @@
-﻿$(function () {
+﻿jQuery.parseTime = function parseTime () {
     $("time").each(function (i, e) {
         const dateTimeValue = $(e).attr("datetime");
         if (!dateTimeValue) {
@@ -9,4 +9,6 @@
         $(e).html(time.format("DD-MMM-YYYY HH:mm"));
         $(e).attr("title", $(e).attr("datetime"));
     });
-});
+}
+
+$(jQuery.parseTime());

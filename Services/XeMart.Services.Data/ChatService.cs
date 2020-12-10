@@ -21,26 +21,26 @@
             this.roomMessagesRepository = roomMessagesRepository;
         }
 
-        public async Task<string> CreateOrGetRoomAsync(string userId)
+        public async Task<T> CreateRoomAsync<T>(string userId)
         {
-            var room = this.GetByOwnerId(userId);
-            if (room == null)
+            if (this.GetRoomIdByOwnerId(userId) != null)
             {
-                var newRoom = new ChatRoom { OwnerId = userId };
-                await this.chatRoomsRepository.AddAsync(newRoom);
-                await this.chatRoomsRepository.SaveChangesAsync();
-                return newRoom.Id;
+                return default;
             }
 
-            return room.Id;
+            var newRoom = new ChatRoom { OwnerId = userId };
+            await this.chatRoomsRepository.AddAsync(newRoom);
+            await this.chatRoomsRepository.SaveChangesAsync();
+
+            return this.GetRoomById<T>(newRoom.Id);
         }
 
-        public async Task AddMessageAsync(string roomId, string message, string senderId)
+        public async Task<T> AddMessageAsync<T>(string roomId, string message, string senderId)
         {
             var room = this.GetRoomById(roomId);
             if (room == null)
             {
-                return;
+                return default;
             }
 
             var roomMessage = new RoomMessage
@@ -51,19 +51,29 @@
 
             room.Messages.Add(roomMessage);
             await this.chatRoomsRepository.SaveChangesAsync();
+            return AutoMapperConfig.MapperInstance.Map<T>(roomMessage);
         }
+
+        public IEnumerable<T> GetAllRooms<T>() =>
+            this.chatRoomsRepository.AllAsNoTracking()
+            .To<T>().ToList();
 
         public IEnumerable<T> GetAllMessagesByRoomId<T>(string roomId) =>
             this.roomMessagesRepository.AllAsNoTracking()
             .Where(x => x.RoomId == roomId)
             .To<T>().ToList();
 
-        private ChatRoom GetByOwnerId(string ownerId) =>
+        public string GetRoomIdByOwnerId(string ownerId) =>
             this.chatRoomsRepository.AllAsNoTracking()
-            .FirstOrDefault(x => x.OwnerId == ownerId);
+            .FirstOrDefault(x => x.OwnerId == ownerId)?.Id;
 
         private ChatRoom GetRoomById(string roomId) =>
             this.chatRoomsRepository.All()
             .FirstOrDefault(x => x.Id == roomId);
+
+        private T GetRoomById<T>(string roomId) =>
+            this.chatRoomsRepository.AllAsNoTracking()
+            .Where(x => x.Id == roomId)
+            .To<T>().FirstOrDefault();
     }
 }
