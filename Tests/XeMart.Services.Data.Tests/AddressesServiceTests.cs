@@ -13,6 +13,7 @@
     using XeMart.Services.Mapping;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Addresses;
+
     using Xunit;
 
     public class AddressesServiceTests
