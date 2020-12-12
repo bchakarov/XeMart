@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@
     using XeMart.Services.Mapping;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Administration.Subcategories;
+
     using Xunit;
 
     public class SubcategoriesServiceTests
@@ -762,11 +764,11 @@
             {
                 Name = "TestSubcategory2",
                 MainCategoryId = 1,
+                Image = new FormFile(null, 0, 0, "test", "test.png"),
+                MainCategories = new List<MainCategory> { mainCategory },
             };
 
-            var image = new FormFile(null, 0, 0, "test", "test.png");
-
-            await service.CreateAsync<CreateSubcategoryInputViewModel>(model, image, "directoryPath\\", "webRootPath\\");
+            await service.CreateAsync<CreateSubcategoryInputViewModel>(model, model.Image, "directoryPath\\", "webRootPath\\");
 
             Assert.Equal(2, service.GetAll().Count());
             Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
@@ -775,6 +777,167 @@
 
             repository.Verify(x => x.AddAsync(It.IsAny<Subcategory>()), Times.Once);
             repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            imageService.Verify(x => x.UploadLocalImageAsync(It.IsAny<IFormFile>(), It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldReturnFalseWhenModelIdIsInvalidUsingMoq()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
+
+            var mainCategory = new MainCategory
+            {
+                Id = 1,
+                Name = "TestMainCategory",
+                FontAwesomeIcon = "TestFAIcon",
+            };
+            var categoriesList = new List<Subcategory>
+            {
+                new Subcategory { Id = 1, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory", ImageUrl = "TestUrl", MainCategory = mainCategory },
+            };
+
+            repository.Setup(r => r.AllAsNoTracking()).Returns(categoriesList.AsQueryable());
+
+            var service = new SubcategoriesService(repository.Object, null);
+            Assert.False(await service.EditAsync<EditSubcategoryViewModel>(new EditSubcategoryViewModel { Id = 2 }, null, null, null));
+
+            repository.Verify(x => x.AllAsNoTracking(), Times.Once);
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldReturnFalseWhenModelIdIsInvalidUsingDbContext()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "EditAsyncShouldReturnFalseWhenModelIdIsInvalidUsingDbContextSubcategoriesServiceTests").Options;
+            using var dbContext = new ApplicationDbContext(options);
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory", FontAwesomeIcon = "TestFAIcon" });
+            await dbContext.SaveChangesAsync();
+
+            using var repository = new EfDeletableEntityRepository<Subcategory>(dbContext);
+            var service = new SubcategoriesService(repository, null);
+
+            Assert.False(await service.EditAsync<EditSubcategoryViewModel>(new EditSubcategoryViewModel { Id = 2 }, null, null, null));
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldWorkCorrectlyWithNoImageUsingMoq()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
+
+            var mainCategory = new MainCategory
+            {
+                Id = 1,
+                Name = "TestMainCategory",
+                FontAwesomeIcon = "TestFAIcon",
+            };
+            var categoriesList = new List<Subcategory>
+            {
+                new Subcategory { Id = 1, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory", ImageUrl = "TestUrl", MainCategory = mainCategory },
+            };
+
+            repository.Setup(r => r.AllAsNoTracking()).Returns(categoriesList.AsQueryable());
+            repository.Setup(r => r.Update(It.IsAny<Subcategory>())).Callback((Subcategory item) =>
+            {
+                var foundCategory = categoriesList.FirstOrDefault(x => x.Id == item.Id);
+                foundCategory.Name = item.Name;
+                foundCategory.MainCategoryId = item.MainCategoryId;
+                foundCategory.ImageUrl = item.ImageUrl;
+            });
+            repository.Setup(r => r.SaveChangesAsync()).Verifiable();
+
+            var service = new SubcategoriesService(repository.Object, null);
+            Assert.True(await service.EditAsync<EditSubcategoryViewModel>(new EditSubcategoryViewModel { Id = 1, Name = "TestSubcategoryEdited", MainCategoryId = 2 }, null, null, null));
+            Assert.Equal("TestSubcategoryEdited", service.GetAll().FirstOrDefault(x => x.Id == 1).Name);
+            Assert.Equal(2, service.GetAll().FirstOrDefault(x => x.Id == 1).MainCategoryId);
+
+            repository.Verify(x => x.AllAsNoTracking(), Times.Exactly(3));
+            repository.Verify(x => x.Update(It.IsAny<Subcategory>()), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldWorkCorrectlyWithNoImageUsingDbContext()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "EditAsyncShouldWorkCorrectlyWithNoImageUsingDbContextSubcategoriesServiceTests").Options;
+            using (var dbContext = new ApplicationDbContext(options))
+            {
+                await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory1", FontAwesomeIcon = "TestFAIcon1" });
+                await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory2", FontAwesomeIcon = "TestFAIcon2" });
+                await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var dbContext = new ApplicationDbContext(options))
+            {
+                using var repository = new EfDeletableEntityRepository<Subcategory>(dbContext);
+                var service = new SubcategoriesService(repository, null);
+
+                Assert.True(await service.EditAsync<EditSubcategoryViewModel>(new EditSubcategoryViewModel { Id = 1, Name = "TestSubcategoryEdited", MainCategoryId = 2 }, null, null, null));
+                Assert.Equal("TestSubcategoryEdited", service.GetAll().FirstOrDefault(x => x.Id == 1).Name);
+                Assert.Equal(2, service.GetAll().FirstOrDefault(x => x.Id == 1).MainCategoryId);
+            }
+        }
+
+        [Fact]
+        public async Task EditAsyncShouldWorkCorrectlyUsingMoq()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
+
+            var imageService = new Mock<IImagesService>();
+
+            var mainCategory = new MainCategory
+            {
+                Id = 1,
+                Name = "TestMainCategory",
+                FontAwesomeIcon = "TestFAIcon",
+            };
+            var categoriesList = new List<Subcategory>
+            {
+                new Subcategory { Id = 1, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory", ImageUrl = "TestUrl", MainCategory = mainCategory },
+            };
+
+            repository.Setup(r => r.AllAsNoTracking()).Returns(categoriesList.AsQueryable());
+            repository.Setup(r => r.Update(It.IsAny<Subcategory>())).Callback((Subcategory item) =>
+            {
+                var foundCategory = categoriesList.FirstOrDefault(x => x.Id == item.Id);
+                foundCategory.Name = item.Name;
+                foundCategory.MainCategoryId = item.MainCategoryId;
+                foundCategory.ImageUrl = item.ImageUrl;
+            });
+            repository.Setup(r => r.SaveChangesAsync()).Verifiable();
+
+            imageService.Setup(r => r.UploadLocalImageAsync(It.IsAny<IFormFile>(), It.IsAny<string>()))
+                .Returns(async (IFormFile image, string path) => await Task.FromResult(path + image.FileName));
+
+            var service = new SubcategoriesService(repository.Object, imageService.Object);
+
+            var model = new EditSubcategoryViewModel
+            {
+                Id = 1,
+                Name = "TestSubcategoryEdited",
+                MainCategoryId = 2,
+                Image = new FormFile(null, 0, 0, "test", "test.png"),
+            };
+            Assert.True(await service.EditAsync<EditSubcategoryViewModel>(model, model.Image, "directoryPath\\", "webRootPath\\"));
+            Assert.Equal("TestSubcategoryEdited", service.GetAll().FirstOrDefault(x => x.Id == 1).Name);
+            Assert.Equal(2, service.GetAll().FirstOrDefault(x => x.Id == 1).MainCategoryId);
+            Assert.Equal("directoryPath/test.png", service.GetAll().FirstOrDefault(x => x.Id == 1).ImageUrl);
+
+            repository.Verify(x => x.AllAsNoTracking(), Times.Exactly(4));
+            repository.Verify(x => x.Update(It.IsAny<Subcategory>()), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            imageService.Verify(x => x.UploadLocalImageAsync(It.IsAny<IFormFile>(), It.IsAny<string>()), Times.Once);
         }
     }
 }
