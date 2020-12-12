@@ -9,5 +9,7 @@
         public Task<string> UploadLocalImageAsync(IFormFile image, string fullDirectoryPath);
 
         public Task<string> UploadCloudinaryImageAsync(IFormFile image, string folderName);
+
+        public Task<string> UploadAzureBlobImageAsync(IFormFile image, string containerName);
     }
 }

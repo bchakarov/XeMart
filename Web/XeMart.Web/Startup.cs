@@ -3,6 +3,8 @@
     using System;
     using System.Reflection;
 
+    using Azure.Storage.Blobs;
+
     using CloudinaryDotNet;
 
     using Microsoft.AspNetCore.Builder;
@@ -78,6 +80,8 @@
 
             Cloudinary cloudinaryUtility = new Cloudinary(cloudinaryCredentials);
             services.AddSingleton(cloudinaryUtility);
+
+            services.AddSingleton(x => new BlobServiceClient(this.configuration["BlobConnectionString"]));
 
             StripeConfiguration.ApiKey = this.configuration["Stripe:SecretKey"];
 
