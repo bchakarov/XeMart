@@ -5,7 +5,8 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.EntityFrameworkCore;
 
     using Moq;
@@ -22,7 +23,7 @@
     public class SubcategoriesServiceTests
     {
         [Fact]
-        public void GetAllShouldWorkCorrectly()
+        public void GetAllShouldWorkCorrectlyUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
 
@@ -45,7 +46,7 @@
         public async Task GetAllShouldWorkCorrectlyUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllShouldWorkCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllShouldWorkCorrectlyUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Subcategories.AddAsync(new Subcategory { Name = "Test1", ImageUrl = "TestUrl1" });
             await dbContext.Subcategories.AddAsync(new Subcategory { Name = "Test2", ImageUrl = "TestUrl2" });
@@ -68,7 +69,7 @@
         }
 
         [Fact]
-        public void GetAllShouldWorkCorrectlyWithNoAddedCategories()
+        public void GetAllShouldWorkCorrectlyWithNoAddedCategoriesUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
 
@@ -87,7 +88,7 @@
         public void GetAllShouldWorkCorrectlyWithNoAddedCategoriesUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllShouldWorkCorrectlyWithNoAddedCategoriesUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllShouldWorkCorrectlyWithNoAddedCategoriesUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
 
             using var repository = new EfDeletableEntityRepository<Subcategory>(dbContext);
@@ -97,7 +98,7 @@
         }
 
         [Fact]
-        public void GetAllGenericShouldReturnCorrectCount()
+        public void GetAllGenericShouldReturnCorrectCountUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -130,7 +131,7 @@
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllGenericShouldReturnCorrectCountUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllGenericShouldReturnCorrectCountUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
             var mainCategory = new MainCategory { Name = "TestMainCategory", FontAwesomeIcon = "TestFAIcon" };
             await dbContext.MainCategories.AddAsync(mainCategory);
@@ -146,7 +147,7 @@
         }
 
         [Fact]
-        public void GetAllGenericShouldMapCorrectly()
+        public void GetAllGenericShouldMapCorrectlyUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -187,7 +188,7 @@
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllGenericShouldMapCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllGenericShouldMapCorrectlyUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
 
             var productsList = new List<Product>
@@ -210,7 +211,7 @@
         }
 
         [Fact]
-        public void GetAllDeletedGenericShouldReturnCorrectCount()
+        public void GetAllDeletedGenericShouldReturnCorrectCountUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -242,7 +243,7 @@
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllDeletedGenericShouldReturnCorrectCountUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllDeletedGenericShouldReturnCorrectCountUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory", FontAwesomeIcon = "TestFAIcon" });
             await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory1", ImageUrl = "TestUrl1", MainCategoryId = 1, IsDeleted = true, DeletedOn = DateTime.UtcNow });
@@ -257,7 +258,7 @@
         }
 
         [Fact]
-        public void GetAllDeletedGenericShouldMapCorrectly()
+        public void GetAllDeletedGenericShouldMapCorrectlyUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -300,7 +301,7 @@
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllDeletedGenericShouldMapCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllDeletedGenericShouldMapCorrectlyUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
 
             var productsList = new List<Product>
@@ -325,7 +326,7 @@
         }
 
         [Fact]
-        public void GetByIdGenericShouldMapCorrectly()
+        public void GetByIdGenericShouldMapCorrectlyUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -366,7 +367,7 @@
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetByIdGenericShouldMapCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetByIdGenericShouldMapCorrectlyUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
 
             var productsList = new List<Product>
@@ -389,7 +390,7 @@
         }
 
         [Fact]
-        public async Task DeleteAsyncShouldReturnFalseWhenIdIsInvalid()
+        public async Task DeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
 
@@ -410,7 +411,7 @@
         public async Task DeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.Subcategories.AddAsync(new Subcategory { Name = "Test1", ImageUrl = "TestUrl1" });
             await dbContext.SaveChangesAsync();
@@ -422,7 +423,7 @@
         }
 
         [Fact]
-        public async Task DeleteAsyncShouldReturnFalseWhenSubcategoryHasProducts()
+        public async Task DeleteAsyncShouldReturnFalseWhenSubcategoryHasProductsUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
 
@@ -455,7 +456,7 @@
         public async Task DeleteAsyncShouldReturnFalseWhenSubcategoryHasProductsUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldReturnFalseWhenMainCategoryHasSubcategoriesUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldReturnFalseWhenMainCategoryHasSubcategoriesUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
             var productsList = new List<Product>
             {
@@ -473,7 +474,7 @@
         }
 
         [Fact]
-        public async Task DeleteAsyncShouldWorkCorrectly()
+        public async Task DeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
 
@@ -497,7 +498,7 @@
         public async Task DeleteAsyncShouldWorkCorrectlyUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldWorkCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldWorkCorrectlyUsingDbContextSubcategoriesServiceTests").Options;
             using (var dbContext = new ApplicationDbContext(options))
             {
                 await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory", FontAwesomeIcon = "TestIcon" });
@@ -517,7 +518,7 @@
         }
 
         [Fact]
-        public async Task UndeleteAsyncShouldReturnFalseWhenIdIsInvalid()
+        public async Task UndeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
 
@@ -538,7 +539,7 @@
         public async Task UndeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "UndeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "UndeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContextSubcategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
             await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory", FontAwesomeIcon = "TestIcon" });
             await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory", ImageUrl = "TestUrl", MainCategoryId = 1 });
@@ -551,7 +552,7 @@
         }
 
         [Fact]
-        public async Task UndeleteAsyncShouldWorkCorrectly()
+        public async Task UndeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
 
@@ -559,7 +560,7 @@
             {
                 new Subcategory { Id = 1, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory1", ImageUrl = "TestUrl1", IsDeleted = true, DeletedOn = DateTime.UtcNow },
                 new Subcategory { Id = 2, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory2", ImageUrl = "TestUrl2" },
-                new Subcategory { Id = 3, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory3", ImageUrl = "TestUrl3", IsDeleted = true, DeletedOn = DateTime.UtcNow },                
+                new Subcategory { Id = 3, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory3", ImageUrl = "TestUrl3", IsDeleted = true, DeletedOn = DateTime.UtcNow },
             };
 
             repository.Setup(r => r.AllAsNoTracking()).Returns(categoriesList.Where(x => !x.IsDeleted).AsQueryable());
@@ -583,7 +584,7 @@
         public async Task UndeleteAsyncShouldWorkCorrectlyUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "UndeleteAsyncShouldWorkCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "UndeleteAsyncShouldWorkCorrectlyUsingDbContextSubcategoriesServiceTests").Options;
             using (var dbContext = new ApplicationDbContext(options))
             {
                 await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory", FontAwesomeIcon = "TestIcon", IsDeleted = true, DeletedOn = DateTime.UtcNow });
@@ -600,6 +601,180 @@
                 Assert.True(await service.UndeleteAsync(1));
                 Assert.Equal(2, service.GetAll().Count());
             }
+        }
+
+        [Fact]
+        public async Task CreateAsyncGenericShouldWorkCorrectlyWithOneItemAndNoImageUsingMoq()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
+
+            var mainCategory = new MainCategory
+            {
+                Id = 1,
+                Name = "TestMainCategory",
+                FontAwesomeIcon = "TestFAIcon",
+            };
+            var categoriesList = new List<Subcategory>
+            {
+                new Subcategory { Id = 1, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory1", ImageUrl = "TestUrl1", MainCategory = mainCategory },
+            };
+
+            repository.Setup(r => r.AllAsNoTracking()).Returns(categoriesList.AsQueryable());
+            repository.Setup(r => r.AddAsync(It.IsAny<Subcategory>())).Callback((Subcategory item) => categoriesList.Add(item));
+            repository.Setup(r => r.SaveChangesAsync()).Verifiable();
+
+            var service = new SubcategoriesService(repository.Object, null);
+            var model = new CreateSubcategoryInputViewModel
+            {
+                Name = "TestSubcategory2",
+                MainCategoryId = 1,
+            };
+            await service.CreateAsync<CreateSubcategoryInputViewModel>(model, null, null, null);
+
+            Assert.Equal(2, service.GetAll().Count());
+            Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
+            Assert.Equal(1, service.GetAll().ElementAt(1).MainCategoryId);
+
+            repository.Verify(x => x.AddAsync(It.IsAny<Subcategory>()), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+        }
+
+        [Fact]
+        public async Task CreateAsyncGenericShouldWorkCorrectlyWithOneItemAndNoImageUsingDbContext()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "CreateAsyncGenericShouldWorkCorrectlyWithOneItemAndNoImageUsingDbContextSubcategoriesServiceTests").Options;
+
+            var dbContext = new ApplicationDbContext(options);
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory", FontAwesomeIcon = "TestIcon" });
+            await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory1", ImageUrl = "TestUrl1", MainCategoryId = 1 });
+            await dbContext.SaveChangesAsync();
+
+            using var repository = new EfDeletableEntityRepository<Subcategory>(dbContext);
+            var service = new SubcategoriesService(repository, null);
+            var model = new CreateSubcategoryInputViewModel
+            {
+                Name = "TestSubcategory2",
+                MainCategoryId = 1,
+            };
+            await service.CreateAsync<CreateSubcategoryInputViewModel>(model, null, null, null);
+
+            Assert.Equal(2, service.GetAll().Count());
+            Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
+            Assert.Equal(1, service.GetAll().ElementAt(1).MainCategoryId);
+        }
+
+        [Fact]
+        public async Task CreateAsyncGenericShouldWorkCorrectlyWithMultipleItemsAndNoImageUsingMoq()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
+
+            var mainCategory = new MainCategory
+            {
+                Id = 1,
+                Name = "TestMainCategory",
+                FontAwesomeIcon = "TestFAIcon",
+            };
+            var categoriesList = new List<Subcategory>
+            {
+                new Subcategory { Id = 1, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory1", ImageUrl = "TestUrl1", MainCategory = mainCategory },
+            };
+
+            repository.Setup(r => r.AllAsNoTracking()).Returns(categoriesList.AsQueryable());
+            repository.Setup(r => r.AddAsync(It.IsAny<Subcategory>())).Callback((Subcategory item) => categoriesList.Add(item));
+            repository.Setup(r => r.SaveChangesAsync()).Verifiable();
+
+            var service = new SubcategoriesService(repository.Object, null);
+
+            await service.CreateAsync<CreateSubcategoryInputViewModel>(new CreateSubcategoryInputViewModel { Name = "TestSubcategory2", MainCategoryId = 1 }, null, null, null);
+            await service.CreateAsync<CreateSubcategoryInputViewModel>(new CreateSubcategoryInputViewModel { Name = "TestSubcategory3", MainCategoryId = 1 }, null, null, null);
+
+            Assert.Equal(3, service.GetAll().Count());
+            Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
+            Assert.Equal(1, service.GetAll().ElementAt(1).MainCategoryId);
+            Assert.Equal("TestSubcategory3", service.GetAll().ElementAt(2).Name);
+            Assert.Equal(1, service.GetAll().ElementAt(2).MainCategoryId);
+
+            repository.Verify(x => x.AddAsync(It.IsAny<Subcategory>()), Times.Exactly(2));
+            repository.Verify(x => x.SaveChangesAsync(), Times.Exactly(2));
+        }
+
+        [Fact]
+        public async Task CreateAsyncGenericShouldWorkCorrectlyWithMultipleItemsAndNoImageUsingDbContext()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "CreateAsyncGenericShouldWorkCorrectlyWithMultipleItemsAndNoImageUsingDbContextSubcategoriesServiceTests").Options;
+
+            var dbContext = new ApplicationDbContext(options);
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "TestMainCategory", FontAwesomeIcon = "TestIcon" });
+            await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory1", ImageUrl = "TestUrl1", MainCategoryId = 1 });
+            await dbContext.SaveChangesAsync();
+
+            using var repository = new EfDeletableEntityRepository<Subcategory>(dbContext);
+            var service = new SubcategoriesService(repository, null);
+
+            await service.CreateAsync<CreateSubcategoryInputViewModel>(new CreateSubcategoryInputViewModel { Name = "TestSubcategory2", MainCategoryId = 1 }, null, null, null);
+            await service.CreateAsync<CreateSubcategoryInputViewModel>(new CreateSubcategoryInputViewModel { Name = "TestSubcategory3", MainCategoryId = 1 }, null, null, null);
+
+            Assert.Equal(3, service.GetAll().Count());
+            Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
+            Assert.Equal(1, service.GetAll().ElementAt(1).MainCategoryId);
+            Assert.Equal("TestSubcategory3", service.GetAll().ElementAt(2).Name);
+            Assert.Equal(1, service.GetAll().ElementAt(2).MainCategoryId);
+        }
+
+        [Fact]
+        public async Task CreateAsyncGenericShouldWorkCorrectlyWithOneItemAndImageUsingMoq()
+        {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
+            var repository = new Mock<IDeletableEntityRepository<Subcategory>>();
+            var imageService = new Mock<IImagesService>();
+
+            var mainCategory = new MainCategory
+            {
+                Id = 1,
+                Name = "TestMainCategory",
+                FontAwesomeIcon = "TestFAIcon",
+            };
+            var categoriesList = new List<Subcategory>
+            {
+                new Subcategory { Id = 1, CreatedOn = DateTime.UtcNow, Name = "TestSubcategory1", ImageUrl = "TestUrl1", MainCategory = mainCategory },
+            };
+
+            repository.Setup(r => r.AllAsNoTracking()).Returns(categoriesList.AsQueryable());
+            repository.Setup(r => r.AddAsync(It.IsAny<Subcategory>())).Callback((Subcategory item) => categoriesList.Add(item));
+            repository.Setup(r => r.SaveChangesAsync()).Verifiable();
+
+            imageService.Setup(r => r.UploadLocalImageAsync(It.IsAny<IFormFile>(), It.IsAny<string>()))
+                .Returns(async (IFormFile image, string path) => await Task.FromResult(path + image.FileName));
+
+            var service = new SubcategoriesService(repository.Object, imageService.Object);
+            var model = new CreateSubcategoryInputViewModel
+            {
+                Name = "TestSubcategory2",
+                MainCategoryId = 1,
+            };
+
+            var image = new FormFile(null, 0, 0, "test", "test.png");
+
+            await service.CreateAsync<CreateSubcategoryInputViewModel>(model, image, "directoryPath\\", "webRootPath\\");
+
+            Assert.Equal(2, service.GetAll().Count());
+            Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
+            Assert.Equal(1, service.GetAll().ElementAt(1).MainCategoryId);
+            Assert.Equal("directoryPath/test.png", service.GetAll().ElementAt(1).ImageUrl);
+
+            repository.Verify(x => x.AddAsync(It.IsAny<Subcategory>()), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
         }
     }
 }

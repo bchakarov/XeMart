@@ -23,7 +23,7 @@
     public class MainCategoriesServiceTests
     {
         [Fact]
-        public void GetAllShouldWorkCorrectly()
+        public void GetAllShouldWorkCorrectlyUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
@@ -69,7 +69,7 @@
         }
 
         [Fact]
-        public void GetAllShouldWorkCorrectlyWithNoAddedCategories()
+        public void GetAllShouldWorkCorrectlyWithNoAddedCategoriesUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
@@ -98,7 +98,7 @@
         }
 
         [Fact]
-        public void GetAllGenericShouldReturnCorrectCount()
+        public void GetAllGenericShouldReturnCorrectCountUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
@@ -137,7 +137,7 @@
         }
 
         [Fact]
-        public void GetAllGenericShouldMapCorrectly()
+        public void GetAllGenericShouldMapCorrectlyUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -188,7 +188,7 @@
         }
 
         [Fact]
-        public void GetAllDeletedGenericShouldReturnCorrectCount()
+        public void GetAllDeletedGenericShouldReturnCorrectCountUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -229,7 +229,7 @@
         }
 
         [Fact]
-        public void GetAllDeletedGenericShouldMapCorrectly()
+        public void GetAllDeletedGenericShouldMapCorrectlyUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -284,7 +284,7 @@
         }
 
         [Fact]
-        public void GetByIdGenericShouldMapCorrectly()
+        public void GetByIdGenericShouldMapCorrectlyUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -335,7 +335,7 @@
         }
 
         [Fact]
-        public async Task DeleteAsyncShouldReturnFalseWhenIdIsInvalid()
+        public async Task DeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
@@ -368,7 +368,7 @@
         }
 
         [Fact]
-        public async Task DeleteAsyncShouldReturnFalseWhenMainCategoryHasSubcategories()
+        public async Task DeleteAsyncShouldReturnFalseWhenMainCategoryHasSubcategoriesUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
@@ -409,7 +409,7 @@
         }
 
         [Fact]
-        public async Task DeleteAsyncShouldWorkCorrectly()
+        public async Task DeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
@@ -452,7 +452,7 @@
         }
 
         [Fact]
-        public async Task UndeleteAsyncShouldReturnFalseWhenIdIsInvalid()
+        public async Task UndeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
@@ -485,7 +485,7 @@
         }
 
         [Fact]
-        public async Task UndeleteAsyncShouldWorkCorrectly()
+        public async Task UndeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
@@ -537,7 +537,7 @@
         }
 
         [Fact]
-        public async Task CreateAsyncGenericShouldWorkCorrectlyWithOneItem()
+        public async Task CreateAsyncGenericShouldWorkCorrectlyWithOneItemUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -595,7 +595,7 @@
         }
 
         [Fact]
-        public async Task CreateAsyncGenericShouldWorkCorrectlyWithMultipleItems()
+        public async Task CreateAsyncGenericShouldWorkCorrectlyWithMultipleItemsUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -649,7 +649,7 @@
         }
 
         [Fact]
-        public async Task EditAsyncShouldReturnFalseWhenModelIdIsInvalid()
+        public async Task EditAsyncShouldReturnFalseWhenModelIdIsInvalidUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -686,7 +686,7 @@
         }
 
         [Fact]
-        public async Task EditAsyncShouldWorkCorrectly()
+        public async Task EditAsyncShouldWorkCorrectlyUsingMoq()
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
