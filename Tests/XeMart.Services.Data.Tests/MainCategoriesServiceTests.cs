@@ -20,6 +20,7 @@
 
     using Xunit;
 
+    [Collection("Sequential")]
     public class MainCategoriesServiceTests
     {
         [Fact]

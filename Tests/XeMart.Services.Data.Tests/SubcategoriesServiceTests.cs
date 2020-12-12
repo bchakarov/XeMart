@@ -22,6 +22,7 @@
 
     using Xunit;
 
+    [Collection("Sequential")]
     public class SubcategoriesServiceTests
     {
         [Fact]

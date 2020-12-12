@@ -14,8 +14,10 @@
     using XeMart.Services.Mapping;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Favourites;
+
     using Xunit;
 
+    [Collection("Sequential")]
     public class FavouritesServiceTests
     {
         [Fact]
