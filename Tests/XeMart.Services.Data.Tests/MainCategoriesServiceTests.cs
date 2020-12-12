@@ -22,11 +22,6 @@
 
     public class MainCategoriesServiceTests
     {
-        public MainCategoriesServiceTests()
-        {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-        }
-
         [Fact]
         public void GetAllShouldWorkCorrectly()
         {
@@ -51,11 +46,11 @@
         public async Task GetAllShouldWorkCorrectlyUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllShouldWorkCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllShouldWorkCorrectlyUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test2", FontAwesomeIcon = "TestIcon2" });
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test3", FontAwesomeIcon = "TestIcon3" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test2", FontAwesomeIcon = "TestIcon2" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test3", FontAwesomeIcon = "TestIcon3" });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -93,7 +88,7 @@
         public void GetAllShouldWorkCorrectlyWithNoAddedCategoriesUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllShouldWorkCorrectlyWithNoAddedCategoriesUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllShouldWorkCorrectlyWithNoAddedCategoriesUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -125,12 +120,14 @@
         [Fact]
         public async Task GetAllGenericShouldReturnCorrectCountUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllGenericShouldReturnCorrectCountUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllGenericShouldReturnCorrectCountUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test2", FontAwesomeIcon = "TestIcon2" });
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test3", FontAwesomeIcon = "TestIcon3" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test2", FontAwesomeIcon = "TestIcon2" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test3", FontAwesomeIcon = "TestIcon3" });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -142,6 +139,8 @@
         [Fact]
         public void GetAllGenericShouldMapCorrectly()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
             var categoriesList = new List<MainCategory>
@@ -170,11 +169,13 @@
         [Fact]
         public async Task GetAllGenericShouldMapCorrectlyUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllGenericShouldMapCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllGenericShouldMapCorrectlyUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test", FontAwesomeIcon = "TestIcon" });
-            dbContext.Subcategories.Add(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test", FontAwesomeIcon = "TestIcon" });
+            await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -189,6 +190,8 @@
         [Fact]
         public void GetAllDeletedGenericShouldReturnCorrectCount()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
             var categoriesList = new List<MainCategory>
@@ -209,12 +212,14 @@
         [Fact]
         public async Task GetAllDeletedGenericShouldReturnCorrectCountUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllDeletedGenericShouldReturnCorrectCountUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllDeletedGenericShouldReturnCorrectCountUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1", IsDeleted = true, DeletedOn = DateTime.UtcNow });
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test2", FontAwesomeIcon = "TestIcon2", IsDeleted = true, DeletedOn = DateTime.UtcNow });
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test3", FontAwesomeIcon = "TestIcon3", IsDeleted = true, DeletedOn = DateTime.UtcNow });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1", IsDeleted = true, DeletedOn = DateTime.UtcNow });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test2", FontAwesomeIcon = "TestIcon2", IsDeleted = true, DeletedOn = DateTime.UtcNow });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test3", FontAwesomeIcon = "TestIcon3", IsDeleted = true, DeletedOn = DateTime.UtcNow });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -226,6 +231,8 @@
         [Fact]
         public void GetAllDeletedGenericShouldMapCorrectly()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
             var categoriesList = new List<MainCategory>
@@ -257,11 +264,13 @@
         [Fact]
         public async Task GetAllDeletedGenericShouldMapCorrectlyUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetAllDeletedGenericShouldMapCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetAllDeletedGenericShouldMapCorrectlyUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test", FontAwesomeIcon = "TestIcon", IsDeleted = true, DeletedOn = new DateTime(2020, 12, 31, 12, 12, 12) });
-            dbContext.Subcategories.Add(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test", FontAwesomeIcon = "TestIcon", IsDeleted = true, DeletedOn = new DateTime(2020, 12, 31, 12, 12, 12) });
+            await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -277,6 +286,8 @@
         [Fact]
         public void GetByIdGenericShouldMapCorrectly()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
             var categoriesList = new List<MainCategory>
@@ -305,11 +316,13 @@
         [Fact]
         public async Task GetByIdGenericShouldMapCorrectlyUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "GetByIdGenericShouldMapCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "GetByIdGenericShouldMapCorrectlyUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test", FontAwesomeIcon = "TestIcon" });
-            dbContext.Subcategories.Add(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test", FontAwesomeIcon = "TestIcon" });
+            await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -343,9 +356,9 @@
         public async Task DeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -383,10 +396,10 @@
         public async Task DeleteAsyncShouldReturnFalseWhenMainCategoryHasSubcategoriesUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldReturnFalseWhenMainCategoryHasSubcategoriesUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldReturnFalseWhenMainCategoryHasSubcategoriesUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test", FontAwesomeIcon = "TestIcon" });
-            dbContext.Subcategories.Add(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test", FontAwesomeIcon = "TestIcon" });
+            await dbContext.Subcategories.AddAsync(new Subcategory { Name = "TestSubcategory", MainCategoryId = 1 });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -420,7 +433,7 @@
         public async Task DeleteAsyncShouldWorkCorrectlyUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldWorkCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "DeleteAsyncShouldWorkCorrectlyUsingDbContextMainCategoriesServiceTests").Options;
             using (var dbContext = new ApplicationDbContext(options))
             {
                 await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
@@ -460,9 +473,9 @@
         public async Task UndeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "UndeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "UndeleteAsyncShouldReturnFalseWhenIdIsInvalidUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -504,7 +517,7 @@
         public async Task UndeleteAsyncShouldWorkCorrectlyUsingDbContext()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "UndeleteAsyncShouldWorkCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "UndeleteAsyncShouldWorkCorrectlyUsingDbContextMainCategoriesServiceTests").Options;
             using (var dbContext = new ApplicationDbContext(options))
             {
                 await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1", IsDeleted = true, DeletedOn = DateTime.UtcNow });
@@ -526,6 +539,8 @@
         [Fact]
         public async Task CreateAsyncGenericShouldWorkCorrectlyWithOneItem()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
             var categoriesList = new List<MainCategory>
@@ -556,8 +571,10 @@
         [Fact]
         public async Task CreateAsyncGenericShouldWorkCorrectlyWithOneItemUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "CreateAsyncGenericShouldWorkCorrectlyWithOneItemUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "CreateAsyncGenericShouldWorkCorrectlyWithOneItemUsingDbContextMainCategoriesServiceTests").Options;
 
             var dbContext = new ApplicationDbContext(options);
             await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
@@ -580,6 +597,8 @@
         [Fact]
         public async Task CreateAsyncGenericShouldWorkCorrectlyWithMultipleItems()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
             var categoriesList = new List<MainCategory>
@@ -608,8 +627,10 @@
         [Fact]
         public async Task CreateAsyncGenericShouldWorkCorrectlyWithMultipleItemsUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "CreateAsyncGenericShouldWorkCorrectlyWithMultipleItemsUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "CreateAsyncGenericShouldWorkCorrectlyWithMultipleItemsUsingDbContextMainCategoriesServiceTests").Options;
 
             var dbContext = new ApplicationDbContext(options);
             await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
@@ -630,6 +651,8 @@
         [Fact]
         public async Task EditAsyncShouldReturnFalseWhenModelIdIsInvalid()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
             var categoriesList = new List<MainCategory>
@@ -648,10 +671,12 @@
         [Fact]
         public async Task EditAsyncShouldReturnFalseWhenModelIdIsInvalidUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "EditAsyncShouldReturnFalseWhenModelIdIsInvalidUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "EditAsyncShouldReturnFalseWhenModelIdIsInvalidUsingDbContextMainCategoriesServiceTests").Options;
             using var dbContext = new ApplicationDbContext(options);
-            dbContext.MainCategories.Add(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
+            await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
             await dbContext.SaveChangesAsync();
 
             using var repository = new EfDeletableEntityRepository<MainCategory>(dbContext);
@@ -663,6 +688,8 @@
         [Fact]
         public async Task EditAsyncShouldWorkCorrectly()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var repository = new Mock<IDeletableEntityRepository<MainCategory>>();
 
             var categoriesList = new List<MainCategory>
@@ -692,11 +719,13 @@
         [Fact]
         public async Task EditAsyncShouldWorkCorrectlyUsingDbContext()
         {
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "EditAsyncShouldWorkCorrectlyUsingDbContext").Options;
+                .UseInMemoryDatabase(databaseName: "EditAsyncShouldWorkCorrectlyUsingDbContextMainCategoriesServiceTests").Options;
             using (var dbContext = new ApplicationDbContext(options))
             {
-                dbContext.MainCategories.Add(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
+                await dbContext.MainCategories.AddAsync(new MainCategory { Name = "Test1", FontAwesomeIcon = "TestIcon1" });
                 await dbContext.SaveChangesAsync();
             }
 
