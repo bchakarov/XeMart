@@ -566,7 +566,7 @@
             Assert.Equal("TestIcon2", service.GetAll().ElementAt(1).FontAwesomeIcon);
 
             repository.Verify(x => x.AddAsync(It.IsAny<MainCategory>()), Times.Once);
-            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync());
         }
 
         [Fact]
@@ -622,7 +622,7 @@
             Assert.Equal("TestIcon3", service.GetAll().ElementAt(2).FontAwesomeIcon);
 
             repository.Verify(x => x.AddAsync(It.IsAny<MainCategory>()), Times.Exactly(2));
-            repository.Verify(x => x.SaveChangesAsync(), Times.Exactly(2));
+            repository.Verify(x => x.SaveChangesAsync());
         }
 
         [Fact]
@@ -714,7 +714,7 @@
 
             repository.Verify(x => x.AllAsNoTracking(), Times.Exactly(3));
             repository.Verify(x => x.Update(It.IsAny<MainCategory>()), Times.Once);
-            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync());
         }
 
         [Fact]

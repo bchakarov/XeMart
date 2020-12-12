@@ -641,7 +641,7 @@
             Assert.Equal(1, service.GetAll().ElementAt(1).MainCategoryId);
 
             repository.Verify(x => x.AddAsync(It.IsAny<Subcategory>()), Times.Once);
-            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync());
         }
 
         [Fact]
@@ -705,7 +705,7 @@
             Assert.Equal(1, service.GetAll().ElementAt(2).MainCategoryId);
 
             repository.Verify(x => x.AddAsync(It.IsAny<Subcategory>()), Times.Exactly(2));
-            repository.Verify(x => x.SaveChangesAsync(), Times.Exactly(2));
+            repository.Verify(x => x.SaveChangesAsync());
         }
 
         [Fact]
@@ -777,7 +777,7 @@
             Assert.Equal("directoryPath/test.png", service.GetAll().ElementAt(1).ImageUrl);
 
             repository.Verify(x => x.AddAsync(It.IsAny<Subcategory>()), Times.Once);
-            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync());
             imageService.Verify(x => x.UploadLocalImageAsync(It.IsAny<IFormFile>(), It.IsAny<string>()), Times.Once);
         }
 
@@ -859,7 +859,7 @@
 
             repository.Verify(x => x.AllAsNoTracking(), Times.Exactly(3));
             repository.Verify(x => x.Update(It.IsAny<Subcategory>()), Times.Once);
-            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync());
         }
 
         [Fact]
@@ -937,7 +937,7 @@
 
             repository.Verify(x => x.AllAsNoTracking(), Times.Exactly(4));
             repository.Verify(x => x.Update(It.IsAny<Subcategory>()), Times.Once);
-            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync());
             imageService.Verify(x => x.UploadLocalImageAsync(It.IsAny<IFormFile>(), It.IsAny<string>()), Times.Once);
         }
     }

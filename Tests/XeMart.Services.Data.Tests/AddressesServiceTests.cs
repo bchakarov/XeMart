@@ -170,7 +170,7 @@
 
             repository.Verify(x => x.AllAsNoTracking(), Times.Once);
             repository.Verify(x => x.Delete(It.IsAny<Address>()), Times.Once);
-            repository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            repository.Verify(x => x.SaveChangesAsync());
         }
 
         [Fact]
@@ -265,7 +265,7 @@
 
             addressRepository.Verify(x => x.AllAsNoTracking(), Times.Once);
             addressRepository.Verify(x => x.AddAsync(It.IsAny<Address>()), Times.Once);
-            addressRepository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            addressRepository.Verify(x => x.SaveChangesAsync());
         }
 
         [Theory]
@@ -326,7 +326,7 @@
 
             addressRepository.Verify(x => x.AllAsNoTracking(), Times.Once);
             addressRepository.Verify(x => x.AddAsync(It.IsAny<Address>()), Times.Once);
-            addressRepository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            addressRepository.Verify(x => x.SaveChangesAsync());
         }
     }
 }

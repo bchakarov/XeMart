@@ -360,7 +360,7 @@
 
             favouriteProductsRepository.Verify(x => x.AllAsNoTracking(), Times.Once);
             favouriteProductsRepository.Verify(x => x.Delete(It.IsAny<UserFavouriteProduct>()), Times.Once);
-            favouriteProductsRepository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            favouriteProductsRepository.Verify(x => x.SaveChangesAsync());
         }
 
         [Fact]
@@ -467,7 +467,7 @@
             userManager.Verify(x => x.FindByIdAsync(It.IsAny<string>()), Times.Once);
 
             favouriteProductsRepository.Verify(x => x.AddAsync(It.IsAny<UserFavouriteProduct>()), Times.Once);
-            favouriteProductsRepository.Verify(x => x.SaveChangesAsync(), Times.Once);
+            favouriteProductsRepository.Verify(x => x.SaveChangesAsync());
         }
     }
 }
