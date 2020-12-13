@@ -18,6 +18,7 @@
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Administration.Partners;
     using XeMart.Web.ViewModels.Partners;
+
     using Xunit;
 
     [Collection("Sequential")]
