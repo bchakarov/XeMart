@@ -14,6 +14,7 @@
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Administration.UserMessages;
     using XeMart.Web.ViewModels.Home;
+
     using Xunit;
 
     [Collection("Sequential")]
