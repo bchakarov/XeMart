@@ -314,10 +314,10 @@
 
         private Expression<Func<Product, bool>> BuildSearchPredicateExpression(string search, int? mainCategoryId)
         {
-            Expression<Func<Product, bool>> predicateExpression = x => x.Name.Contains(search);
+            Expression<Func<Product, bool>> predicateExpression = x => x.Name.ToLower().Contains(search.ToLower());
             if (mainCategoryId != null)
             {
-                predicateExpression = x => x.Name.Contains(search) && x.Subcategory.MainCategoryId == mainCategoryId;
+                predicateExpression = x => x.Name.ToLower().Contains(search.ToLower()) && x.Subcategory.MainCategoryId == mainCategoryId;
             }
 
             return predicateExpression;

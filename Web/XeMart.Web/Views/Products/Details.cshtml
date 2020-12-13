@@ -134,9 +134,7 @@
                 <cache expires-after="TimeSpan.FromMinutes(1)">
                     <vc:categories-sidebar></vc:categories-sidebar>
                 </cache>
-                <cache expires-after="TimeSpan.FromMinutes(1)">
-                    <vc:new-products-sidebar subcategory-id="@Model.Subcategory.Id" products-to-take="5"></vc:new-products-sidebar>
-                </cache>
+                <vc:new-products-sidebar subcategory-id="@Model.Subcategory.Id" products-to-take="5"></vc:new-products-sidebar>
             </div>
         </div>
     </div>
