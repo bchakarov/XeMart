@@ -75,7 +75,7 @@
 
             var suppliers = new List<Supplier>
             {
-                new Supplier { Id = 1, IsDeleted = true, DeletedOn = DateTime.UtcNow},
+                new Supplier { Id = 1, IsDeleted = true, DeletedOn = DateTime.UtcNow },
                 new Supplier { Id = 2 },
             };
 
