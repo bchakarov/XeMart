@@ -634,7 +634,7 @@
                 Name = "TestSubcategory2",
                 MainCategoryId = 1,
             };
-            await service.CreateAsync<CreateSubcategoryInputViewModel>(model, null, null, null);
+            await service.CreateAsync(model, null, null, null);
 
             Assert.Equal(2, service.GetAll().Count());
             Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
@@ -664,7 +664,7 @@
                 Name = "TestSubcategory2",
                 MainCategoryId = 1,
             };
-            await service.CreateAsync<CreateSubcategoryInputViewModel>(model, null, null, null);
+            await service.CreateAsync(model, null, null, null);
 
             Assert.Equal(2, service.GetAll().Count());
             Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
@@ -695,8 +695,8 @@
 
             var service = new SubcategoriesService(repository.Object, null);
 
-            await service.CreateAsync<CreateSubcategoryInputViewModel>(new CreateSubcategoryInputViewModel { Name = "TestSubcategory2", MainCategoryId = 1 }, null, null, null);
-            await service.CreateAsync<CreateSubcategoryInputViewModel>(new CreateSubcategoryInputViewModel { Name = "TestSubcategory3", MainCategoryId = 1 }, null, null, null);
+            await service.CreateAsync(new CreateSubcategoryInputViewModel { Name = "TestSubcategory2", MainCategoryId = 1 }, null, null, null);
+            await service.CreateAsync(new CreateSubcategoryInputViewModel { Name = "TestSubcategory3", MainCategoryId = 1 }, null, null, null);
 
             Assert.Equal(3, service.GetAll().Count());
             Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
@@ -724,8 +724,8 @@
             using var repository = new EfDeletableEntityRepository<Subcategory>(dbContext);
             var service = new SubcategoriesService(repository, null);
 
-            await service.CreateAsync<CreateSubcategoryInputViewModel>(new CreateSubcategoryInputViewModel { Name = "TestSubcategory2", MainCategoryId = 1 }, null, null, null);
-            await service.CreateAsync<CreateSubcategoryInputViewModel>(new CreateSubcategoryInputViewModel { Name = "TestSubcategory3", MainCategoryId = 1 }, null, null, null);
+            await service.CreateAsync(new CreateSubcategoryInputViewModel { Name = "TestSubcategory2", MainCategoryId = 1 }, null, null, null);
+            await service.CreateAsync(new CreateSubcategoryInputViewModel { Name = "TestSubcategory3", MainCategoryId = 1 }, null, null, null);
 
             Assert.Equal(3, service.GetAll().Count());
             Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
@@ -769,7 +769,7 @@
                 MainCategories = new List<MainCategory> { mainCategory },
             };
 
-            await service.CreateAsync<CreateSubcategoryInputViewModel>(model, model.Image, "directoryPath\\", "webRootPath\\");
+            await service.CreateAsync(model, model.Image, "directoryPath\\", "webRootPath\\");
 
             Assert.Equal(2, service.GetAll().Count());
             Assert.Equal("TestSubcategory2", service.GetAll().ElementAt(1).Name);
@@ -802,7 +802,7 @@
             repository.Setup(r => r.AllAsNoTracking()).Returns(categoriesList.AsQueryable());
 
             var service = new SubcategoriesService(repository.Object, null);
-            Assert.False(await service.EditAsync<EditSubcategoryViewModel>(new EditSubcategoryViewModel { Id = 2 }, null, null, null));
+            Assert.False(await service.EditAsync(new EditSubcategoryViewModel { Id = 2 }, null, null, null));
 
             repository.Verify(x => x.AllAsNoTracking(), Times.Once);
         }
@@ -821,7 +821,7 @@
             using var repository = new EfDeletableEntityRepository<Subcategory>(dbContext);
             var service = new SubcategoriesService(repository, null);
 
-            Assert.False(await service.EditAsync<EditSubcategoryViewModel>(new EditSubcategoryViewModel { Id = 2 }, null, null, null));
+            Assert.False(await service.EditAsync(new EditSubcategoryViewModel { Id = 2 }, null, null, null));
         }
 
         [Fact]
@@ -853,7 +853,7 @@
             repository.Setup(r => r.SaveChangesAsync()).Verifiable();
 
             var service = new SubcategoriesService(repository.Object, null);
-            Assert.True(await service.EditAsync<EditSubcategoryViewModel>(new EditSubcategoryViewModel { Id = 1, Name = "TestSubcategoryEdited", MainCategoryId = 2 }, null, null, null));
+            Assert.True(await service.EditAsync(new EditSubcategoryViewModel { Id = 1, Name = "TestSubcategoryEdited", MainCategoryId = 2 }, null, null, null));
             Assert.Equal("TestSubcategoryEdited", service.GetAll().FirstOrDefault(x => x.Id == 1).Name);
             Assert.Equal(2, service.GetAll().FirstOrDefault(x => x.Id == 1).MainCategoryId);
 
@@ -882,7 +882,7 @@
                 using var repository = new EfDeletableEntityRepository<Subcategory>(dbContext);
                 var service = new SubcategoriesService(repository, null);
 
-                Assert.True(await service.EditAsync<EditSubcategoryViewModel>(new EditSubcategoryViewModel { Id = 1, Name = "TestSubcategoryEdited", MainCategoryId = 2 }, null, null, null));
+                Assert.True(await service.EditAsync(new EditSubcategoryViewModel { Id = 1, Name = "TestSubcategoryEdited", MainCategoryId = 2 }, null, null, null));
                 Assert.Equal("TestSubcategoryEdited", service.GetAll().FirstOrDefault(x => x.Id == 1).Name);
                 Assert.Equal(2, service.GetAll().FirstOrDefault(x => x.Id == 1).MainCategoryId);
             }
@@ -930,7 +930,7 @@
                 MainCategoryId = 2,
                 Image = new FormFile(null, 0, 0, "test", "test.png"),
             };
-            Assert.True(await service.EditAsync<EditSubcategoryViewModel>(model, model.Image, "directoryPath\\", "webRootPath\\"));
+            Assert.True(await service.EditAsync(model, model.Image, "directoryPath\\", "webRootPath\\"));
             Assert.Equal("TestSubcategoryEdited", service.GetAll().FirstOrDefault(x => x.Id == 1).Name);
             Assert.Equal(2, service.GetAll().FirstOrDefault(x => x.Id == 1).MainCategoryId);
             Assert.Equal("directoryPath/test.png", service.GetAll().FirstOrDefault(x => x.Id == 1).ImageUrl);
