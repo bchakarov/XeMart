@@ -5,7 +5,7 @@
 
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
-
+    using XeMart.Services;
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Home;
@@ -16,16 +16,19 @@
         private readonly IUserMessagesService userMessagesService;
         private readonly IOrdersService ordersService;
         private readonly IProductsService productsService;
+        private readonly IStringService stringService;
 
         public HomeController(
             IUserMessagesService userMessagesService,
             IOrdersService ordersService,
-            IProductsService productsService)
+            IProductsService productsService,
+            IStringService stringService)
         {
 
             this.userMessagesService = userMessagesService;
             this.ordersService = ordersService;
             this.productsService = productsService;
+            this.stringService = stringService;
         }
 
         public IActionResult Index()
@@ -33,6 +36,11 @@
             var mostBoughtProducts = this.ordersService.GetMostBoughtProducts<ProductSidebarViewModel>(10);
             var newestProducts = this.productsService.GetNewest<ProductViewModel>(10);
             var topRatedProducts = this.productsService.GetTopRated<ProductSidebarViewModel>(4);
+
+            foreach (var product in topRatedProducts)
+            {
+                product.Name = this.stringService.TruncateAtWord(product.Name, 30);
+            }
 
             var viewModel = new IndexViewModel
             {
