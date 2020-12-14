@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
 
     using Stripe;
 
@@ -14,12 +15,13 @@
     [IgnoreAntiforgeryToken]
     public class StripeWebHookController : BaseController
     {
-        public const string Secret = "whsec_O25OoXme43CKDKZBaU0VCpN7Ybc1QseZ";
         private readonly IOrdersService ordersService;
+        private readonly IConfiguration configuration;
 
-        public StripeWebHookController(IOrdersService ordersService)
+        public StripeWebHookController(IOrdersService ordersService, IConfiguration configuration)
         {
             this.ordersService = ordersService;
+            this.configuration = configuration;
         }
 
         [HttpPost]
@@ -31,7 +33,7 @@
                 var stripeEvent = EventUtility.ConstructEvent(
                   json,
                   this.Request.Headers["Stripe-Signature"],
-                  Secret);
+                  this.configuration["Stripe:WebHookKey"]);
 
                 // Handle the checkout.session.completed event
                 if (stripeEvent.Type == Events.CheckoutSessionCompleted)
