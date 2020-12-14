@@ -18,7 +18,7 @@
                     new HomePageSlide
                     {
                         ImageUrl = "https://xemart.blob.core.windows.net/images/sm-1.png",
-                        Description = "@<p><span style=\"color :#e03e2d;\">Smartphone deal</span></p>" +
+                        Description = "<p><span style=\"color :#e03e2d;\">Smartphone deal</span></p>" +
                             "<p><span style=\"font-size: 36pt;\"><strong> Huawei Honor 8x | 8x Max</strong></span></p>" +
                             "<p>The Smart Power In Your Hand </p>",
                         LinkUrl = "#",
@@ -27,7 +27,7 @@
                     new HomePageSlide
                     {
                         ImageUrl = "https://xemart.blob.core.windows.net/images/sm-2.png",
-                        Description = "@<p><span style=\"color :#e03e2d;\">Smartphone deal</span></p>" +
+                        Description = "<p><span style=\"color :#e03e2d;\">Smartphone deal</span></p>" +
                             "<p><span style=\"font-size: 36pt;\"><strong> Samsung Galaxy S9+</strong></span></p>" +
                             "<p>The Smart Power In Your Hand </p>",
                         LinkUrl = "#",
