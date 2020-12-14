@@ -16,6 +16,7 @@
 
     using Xunit;
 
+    [Collection("Sequential")]
     public class CountriesServiceTests
     {
         [Fact]
