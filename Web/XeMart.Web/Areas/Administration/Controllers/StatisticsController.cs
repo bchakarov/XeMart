@@ -7,7 +7,7 @@
 
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.EntityFrameworkCore;
     using XeMart.Data.Models;
     using XeMart.Web.ViewModels.Administration.Statistics;
 
@@ -29,10 +29,10 @@
         {
             var userRoles = new List<UserRolesViewModel>();
 
-            var users = this.userManager.Users;
+            var users = this.userManager.Users.Include(x => x.Roles).ToList();
             var totalUsersCount = users.Count();
 
-            var roles = this.roleManager.Roles;
+            var roles = this.roleManager.Roles.ToList();
             foreach (var role in roles)
             {
                 var usersInRoleCount = users.Where(x => x.Roles.Any(r => r.RoleId == role.Id)).Count();
