@@ -99,6 +99,8 @@
                 options.HeaderName = "X-CSRF-TOKEN";
             });
 
+            services.AddApplicationInsightsTelemetry();
+
             services.AddSingleton(this.configuration);
 
             // Data repositories
