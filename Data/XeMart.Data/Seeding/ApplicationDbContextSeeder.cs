@@ -30,6 +30,7 @@
                               new CategoriesSeeder(),
                               new SuppliersSeeder(),
                               new CountriesSeeder(),
+                              new HomePageSlidesSeeder(),
                           };
 
             foreach (var seeder in seeders)
