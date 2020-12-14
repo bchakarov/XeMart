@@ -23,8 +23,6 @@
         [Fact]
         public void GetCountShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IRepository<UserFavouriteProduct>>();
 
             var productsList = new List<UserFavouriteProduct>
@@ -45,8 +43,6 @@
         [Fact]
         public void GetCountShouldReturnEmptyCollectionWithNonExistingUserIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IRepository<UserFavouriteProduct>>();
 
             var productsList = new List<UserFavouriteProduct>
@@ -193,8 +189,6 @@
         [Fact]
         public async Task DeleteAsyncShouldReturnFalseWhenProductIdDoesNotExistUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var favouriteProductsRepository = new Mock<IRepository<UserFavouriteProduct>>();
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
@@ -228,8 +222,6 @@
         [Fact]
         public async Task DeleteAsyncShouldReturnFalseWhenUserIdDoesNotExistUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var favouriteProductsRepository = new Mock<IRepository<UserFavouriteProduct>>();
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
@@ -269,8 +261,6 @@
         [Fact]
         public async Task DeleteAsyncShouldReturnFalseWhenFavouriteProductIdDoesNotExistsUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var favouriteProductsRepository = new Mock<IRepository<UserFavouriteProduct>>();
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
@@ -314,8 +304,6 @@
         [Fact]
         public async Task DeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var favouriteProductsRepository = new Mock<IRepository<UserFavouriteProduct>>();
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
@@ -366,8 +354,6 @@
         [Fact]
         public async Task AddAsyncShouldReturnFalseWhenProductIdDoesNotExistUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var favouriteProductsRepository = new Mock<IRepository<UserFavouriteProduct>>();
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
@@ -393,8 +379,6 @@
         [Fact]
         public async Task AddAsyncShouldReturnFalseWhenUserIdDoesNotExistUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var favouriteProductsRepository = new Mock<IRepository<UserFavouriteProduct>>();
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
@@ -426,8 +410,6 @@
         [Fact]
         public async Task AddAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var favouriteProductsRepository = new Mock<IRepository<UserFavouriteProduct>>();
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
