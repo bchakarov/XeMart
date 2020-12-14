@@ -168,8 +168,6 @@
         [Fact]
         public void GetRequestsCountShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Partner>>();
 
             var manager = new ApplicationUser { Email = "TestEmail" };
@@ -241,8 +239,6 @@
         [Fact]
         public async Task DeleteAsyncShouldReturnFalseWithInvalidPartnerIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Partner>>();
 
             var manager = new ApplicationUser { Email = "TestEmail", Id = "TestManagerId" };
@@ -311,8 +307,6 @@
         [Fact]
         public async Task UndeleteAsyncShouldReturnFalseWithInvalidPartnerIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Partner>>();
 
             var manager = new ApplicationUser { Email = "TestEmail", Id = "TestManagerId" };
@@ -387,8 +381,6 @@
         [Fact]
         public async Task ApproveAsyncShouldReturnFalseWithInvalidPartnerIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Partner>>();
 
             var manager = new ApplicationUser { Email = "TestEmail", Id = "TestManagerId" };
@@ -469,8 +461,6 @@
         [Fact]
         public async Task UnapproveAsyncShouldReturnFalseWithInvalidPartnerIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Partner>>();
 
             var manager = new ApplicationUser { Email = "TestEmail", Id = "TestManagerId" };
