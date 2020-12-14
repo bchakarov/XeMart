@@ -14,7 +14,7 @@
     [IgnoreAntiforgeryToken]
     public class StripeWebHookController : BaseController
     {
-        public const string Secret = "whsec_aGJ8jtdUEnMcam2vywIOEDm4DtYk4VHg";
+        public const string Secret = "whsec_O25OoXme43CKDKZBaU0VCpN7Ybc1QseZ";
         private readonly IOrdersService ordersService;
 
         public StripeWebHookController(IOrdersService ordersService)
