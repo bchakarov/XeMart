@@ -85,10 +85,7 @@
 
             StripeConfiguration.ApiKey = this.configuration["Stripe:SecretKey"];
 
-            services.AddSignalR(o =>
-            {
-                o.EnableDetailedErrors = true;
-            });
+            services.AddSignalR();
 
             services.AddControllersWithViews(
                 options =>
