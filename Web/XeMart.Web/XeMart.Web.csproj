@@ -8,6 +8,7 @@
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+    <ApplicationInsightsResourceId>/subscriptions/b764277c-a7e9-4433-881a-bb4aae517e42/resourceGroups/XeMart/providers/microsoft.insights/components/XeMart</ApplicationInsightsResourceId>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
@@ -16,6 +17,7 @@
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.7.0" />
     <PackageReference Include="CloudinaryDotNet" Version="1.13.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
