@@ -22,8 +22,6 @@
         [Fact]
         public void GetRoomIdByOwnerIdShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<ChatRoom>>();
 
             var chatRoomsList = new List<ChatRoom>
@@ -44,8 +42,6 @@
         [Fact]
         public void GetRoomIdByOwnerIdShouldReturnNullWithInvalidOwnerIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<ChatRoom>>();
 
             var chatRoomsList = new List<ChatRoom>
