@@ -245,7 +245,7 @@
                 Email = "TestEmail3",
                 Message = "TestMessage3",
             };
-            await service.CreateAsync<ContactFormInputViewModel>(model, "TestIp3");
+            await service.CreateAsync(model, "TestIp3");
 
             Assert.Equal(3, messages.Count);
 
@@ -276,7 +276,7 @@
                 Email = "TestEmail3",
                 Message = "TestMessage3",
             };
-            await service.CreateAsync<ContactFormInputViewModel>(model, "TestIp3");
+            await service.CreateAsync(model, "TestIp3");
 
             Assert.Equal("TestSubject3", messages.Last().Subject);
             Assert.Equal("TestEmail3", messages.Last().Email);
@@ -291,8 +291,6 @@
         [Fact]
         public async Task SetIsReadAsyncShouldReturnFalseWithInvalidMessageIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<UserMessage>>();
 
             var messages = new List<UserMessage>
@@ -313,8 +311,6 @@
         [Fact]
         public async Task SetIsReadAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<UserMessage>>();
 
             var messages = new List<UserMessage>
@@ -340,8 +336,6 @@
         [Fact]
         public async Task DeleteAsyncShouldReturnFalseWithInvalidMessageIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<UserMessage>>();
 
             var messages = new List<UserMessage>
@@ -362,8 +356,6 @@
         [Fact]
         public async Task DeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<UserMessage>>();
 
             var messages = new List<UserMessage>
@@ -389,8 +381,6 @@
         [Fact]
         public async Task UndeleteAsyncShouldReturnFalseWithInvalidMessageIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<UserMessage>>();
 
             var messages = new List<UserMessage>
@@ -411,8 +401,6 @@
         [Fact]
         public async Task UndeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<UserMessage>>();
 
             var messages = new List<UserMessage>
