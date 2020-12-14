@@ -97,8 +97,13 @@
         public async Task<bool> MoveDownAsync(int id)
         {
             var slide = this.GetById(id);
+            if (slide == null)
+            {
+                return false;
+            }
+
             var foundSlide = this.GetByPosition(slide.Position + 1);
-            if (slide == null || foundSlide == null)
+            if (foundSlide == null)
             {
                 return false;
             }
