@@ -176,8 +176,6 @@
         [Fact]
         public async Task CreateAsyncShouldReturnFalseIfAddressAlreadyExistsUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var addressRepository = new Mock<IDeletableEntityRepository<Address>>();
             var cityRepository = new Mock<IRepository<City>>();
 
@@ -220,8 +218,6 @@
         [InlineData("TestStreet2", "TestDescription2", "TestUserId2")]
         public async Task CreateAsyncShouldWorkCorrectlyWithExistingCityUsingMoq(string streetName, string description, string userId)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var addressRepository = new Mock<IDeletableEntityRepository<Address>>();
             var cityRepository = new Mock<IRepository<City>>();
 
@@ -275,8 +271,6 @@
         [InlineData("Ruse2", "7001", 43)]
         public async Task CreateAsyncShouldWorkCorrectlyWithUnexistingCityUsingMoq(string cityName, string cityZIPCode, int countryId)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var addressRepository = new Mock<IDeletableEntityRepository<Address>>();
             var cityRepository = new Mock<IRepository<City>>();
 
