@@ -60,6 +60,8 @@
 
         public virtual DbSet<RoomMessage> RoomMessages { get; set; }
 
+        public virtual DbSet<HomePageSlide> HomePageSlides { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Administration.HomePageSlides.SlideViewModel>
+@{ ViewData["Title"] = "All Slides"; }
+
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead class="thead-light">
+                <tr class="row">
+                    <th scope="col" class="col-1 d-flex justify-content-center">#</th>
+                    <th scope="col" class="col-3 d-flex justify-content-center">Image</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">LinkUrl</th>
+                    <th scope="col" class="col-2 d-flex justify-content-center">Position</th>
+                    <th scope="col" class="col-4 d-flex justify-content-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr class="row">
+                        <td class="col-12 d-flex justify-content-center"><strong>No slides</strong></td>
+                    </tr>
+                }
+                @foreach (var slide in Model)
+                {
+                    <tr class="row">
+                        <td class="col-1 d-flex justify-content-center">
+                            @slide.Id
+                        </td>
+                        <td class="col-3 d-flex justify-content-center">
+                            <img src="@slide.ImageUrl" class="custom-image-box" />
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @slide.LinkUrl
+                        </td>
+                        <td class="col-2 d-flex justify-content-center">
+                            @slide.Position
+                        </td>
+                        <td class="col-md-4 d-flex justify-content-around">
+                            <div class="mr-2">
+                                <a asp-controller="HomePageSlides" asp-action="MoveUp" asp-route-id="@slide.Id" class="btn btn-primary btn-sm">Up</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="HomePageSlides" asp-action="MoveDown" asp-route-id="@slide.Id" class="btn btn-primary btn-sm">Down</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="HomePageSlides" asp-action="Edit" asp-route-id="@slide.Id" class="btn btn-success btn-sm">Edit</a>
+                            </div>
+                            <div class="mr-2">
+                                <a asp-controller="HomePageSlides" asp-action="Delete" asp-route-id="@slide.Id" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

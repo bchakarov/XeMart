@@ -1,0 +1,53 @@
+﻿@model XeMart.Web.ViewModels.Administration.HomePageSlides.EditSlideViewModel
+@{ ViewData["Title"] = "Edit Slide"; }
+
+<div class="shadow card">
+    <div class="card-header h3 text-center">@ViewData["Title"]</div>
+    <div class="card-body">
+        <form asp-area="Administration" asp-controller="HomePageSlides" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="row justify-content-center">
+                <img src="@Model.ImageUrl" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control edit-with-tinymce" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group  col-md-6">
+                    <label asp-for="LinkUrl" class="control-label"></label>
+                    <input asp-for="LinkUrl" class="form-control" />
+                    <span asp-validation-for="LinkUrl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Image" class="control-label"></label>
+                    <input asp-for="Image" class="form-control" />
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+            <input asp-for="Id" hidden />
+            <div class="form-group text-center">
+                <button type="submit" value="" class="btn btn-primary">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Styles{
+    <link href="~/lib/tinymce/themes/silver/theme.min.js" rel="stylesheet" asp-append-version="true" />
+}
+
+@section Scripts{
+    <script src="~/lib/tinymce/tinymce.min.js" asp-append-version="true"></script>
+    <script type="text/javascript">tinymce.init({
+        selector: "textarea.edit-with-tinymce",
+        relative_urls: false,
+        remove_script_host : false,
+        convert_urls : true,
+        plugins: [
+            "image paste table link code media fullscreen wordcount searchreplace lists"
+        ],
+        toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent"
+    });</script>
+}

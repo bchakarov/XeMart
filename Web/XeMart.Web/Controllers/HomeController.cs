@@ -9,6 +9,7 @@
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels;
     using XeMart.Web.ViewModels.Home;
+    using XeMart.Web.ViewModels.HomePageSlides;
     using XeMart.Web.ViewModels.Products;
 
     public class HomeController : BaseController
@@ -16,18 +17,21 @@
         private readonly IUserMessagesService userMessagesService;
         private readonly IOrdersService ordersService;
         private readonly IProductsService productsService;
+        private readonly IHomePageSlidesService homePageSlidesService;
         private readonly IStringService stringService;
 
         public HomeController(
             IUserMessagesService userMessagesService,
             IOrdersService ordersService,
             IProductsService productsService,
+            IHomePageSlidesService homePageSlidesService,
             IStringService stringService)
         {
 
             this.userMessagesService = userMessagesService;
             this.ordersService = ordersService;
             this.productsService = productsService;
+            this.homePageSlidesService = homePageSlidesService;
             this.stringService = stringService;
         }
 
@@ -36,6 +40,8 @@
             var mostBoughtProducts = this.ordersService.GetMostBoughtProducts<ProductSidebarViewModel>(10);
             var newestProducts = this.productsService.GetNewest<ProductViewModel>(10);
             var topRatedProducts = this.productsService.GetTopRated<ProductSidebarViewModel>(4);
+
+            var slides = this.homePageSlidesService.GetAll<SlideHomeViewModel>();
 
             foreach (var product in topRatedProducts)
             {
@@ -47,6 +53,7 @@
                 MostBoughtProducts = mostBoughtProducts,
                 NewestProducts = newestProducts,
                 TopRatedProducts = topRatedProducts,
+                Slides = slides,
             };
 
             return this.View(viewModel);
