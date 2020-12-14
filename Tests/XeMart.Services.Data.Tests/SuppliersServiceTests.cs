@@ -141,8 +141,6 @@
         [Fact]
         public void GetDeliveryPriceShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
@@ -182,7 +180,7 @@
                 PriceToHome = 35,
                 PriceToOffice = 40,
             };
-            await service.CreateAsync<CreateSupplierInputViewModel>(model);
+            await service.CreateAsync(model);
 
             Assert.Equal(2, suppliers.Count);
 
@@ -213,7 +211,7 @@
                 PriceToHome = 35,
                 PriceToOffice = 40,
             };
-            await service.CreateAsync<CreateSupplierInputViewModel>(model);
+            await service.CreateAsync(model);
 
             Assert.Equal("TestName2", suppliers.Last().Name);
             Assert.Equal(35, suppliers.Last().PriceToHome);
@@ -247,7 +245,7 @@
                 PriceToHome = 35,
                 PriceToOffice = 40,
             };
-            await service.CreateAsync<CreateSupplierInputViewModel>(model);
+            await service.CreateAsync(model);
 
             Assert.Equal("TestName2", suppliers.Last().Name);
             Assert.Equal(35, suppliers.Last().PriceToHome);
@@ -261,8 +259,6 @@
         [Fact]
         public async Task MakeDafaultAsyncShouldReturnFalseWithInvalidSupplierIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
@@ -282,8 +278,6 @@
         [Fact]
         public async Task MakeDafaultAsyncShouldWorkCorrectlyWhenThereIsNotAnyDefaultSupplierUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
@@ -312,8 +306,6 @@
         [Fact]
         public async Task MakeDafaultAsyncShouldWorkCorrectlyWhenThereIsADefaultSupplierUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
@@ -358,7 +350,7 @@
             var service = new SuppliersService(repository.Object);
 
             var model = new EditSupplierViewModel { Id = 2 };
-            Assert.False(await service.EditAsync<EditSupplierViewModel>(model));
+            Assert.False(await service.EditAsync(model));
 
             repository.Verify(x => x.AllAsNoTracking(), Times.Once);
         }
@@ -398,7 +390,7 @@
                 PriceToHome = priceToHome,
                 PriceToOffice = priceToOffice,
             };
-            Assert.True(await service.EditAsync<EditSupplierViewModel>(model));
+            Assert.True(await service.EditAsync(model));
             Assert.Equal(name, suppliers.FirstOrDefault(x => x.Id == model.Id).Name);
             Assert.Equal(priceToHome, suppliers.FirstOrDefault(x => x.Id == model.Id).PriceToHome);
             Assert.Equal(priceToOffice, suppliers.FirstOrDefault(x => x.Id == model.Id).PriceToOffice);
@@ -411,8 +403,6 @@
         [Fact]
         public async Task DeleteAsyncShouldReturnFalseWithInvalidSupplierIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
@@ -433,8 +423,6 @@
         [Fact]
         public async Task DeleteAsyncShouldReturnFalseWithDefaultSupplierUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
@@ -455,8 +443,6 @@
         [Fact]
         public async Task DeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
@@ -482,8 +468,6 @@
         [Fact]
         public async Task UndeleteAsyncShouldReturnFalseWithInvalidSupplierIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
@@ -504,8 +488,6 @@
         [Fact]
         public async Task UndeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Supplier>>();
 
             var suppliers = new List<Supplier>
