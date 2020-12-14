@@ -361,8 +361,6 @@
         [Fact]
         public void HasProductShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Product>>();
 
             var products = new List<Product>
@@ -488,8 +486,6 @@
         [Fact]
         public async Task DeleteAsyncShouldReturnFalseWithInvalidProductIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Product>>();
 
             var products = new List<Product>
@@ -511,8 +507,6 @@
         [Fact]
         public async Task DeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
             var productImagesRepository = new Mock<IDeletableEntityRepository<ProductImage>>();
 
@@ -571,8 +565,6 @@
         [Fact]
         public async Task UndeleteAsyncShouldReturnFalseWithInvalidProductIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<Product>>();
 
             var products = new List<Product>
@@ -594,8 +586,6 @@
         [Fact]
         public async Task UndeleteAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
             var products = new List<Product>
@@ -628,8 +618,6 @@
         [Fact]
         public async Task DeleteImageAsyncShouldReturnFalseWithInvalidImageIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<ProductImage>>();
 
             var images = new List<ProductImage>
@@ -651,8 +639,6 @@
         [Fact]
         public async Task DeleteImageAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IDeletableEntityRepository<ProductImage>>();
 
             var images = new List<ProductImage>
@@ -684,8 +670,6 @@
         [Fact]
         public async Task DeleteReviewAsyncShouldReturnFalseWithInvalidReviewIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IRepository<UserProductReview>>();
 
             var reviews = new List<UserProductReview>
@@ -707,8 +691,6 @@
         [Fact]
         public async Task DeleteReviewAsyncShouldWorkCorrectlyUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var repository = new Mock<IRepository<UserProductReview>>();
 
             var reviews = new List<UserProductReview>
@@ -1113,8 +1095,6 @@
         [Fact]
         public void GetProductsCountBySearchStringAndMainCategoryIdShouldWorkCorrectlyOnlyWithSearchStringUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
             var products = new List<Product>
@@ -1135,8 +1115,6 @@
         [Fact]
         public void GetProductsCountBySearchStringAndMainCategoryIdShouldWorkCorrectlyWithSearchStringAndMainCategoryIdUsingMoq()
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
-
             var productsRepository = new Mock<IDeletableEntityRepository<Product>>();
 
             var subcategory = new Subcategory { Id = 1, MainCategoryId = 1 };
