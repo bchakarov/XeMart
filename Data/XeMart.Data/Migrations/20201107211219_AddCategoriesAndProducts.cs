@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddCategoriesAndProducts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +20,7 @@ namespace XeMart.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     FontAwesomeIcon = table.Column<string>(nullable: true),
-                    ImageUrl = table.Column<string>(nullable: true)
+                    ImageUrl = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -38,7 +39,7 @@ namespace XeMart.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    MainCategoryId = table.Column<int>(nullable: false)
+                    MainCategoryId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -63,7 +64,7 @@ namespace XeMart.Data.Migrations
                     Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
-                    SubcategoryId = table.Column<int>(nullable: false)
+                    SubcategoryId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {

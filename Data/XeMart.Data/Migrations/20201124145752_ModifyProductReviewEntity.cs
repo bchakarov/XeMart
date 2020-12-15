@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ModifyProductReviewEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +23,7 @@ namespace XeMart.Data.Migrations
                     Rating = table.Column<byte>(nullable: false),
                     Content = table.Column<string>(nullable: false),
                     ProductId = table.Column<string>(nullable: false),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -73,7 +74,7 @@ namespace XeMart.Data.Migrations
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false)
+                    Rating = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {

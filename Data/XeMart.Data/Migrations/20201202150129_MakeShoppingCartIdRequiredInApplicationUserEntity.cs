@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class MakeShoppingCartIdRequiredInApplicationUserEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

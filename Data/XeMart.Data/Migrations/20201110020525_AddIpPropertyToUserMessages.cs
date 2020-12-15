@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddIpPropertyToUserMessages : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -10,7 +10,7 @@ namespace XeMart.Data.Migrations
                 name: "IP",
                 table: "UserMessages",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: string.Empty);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddUserMessages : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +20,7 @@ namespace XeMart.Data.Migrations
                     Subject = table.Column<string>(maxLength: 50, nullable: false),
                     Email = table.Column<string>(nullable: false),
                     Message = table.Column<string>(maxLength: 2000, nullable: false),
-                    IsRead = table.Column<bool>(nullable: false)
+                    IsRead = table.Column<bool>(nullable: false),
                 },
                 constraints: table =>
                 {

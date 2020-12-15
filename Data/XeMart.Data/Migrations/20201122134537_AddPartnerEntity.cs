@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddPartnerEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -27,7 +28,7 @@ namespace XeMart.Data.Migrations
                     ManagerId = table.Column<string>(nullable: false),
                     IsApproved = table.Column<bool>(nullable: false),
                     ApprovedOn = table.Column<DateTime>(nullable: true),
-                    LogoUrl = table.Column<string>(nullable: true)
+                    LogoUrl = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

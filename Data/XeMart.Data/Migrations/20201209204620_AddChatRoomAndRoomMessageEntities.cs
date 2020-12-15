@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddChatRoomAndRoomMessageEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +22,7 @@ namespace XeMart.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    OwnerId = table.Column<string>(nullable: false)
+                    OwnerId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -44,7 +45,7 @@ namespace XeMart.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     RoomId = table.Column<string>(nullable: false),
                     Message = table.Column<string>(nullable: false),
-                    SenderId = table.Column<string>(nullable: false)
+                    SenderId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {

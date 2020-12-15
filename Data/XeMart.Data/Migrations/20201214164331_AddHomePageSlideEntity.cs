@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddHomePageSlideEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +19,7 @@ namespace XeMart.Data.Migrations
                     ImageUrl = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     LinkUrl = table.Column<string>(nullable: false),
-                    Position = table.Column<int>(nullable: false)
+                    Position = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {

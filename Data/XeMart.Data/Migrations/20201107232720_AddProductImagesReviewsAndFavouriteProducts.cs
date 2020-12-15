@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddProductImagesReviewsAndFavouriteProducts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +18,7 @@ namespace XeMart.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: false),
-                    ProductId = table.Column<string>(nullable: false)
+                    ProductId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -41,7 +42,7 @@ namespace XeMart.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Rating = table.Column<int>(nullable: false),
                     Content = table.Column<string>(nullable: true),
-                    ProductId = table.Column<string>(nullable: false)
+                    ProductId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -64,7 +65,7 @@ namespace XeMart.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     UserId = table.Column<string>(nullable: true),
-                    ProductId = table.Column<string>(nullable: true)
+                    ProductId = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

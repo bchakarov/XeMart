@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddOrdersAddressesAndCityEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +18,7 @@ namespace XeMart.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     ZIPCode = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: false)
+                    Country = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -36,7 +37,7 @@ namespace XeMart.Data.Migrations
                     Street = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     CityId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
                 },
                 constraints: table =>
                 {
@@ -68,7 +69,7 @@ namespace XeMart.Data.Migrations
                     AddressId = table.Column<string>(nullable: false),
                     PaymentStatus = table.Column<int>(nullable: false),
                     IsDelivered = table.Column<bool>(nullable: false),
-                    DeliveredOn = table.Column<DateTime>(nullable: true)
+                    DeliveredOn = table.Column<DateTime>(nullable: true),
                 },
                 constraints: table =>
                 {
@@ -98,7 +99,7 @@ namespace XeMart.Data.Migrations
                     OrderId = table.Column<string>(nullable: false),
                     ProductId = table.Column<string>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false)
+                    Price = table.Column<decimal>(nullable: false),
                 },
                 constraints: table =>
                 {

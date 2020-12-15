@@ -5,6 +5,7 @@
 
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
+
     using XeMart.Services;
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels;
@@ -27,7 +28,6 @@
             IHomePageSlidesService homePageSlidesService,
             IStringService stringService)
         {
-
             this.userMessagesService = userMessagesService;
             this.ordersService = ordersService;
             this.productsService = productsService;

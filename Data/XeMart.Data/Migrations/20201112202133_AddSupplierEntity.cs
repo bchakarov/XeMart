@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace XeMart.Data.Migrations
+﻿namespace XeMart.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddSupplierEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +21,7 @@ namespace XeMart.Data.Migrations
                     Name = table.Column<string>(nullable: false),
                     PriceToHome = table.Column<decimal>(nullable: false),
                     PriceToOffice = table.Column<decimal>(nullable: false),
-                    IsDefault = table.Column<bool>(nullable: false)
+                    IsDefault = table.Column<bool>(nullable: false),
                 },
                 constraints: table =>
                 {
