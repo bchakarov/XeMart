@@ -17,7 +17,7 @@
             this.userMessagesService = userMessagesService;
         }
 
-        public IActionResult Index(string id)
+        public async Task<IActionResult> Index(string id)
         {
             var userMessages = this.userMessagesService.GetAll<UserMessageViewModel>().ToList();
             if (userMessages.Count == 0)
@@ -31,7 +31,7 @@
                 currentUserMessage = userMessages.FirstOrDefault();
             }
 
-            this.userMessagesService.SetIsReadAsync(id, true);
+            await this.userMessagesService.SetIsReadAsync(id, true);
 
             var viewModel = new IndexUserMessageViewModel<UserMessageViewModel>
             {
@@ -42,7 +42,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult Deleted(string id)
+        public async Task<IActionResult> Deleted(string id)
         {
             var userMessages = this.userMessagesService.GetAllDeleted<DeletedUserMessagesViewModel>().ToList();
             if (userMessages.Count == 0)
@@ -56,7 +56,7 @@
                 currentUserMessage = userMessages.FirstOrDefault();
             }
 
-            this.userMessagesService.SetIsReadAsync(id, true);
+            await this.userMessagesService.SetIsReadAsync(id, true);
 
             var viewModel = new IndexUserMessageViewModel<DeletedUserMessagesViewModel>
             {
