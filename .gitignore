@@ -362,7 +362,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Appsettings
-/Web/XeMart.Web/appsettings.json
 /Web/XeMart.Web/appsettings.Production.json
 
 # Libman
