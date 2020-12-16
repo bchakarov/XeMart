@@ -262,7 +262,13 @@
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
-            var repository = new Mock<IDeletableEntityRepository<ChatRoom>>();
+            var chatRoomsRepository = new Mock<IDeletableEntityRepository<ChatRoom>>();
+
+            var roomMessagesRepositoy = new Mock<IRepository<RoomMessage>>();
+
+            var roomMessages = new List<RoomMessage>
+            {
+            };
 
             var chatRoomsList = new List<ChatRoom>
             {
@@ -271,21 +277,34 @@
                 new ChatRoom { Id = "TestId3", CreatedOn = DateTime.UtcNow, OwnerId = "TestOwnerId3", Messages = new List<RoomMessage>() },
             };
 
-            repository.Setup(r => r.All()).Returns(chatRoomsList.AsQueryable());
-            repository.Setup(r => r.SaveChangesAsync()).Verifiable();
+            chatRoomsRepository.Setup(r => r.All()).Returns(chatRoomsList.AsQueryable());
+            chatRoomsRepository.Setup(r => r.Update(It.IsAny<ChatRoom>())).Callback((ChatRoom room) =>
+            {
+                var newMessage = room.Messages.FirstOrDefault();
+                newMessage.Sender = new ApplicationUser { UserName = "TestSenderName" };
+                newMessage.CreatedOn = new DateTime(2020, 12, 31, 12, 12, 12);
+                newMessage.Id = 0;
+                newMessage.Room = chatRoomsList.LastOrDefault();
+                roomMessages.Add(newMessage);
 
-            var service = new ChatService(repository.Object, null);
+            });
+            chatRoomsRepository.Setup(r => r.SaveChangesAsync()).Verifiable();
+
+            roomMessagesRepositoy.Setup(r => r.AllAsNoTracking()).Returns(roomMessages.AsQueryable());
+
+            var service = new ChatService(chatRoomsRepository.Object, roomMessagesRepositoy.Object);
             var returnResult = await service.AddMessageAsync<MessageViewModel>("TestId3", "TestMessage", "TestSenderId");
-            Assert.Equal("01-Jan-0001 00:00", returnResult.CreatedOn);
+            Assert.Equal("31-Dec-2020 12:12", returnResult.CreatedOn);
             Assert.Equal("TestMessage", returnResult.Message);
-            Assert.Null(returnResult.SenderUsername);
+            Assert.Equal("TestSenderName", returnResult.SenderUsername);
             Assert.False(returnResult.IsByRoomOwner);
             Assert.Equal(1, chatRoomsList.ElementAt(2).Messages.Count);
+            Assert.Single(roomMessages);
             Assert.Equal("TestMessage", chatRoomsList.ElementAt(2).Messages.Last().Message);
             Assert.Equal("TestSenderId", chatRoomsList.ElementAt(2).Messages.Last().SenderId);
 
-            repository.Verify(x => x.All(), Times.Once);
-            repository.Verify(x => x.SaveChangesAsync());
+            chatRoomsRepository.Verify(x => x.All(), Times.Once);
+            chatRoomsRepository.Verify(x => x.SaveChangesAsync());
         }
     }
 }

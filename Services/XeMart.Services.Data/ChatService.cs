@@ -50,8 +50,9 @@
             };
 
             room.Messages.Add(roomMessage);
+            this.chatRoomsRepository.Update(room);
             await this.chatRoomsRepository.SaveChangesAsync();
-            return AutoMapperConfig.MapperInstance.Map<T>(roomMessage);
+            return this.GetMessageById<T>(roomMessage.Id);
         }
 
         public IEnumerable<T> GetAllRooms<T>() =>
@@ -74,6 +75,11 @@
         private T GetRoomById<T>(string roomId) =>
             this.chatRoomsRepository.AllAsNoTracking()
             .Where(x => x.Id == roomId)
+            .To<T>().FirstOrDefault();
+
+        private T GetMessageById<T>(int messageId) =>
+            this.roomMessagesRepository.AllAsNoTracking()
+            .Where(x => x.Id == messageId)
             .To<T>().FirstOrDefault();
     }
 }
