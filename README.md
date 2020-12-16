@@ -1,5 +1,9 @@
 # XeMart
 
+## Build Status
+
+[![Build Status](https://dev.azure.com/XeMart/XeMart/_apis/build/status/bchakarov.XeMart?branchName=main)](https://dev.azure.com/XeMart/XeMart/_build/latest?definitionId=1&branchName=main)
+
 ## :bulb: Project Introduction
 
 **XeMart** is my defense project for the [ASP.NET Core](https://softuni.bg/trainings/3177/asp-dot-net-core-october-2020) course at [SoftUni](https://softuni.bg). It is a ready-to-use ASP.NET Core application.  
