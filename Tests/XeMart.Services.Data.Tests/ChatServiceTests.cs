@@ -286,7 +286,6 @@
                 newMessage.Id = 0;
                 newMessage.Room = chatRoomsList.LastOrDefault();
                 roomMessages.Add(newMessage);
-
             });
             chatRoomsRepository.Setup(r => r.SaveChangesAsync()).Verifiable();
 

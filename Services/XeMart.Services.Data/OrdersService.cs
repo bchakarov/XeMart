@@ -13,7 +13,6 @@
     using XeMart.Services.Mapping;
     using XeMart.Services.Messaging;
     using XeMart.Web.ViewModels.Orders;
-    using XeMart.Web.ViewModels.Products;
     using XeMart.Web.ViewModels.ShoppingCart;
 
     public class OrdersService : IOrdersService
@@ -224,7 +223,6 @@
 
         public async Task FulfillOrderById(string orderId, string stripeId)
         {
-            // TODO: send email
             var order = this.GetOrderById(orderId);
 
             order.PaymentStatus = PaymentStatus.Paid;
