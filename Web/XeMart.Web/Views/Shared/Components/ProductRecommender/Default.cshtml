@@ -1,0 +1,40 @@
+﻿@model IEnumerable<XeMart.Web.ViewModels.Products.ProductSidebarViewModel>
+
+@if (Model.Count() > 0)
+{
+    <div class="col-md-12">
+        <div class="sim-pro">
+            <div class="sec-title">
+                <h5>Bought Together</h5>
+            </div>
+            <div class="sim-slider owl-carousel">
+                @foreach (var product in Model)
+                {
+                    <div class="sim-item">
+                        <div class="sim-img">
+                            <a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id"><img class="main-img img-fluid" src="@product.ImageUrl" /></a>
+                            <div class="layer-box">                            
+                                <a asp-area="" asp-controller="Favourites" asp-action="Add" asp-route-id="@product.Id" class="it-fav" data-toggle="tooltip" data-placement="left" title="Favourite"><i class="fas fa-heart mr-0 pt-1"></i></a>
+                            </div>
+                        </div>
+                        <div class="sim-heading">
+                            <p><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@product.Id">@product.Name</a></p>
+                        </div>
+                        <div class="img-content d-flex justify-content-between">
+                            <div>
+                                <partial name="_ProductRatingPartial" model="new XeMart.Web.ViewModels.Products.ProductRatingViewModel { AverageRating = product.AverageRating, ShowAverageRating = false }" />
+                                <ul class="list-unstyled list-inline price">
+                                    <li class="list-inline-item">$@product.Price</li>
+                                    <li class="list-inline-item"></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <a asp-area="" asp-controller="ShoppingCart" asp-action="Add" asp-route-productId="@product.Id" data-toggle="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

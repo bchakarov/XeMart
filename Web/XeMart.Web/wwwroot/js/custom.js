@@ -363,7 +363,7 @@ $(document).ready(function(){
 		autoplay:false,
     	autoplayHoverPause:true,
     	smartSpeed:500,
-		loop: true,
+		loop: false,
 		responsiveClass: true,
 		items : 4,
 		nav : true,

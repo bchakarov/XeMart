@@ -19,6 +19,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.ML;
 
     using Stripe;
 
@@ -36,16 +37,19 @@
     using XeMart.Services.Messaging;
     using XeMart.Web.Hubs;
     using XeMart.Web.ViewModels;
+    using XeMart.Web.ViewModels.Recommender;
 
     using Account = CloudinaryDotNet.Account;
 
     public class Startup
     {
         private readonly IConfiguration configuration;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             this.configuration = configuration;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -69,6 +73,9 @@
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddPredictionEnginePool<ProductInfo, ProductPrediction>()
+                .FromFile($"{this.webHostEnvironment.WebRootPath}\\Recommender\\model.zip", true);
 
             services.Configure<CookiePolicyOptions>(
                 options =>
