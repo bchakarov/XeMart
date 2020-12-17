@@ -40,9 +40,14 @@ They can also approve partner requests and edit the home page carousel slideshow
 * [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/)
 * [Stripe](https://stripe.com/docs)
 * [SignalR](https://docs.microsoft.com/en-us/aspnet/signalr/overview/getting-started/introduction-to-signalr)
-
+* [CsvHelper](https://joshclose.github.io/CsvHelper/getting-started)
+* [ML.NET](https://dotnet.microsoft.com/apps/machinelearning-ai/ml-dotnet)
+* [Hangfire](https://www.hangfire.io/)
 
 ## Preview:
+
+### Database Diagram
+![DatabaseDiagram](https://i.imgur.com/aw0scJt.png)
 
 ### Home Page
 ![HomePage](https://i.imgur.com/hAqRTjU.png)
