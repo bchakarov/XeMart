@@ -7,6 +7,10 @@
 
     using CloudinaryDotNet;
 
+    using Hangfire;
+    using Hangfire.Dashboard;
+    using Hangfire.SqlServer;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -18,6 +22,7 @@
 
     using Stripe;
 
+    using XeMart.Common;
     using XeMart.Data;
     using XeMart.Data.Common;
     using XeMart.Data.Common.Repositories;
@@ -25,6 +30,7 @@
     using XeMart.Data.Repositories;
     using XeMart.Data.Seeding;
     using XeMart.Services;
+    using XeMart.Services.CronJobs;
     using XeMart.Services.Data;
     using XeMart.Services.Mapping;
     using XeMart.Services.Messaging;
@@ -45,6 +51,19 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(this.configuration.GetConnectionString("DefaultConnection"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true,
+                }));
+
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
@@ -132,7 +151,7 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IRecurringJobManager recurringJobManager)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -142,6 +161,8 @@
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+
+                recurringJobManager.AddOrUpdate<UpdateRecommenderModelJob>("Update Recommender", x => x.Work(env.WebRootPath), Cron.Hourly);
             }
 
             if (env.IsDevelopment())
@@ -166,6 +187,14 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
+            if (env.IsProduction())
+            {
+                app.UseHangfireServer();
+                app.UseHangfireDashboard(
+                    "/Administration/Hangfire",
+                    new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } });
+            }
+
             app.UseSession();
 
             app.UseEndpoints(
@@ -176,6 +205,15 @@
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });
+        }
+
+        private class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
+        {
+            public bool Authorize(DashboardContext context)
+            {
+                var httpContext = context.GetHttpContext();
+                return httpContext.User.IsInRole(GlobalConstants.AdministratorRoleName);
+            }
         }
     }
 }

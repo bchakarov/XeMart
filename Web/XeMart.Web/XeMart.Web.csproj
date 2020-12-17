@@ -17,6 +17,9 @@
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="12.7.0" />
     <PackageReference Include="CloudinaryDotNet" Version="1.13.2" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.7.18" />
+    <PackageReference Include="Hangfire.Core" Version="1.7.18" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.18" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
@@ -38,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\XeMart.Services.CronJobs\XeMart.Services.CronJobs.csproj" />
     <ProjectReference Include="..\..\XeMart.Common\XeMart.Common.csproj" />
     <ProjectReference Include="..\..\Data\XeMart.Data.Models\XeMart.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\XeMart.Data\XeMart.Data.csproj" />
