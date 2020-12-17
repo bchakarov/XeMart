@@ -6,14 +6,13 @@
     using System.Linq;
 
     using CsvHelper;
-    using CsvHelper.Configuration;
 
     using Microsoft.ML;
-    using Microsoft.ML.Data;
     using Microsoft.ML.Trainers;
 
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
+    using XeMart.Web.ViewModels.Recommender;
 
     public class UpdateRecommenderModelJob
     {
@@ -96,39 +95,6 @@
 
             // Save the trained model
             context.Model.Save(model, trainData.Schema, modelPath);
-        }
-
-        public class ProductInfoCsv
-        {
-            public string ProductId { get; set; }
-
-            public string CopurchasedProductId { get; set; }
-        }
-
-        public class ProductInfoCsvMap : ClassMap<ProductInfoCsv>
-        {
-            public ProductInfoCsvMap()
-            {
-                this.Map(m => m.ProductId).Index(0).Name("productId");
-                this.Map(m => m.CopurchasedProductId).Index(1).Name("copurchasedProductId");
-            }
-        }
-
-        public class ProductInfo
-        {
-            [LoadColumn(0)]
-            public string ProductId { get; set; }
-
-            [LoadColumn(1)]
-            public string CopurchasedProductId { get; set; }
-
-            [LoadColumn(2)]
-            public float Label { get; set; }
-        }
-
-        public class ProductPrediction
-        {
-            public float Score { get; set; }
         }
     }
 }

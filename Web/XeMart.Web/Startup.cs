@@ -162,7 +162,7 @@
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
 
-                recurringJobManager.AddOrUpdate<UpdateRecommenderModelJob>("Update Recommender", x => x.Work(env.WebRootPath), Cron.Hourly);
+                recurringJobManager.AddOrUpdate<UpdateRecommenderModelJob>("Update Recommender", x => x.Work(env.WebRootPath), Cron.Daily);
             }
 
             if (env.IsDevelopment())
