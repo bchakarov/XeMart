@@ -23,6 +23,9 @@ the live chat (built with **SignalR**). Furthermore, users can make **partner re
 The **admin area** has a dashboard with user statistics, user messages menu and a live chat box with all of the different chat rooms. Admins can edit the orders, suppliers, categories and products.
 They can also approve partner requests and edit the home page carousel slideshow (the images are uploaded to **azure blob storage**).
 
+The app also has a product recommender built with **ML.NET**. The model's training data is taken from the OrderProducts table and consists of ProductId and CopurchasedProductId.
+The data and the model are updated daily by a **Hangfire** job and the new model is loaded in the prediction engine pool.
+
 ## :hammer: Used technologies
 * [ASP.NET CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 * [Entity Framework CORE 3.1](https://docs.microsoft.com/en-us/ef/core/)
