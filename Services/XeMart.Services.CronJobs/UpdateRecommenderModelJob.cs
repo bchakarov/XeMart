@@ -31,10 +31,10 @@
                 .ToList();
 
             var mainProductWithCopurchasedProducts = new List<ProductInfoCsv>();
-            foreach (var item in groupedOrders.Where(x => x.Count > 1))
+            foreach (var orderProducts in groupedOrders.Where(x => x.Count > 1).Select(x => x.OrderByDescending(p => p.Price)))
             {
-                var mainProductId = item.FirstOrDefault().ProductId;
-                var copurchasedProductsIds = item.Skip(1).Select(x => x.ProductId).ToList();
+                var mainProductId = orderProducts.FirstOrDefault().ProductId;
+                var copurchasedProductsIds = orderProducts.Skip(1).Select(x => x.ProductId).ToList();
                 foreach (var copurchasedProductId in copurchasedProductsIds)
                 {
                     mainProductWithCopurchasedProducts.Add(new ProductInfoCsv { ProductId = mainProductId, CopurchasedProductId = copurchasedProductId });
