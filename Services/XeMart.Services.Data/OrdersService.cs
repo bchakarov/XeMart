@@ -62,7 +62,7 @@
                 return null;
             }
 
-            var shoppingCartProducts = await this.shoppingCartService.GetAllProducts<ShoppingCartProductViewModel>(true, null, userId);
+            var shoppingCartProducts = await this.shoppingCartService.GetAllProductsAsync<ShoppingCartProductViewModel>(true, null, userId);
             if (shoppingCartProducts == null || shoppingCartProducts.Count() == 0)
             {
                 return null;

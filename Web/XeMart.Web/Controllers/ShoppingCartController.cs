@@ -34,7 +34,7 @@
 
         public async Task<IActionResult> Index()
         {
-            var shoppingCartProducts = await this.shoppingCartService.GetAllProducts<ShoppingCartProductViewModel>(this.isUserAuthenticated, this.session, this.userId);
+            var shoppingCartProducts = await this.shoppingCartService.GetAllProductsAsync<ShoppingCartProductViewModel>(this.isUserAuthenticated, this.session, this.userId);
             if (shoppingCartProducts == null || !shoppingCartProducts.Any())
             {
                 return this.RedirectToAction("Index", "Home");

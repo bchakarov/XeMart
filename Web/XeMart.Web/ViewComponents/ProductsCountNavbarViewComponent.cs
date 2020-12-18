@@ -25,7 +25,7 @@
         {
             var userId = this.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var favouritesCount = this.favouritesService.GetCount(userId);
-            var shoppingCartProductsCount = await this.shoppingCartService.GetProductsCount(this.User.Identity.IsAuthenticated, this.HttpContext.Session, userId);
+            var shoppingCartProductsCount = await this.shoppingCartService.GetProductsCountAsync(this.User.Identity.IsAuthenticated, this.HttpContext.Session, userId);
 
             var viewModel = new FavouritesAndShoppingCartNavbarViewModel
             {

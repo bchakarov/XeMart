@@ -1529,7 +1529,7 @@
             };
 
             repository.Setup(r => r.All()).Returns(orders.AsQueryable());
-            shoppingCartService.Setup(r => r.GetAllProducts<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>())).Returns((bool isAuthenticated, ISession session, string userId) =>
+            shoppingCartService.Setup(r => r.GetAllProductsAsync<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>())).Returns((bool isAuthenticated, ISession session, string userId) =>
             {
                 return Task.FromResult<IEnumerable<ShoppingCartProductViewModel>>(null);
             });
@@ -1538,7 +1538,7 @@
             Assert.Null(await service.CompleteOrderAsync("TestUserId1"));
 
             repository.Verify(x => x.All(), Times.Once);
-            shoppingCartService.Verify(x => x.GetAllProducts<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>()), Times.Once);
+            shoppingCartService.Verify(x => x.GetAllProductsAsync<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
@@ -1555,7 +1555,7 @@
             };
 
             repository.Setup(r => r.All()).Returns(orders.AsQueryable());
-            shoppingCartService.Setup(r => r.GetAllProducts<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>())).Returns((bool isAuthenticated, ISession session, string userId) =>
+            shoppingCartService.Setup(r => r.GetAllProductsAsync<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>())).Returns((bool isAuthenticated, ISession session, string userId) =>
             {
                 return Task.FromResult<IEnumerable<ShoppingCartProductViewModel>>(new List<ShoppingCartProductViewModel>());
             });
@@ -1564,7 +1564,7 @@
             Assert.Null(await service.CompleteOrderAsync("TestUserId1"));
 
             repository.Verify(x => x.All(), Times.Once);
-            shoppingCartService.Verify(x => x.GetAllProducts<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>()), Times.Once);
+            shoppingCartService.Verify(x => x.GetAllProductsAsync<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
@@ -1597,7 +1597,7 @@
             });
             repository.Setup(r => r.SaveChangesAsync()).Verifiable();
 
-            shoppingCartService.Setup(r => r.GetAllProducts<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>())).Returns((bool isAuthenticated, ISession session, string userId) =>
+            shoppingCartService.Setup(r => r.GetAllProductsAsync<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>())).Returns((bool isAuthenticated, ISession session, string userId) =>
             {
                 return Task.FromResult<IEnumerable<ShoppingCartProductViewModel>>(new List<ShoppingCartProductViewModel>
                 {
@@ -1617,7 +1617,7 @@
             repository.Verify(x => x.Update(It.IsAny<Order>()), Times.Once);
             repository.Verify(x => x.SaveChangesAsync());
 
-            shoppingCartService.Verify(x => x.GetAllProducts<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>()), Times.Once);
+            shoppingCartService.Verify(x => x.GetAllProductsAsync<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
@@ -1666,7 +1666,7 @@
             });
             repository.Setup(r => r.SaveChangesAsync()).Verifiable();
 
-            shoppingCartService.Setup(r => r.GetAllProducts<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>())).Returns((bool isAuthenticated, ISession session, string userId) =>
+            shoppingCartService.Setup(r => r.GetAllProductsAsync<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>())).Returns((bool isAuthenticated, ISession session, string userId) =>
             {
                 return Task.FromResult<IEnumerable<ShoppingCartProductViewModel>>(shoppingCartProducts);
             });
@@ -1691,7 +1691,7 @@
             repository.Verify(x => x.Update(It.IsAny<Order>()), Times.Once);
             repository.Verify(x => x.SaveChangesAsync());
 
-            shoppingCartService.Verify(x => x.GetAllProducts<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>()), Times.Once);
+            shoppingCartService.Verify(x => x.GetAllProductsAsync<ShoppingCartProductViewModel>(It.IsAny<bool>(), It.IsAny<ISession>(), It.IsAny<string>()), Times.Once);
             shoppingCartService.Verify(x => x.DeleteAllProductsAsync(It.IsAny<string>()), Times.Once);
 
             viewRenderService.Verify(x => x.RenderToStringAsync(It.IsAny<string>(), It.IsAny<object>()));

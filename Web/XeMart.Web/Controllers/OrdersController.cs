@@ -49,7 +49,7 @@
 
         public async Task<IActionResult> Create()
         {
-            var hasProducts = await this.shoppingCartService.AnyProducts(this.userId);
+            var hasProducts = await this.shoppingCartService.AnyProductsAsync(this.userId);
             if (!hasProducts)
             {
                 this.TempData["Error"] = ShoppingCartIsEmptyMessage;
@@ -88,7 +88,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                var hasProducts = await this.shoppingCartService.AnyProducts(this.userId);
+                var hasProducts = await this.shoppingCartService.AnyProductsAsync(this.userId);
                 if (!hasProducts)
                 {
                     this.TempData["Error"] = ShoppingCartIsEmptyMessage;
@@ -123,7 +123,7 @@
 
         public async Task<IActionResult> Complete()
         {
-            var hasProducts = await this.shoppingCartService.AnyProducts(this.userId);
+            var hasProducts = await this.shoppingCartService.AnyProductsAsync(this.userId);
             if (!hasProducts)
             {
                 this.TempData["Error"] = ShoppingCartIsEmptyMessage;

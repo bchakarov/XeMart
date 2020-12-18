@@ -180,7 +180,7 @@
 
             var service = new ShoppingCartService(shoppingCartRepository.Object, userManager.Object, productsService.Object);
 
-            var result = await service.GetAllProducts<ShoppingCartProductViewModel>(true, null, "TestUserId1");
+            var result = await service.GetAllProductsAsync<ShoppingCartProductViewModel>(true, null, "TestUserId1");
             Assert.Equal(2, result.Count());
 
             shoppingCartRepository.Verify(x => x.AllAsNoTracking(), Times.Once);
@@ -233,7 +233,7 @@
 
             var service = new ShoppingCartService(shoppingCartRepository.Object, userManager.Object, productsService.Object);
 
-            var result = await service.GetAllProducts<ShoppingCartProductViewModel>(true, null, "TestUserId1");
+            var result = await service.GetAllProductsAsync<ShoppingCartProductViewModel>(true, null, "TestUserId1");
             Assert.Equal("TestProductId1", result.FirstOrDefault().ProductId);
             Assert.Equal("TestProductName1", result.FirstOrDefault().ProductName);
             Assert.Equal(42, result.FirstOrDefault().ProductPrice);
@@ -280,7 +280,7 @@
 
             var service = new ShoppingCartService(shoppingCartRepository.Object, userManager.Object, productsService.Object);
 
-            Assert.Equal(2, await service.GetProductsCount(true, null, "TestUserId1"));
+            Assert.Equal(2, await service.GetProductsCountAsync(true, null, "TestUserId1"));
 
             shoppingCartRepository.Verify(x => x.AllAsNoTracking(), Times.Once);
 
@@ -321,8 +321,8 @@
 
             var service = new ShoppingCartService(shoppingCartRepository.Object, userManager.Object, productsService.Object);
 
-            Assert.True(await service.AnyProducts("TestUserId1"));
-            Assert.False(await service.AnyProducts("TestUserId2"));
+            Assert.True(await service.AnyProductsAsync("TestUserId1"));
+            Assert.False(await service.AnyProductsAsync("TestUserId2"));
 
             shoppingCartRepository.Verify(x => x.AllAsNoTracking(), Times.Exactly(2));
 

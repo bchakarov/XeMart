@@ -97,7 +97,7 @@
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllProducts<T>(bool isUserAuthenticated, ISession session, string userId)
+        public async Task<IEnumerable<T>> GetAllProductsAsync<T>(bool isUserAuthenticated, ISession session, string userId)
         {
             if (isUserAuthenticated)
             {
@@ -115,7 +115,7 @@
             }
         }
 
-        public async Task<int> GetProductsCount(bool isUserAuthenticated, ISession session, string userId)
+        public async Task<int> GetProductsCountAsync(bool isUserAuthenticated, ISession session, string userId)
         {
             if (isUserAuthenticated)
             {
@@ -132,7 +132,7 @@
             }
         }
 
-        public async Task<bool> AnyProducts(string userId)
+        public async Task<bool> AnyProductsAsync(string userId)
         {
             var user = await this.userManager.FindByIdAsync(userId);
             var shoppingCartId = user.ShoppingCartId;

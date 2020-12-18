@@ -26,7 +26,7 @@
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var userId = this.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var products = await this.shoppingCartService.GetAllProducts<ShoppingCartProductViewModel>(this.User.Identity.IsAuthenticated, this.HttpContext.Session, userId);
+            var products = await this.shoppingCartService.GetAllProductsAsync<ShoppingCartProductViewModel>(this.User.Identity.IsAuthenticated, this.HttpContext.Session, userId);
 
             if (products != null)
             {
