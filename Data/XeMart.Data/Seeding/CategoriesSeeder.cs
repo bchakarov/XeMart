@@ -17,7 +17,6 @@
                 {
                     ("TV & Video", "fas fa-tv"),
                     ("PCs, Laptops & Gaming", "fas fa-laptop"),
-                    ("Phones & Tables", "fas fa-mobile-alt"),
                 };
 
                 foreach (var (name, icon) in mainCategories)
@@ -27,20 +26,15 @@
 
                 var subcategories = new List<(string, string, string)>
                 {
-                    ("TVs", "/images/subcategories/8854895951902.jpg", mainCategories.ElementAt(0).Item1),
-                    ("Soundbars", "/images/subcategories/8854896214046.jpg", mainCategories.ElementAt(0).Item1),
-                    ("Home Theaters", "/images/subcategories/8854896082974.jpg", mainCategories.ElementAt(0).Item1),
-                    ("Blu-Ray & DVD Players", "/images/subcategories/8854896279582.jpg", mainCategories.ElementAt(0).Item1),
-                    ("TV Accessories", "/images/subcategories/8854896672798.jpg", mainCategories.ElementAt(0).Item1),
-                    ("PCs", "/images/subcategories/10649289621534.jpg", mainCategories.ElementAt(1).Item1),
-                    ("Laptops", "/images/subcategories/10649182306334.jpg", mainCategories.ElementAt(1).Item1),
-                    ("Monitors", "/images/subcategories/10649184895006.jpg", mainCategories.ElementAt(1).Item1),
-                    ("Game Consoles", "/images/subcategories/10629502337054.jpg", mainCategories.ElementAt(1).Item1),
-                    ("Game Console Accessories", "/images/subcategories/8854902898718.jpg", mainCategories.ElementAt(1).Item1),
-                    ("Mobile Phones", "/images/subcategories/11501714079774.jpg", mainCategories.ElementAt(2).Item1),
-                    ("Tablets", "/images/subcategories/11501719060510.jpg", mainCategories.ElementAt(2).Item1),
-                    ("Headphones", "/images/subcategories/12936450080798.jpg", mainCategories.ElementAt(2).Item1),
-                    ("Accessories", "/images/subcategories/8901743247390.jpg", mainCategories.ElementAt(2).Item1),
+                    ("TVs", "/images/subcategories/tvs.jpg", mainCategories.ElementAt(0).Item1),
+                    ("Soundbars", "/images/subcategories/soundbars.jpg", mainCategories.ElementAt(0).Item1),
+                    ("Home Theaters", "/images/subcategories/home-theaters.jpg", mainCategories.ElementAt(0).Item1),
+                    ("Blu-Ray & DVD Players", "/images/subcategories/blu-rays.jpg", mainCategories.ElementAt(0).Item1),
+                    ("TV Accessories", "/images/subcategories/tv-accessories.jpg", mainCategories.ElementAt(0).Item1),
+                    ("PCs", "/images/subcategories/pcs.jpg", mainCategories.ElementAt(1).Item1),
+                    ("Laptops", "/images/subcategories/laptops.jpg", mainCategories.ElementAt(1).Item1),
+                    ("Monitors", "/images/subcategories/monitors.jpg", mainCategories.ElementAt(1).Item1),
+                    ("Peripherals", "/images/subcategories/peripherals.jpg", mainCategories.ElementAt(1).Item1),
                 };
 
                 foreach (var (name, imageUrl, mainCategory) in subcategories)

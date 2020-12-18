@@ -31,6 +31,8 @@
                               new SuppliersSeeder(),
                               new CountriesSeeder(),
                               new HomePageSlidesSeeder(),
+                              new ProductSeeder(),
+                              new OrdersSeeder(),
                           };
 
             foreach (var seeder in seeders)
