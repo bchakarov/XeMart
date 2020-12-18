@@ -110,7 +110,11 @@
                                                     @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                                                     {
                                                         <span>(@review.UserEmail)</span>
-                                                        <a asp-area="Administration" asp-controller="Products" asp-action="DeleteReview" asp-route-id="@review.Id" asp-route-returnUrl="@string.Format("{0}{1}", this.Context.Request.Path, this.Context.Request.QueryString)" class="btn btn-danger float-right ml-5">Delete</a>
+                                                        <form asp-area="Administration" asp-controller="Products" asp-action="DeleteReview" method="post" class="d-inline">
+                                                            <input name="Id" value="@review.Id" hidden />
+                                                            <input name="ReturnUrl" value="@string.Format("{0}{1}", this.Context.Request.Path, this.Context.Request.QueryString)" hidden />
+                                                            <button type="submit" class="btn btn-danger float-right ml-5">Delete</button>
+                                                        </form>
                                                     }
                                                 </h6>
                                                 <ul class="list-unstyled list-inline">

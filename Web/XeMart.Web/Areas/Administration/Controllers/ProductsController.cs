@@ -152,6 +152,7 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteReview(string id, string returnUrl)
         {
             var deleteResult = await this.productsService.DeleteReviewAsync(id);
