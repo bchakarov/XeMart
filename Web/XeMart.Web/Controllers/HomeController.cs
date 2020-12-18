@@ -1,11 +1,13 @@
 ﻿namespace XeMart.Web.Controllers
 {
+    using System;
     using System.Diagnostics;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
-
+    using Microsoft.Extensions.Caching.Distributed;
+    using Newtonsoft.Json;
     using XeMart.Services;
     using XeMart.Services.Data;
     using XeMart.Web.ViewModels;
@@ -20,41 +22,61 @@
         private readonly IProductsService productsService;
         private readonly IHomePageSlidesService homePageSlidesService;
         private readonly IStringService stringService;
+        private readonly IDistributedCache distributedCache;
 
         public HomeController(
             IUserMessagesService userMessagesService,
             IOrdersService ordersService,
             IProductsService productsService,
             IHomePageSlidesService homePageSlidesService,
-            IStringService stringService)
+            IStringService stringService,
+            IDistributedCache cache)
         {
             this.userMessagesService = userMessagesService;
             this.ordersService = ordersService;
             this.productsService = productsService;
             this.homePageSlidesService = homePageSlidesService;
             this.stringService = stringService;
+            this.distributedCache = cache;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var mostBoughtProducts = this.ordersService.GetMostBoughtProducts<ProductSidebarViewModel>(10);
-            var newestProducts = this.productsService.GetNewest<ProductViewModel>(10);
-            var topRatedProducts = this.productsService.GetTopRated<ProductSidebarViewModel>(4);
-
-            var slides = this.homePageSlidesService.GetAll<SlideHomeViewModel>();
-
-            foreach (var product in topRatedProducts)
+            var viewModelAsString = await this.distributedCache.GetStringAsync("IndexViewModel");
+            IndexViewModel viewModel;
+            if (viewModelAsString == null)
             {
-                product.Name = this.stringService.TruncateAtWord(product.Name, 30);
+                var mostBoughtProducts = this.ordersService.GetMostBoughtProducts<ProductSidebarViewModel>(10);
+                var newestProducts = this.productsService.GetNewest<ProductViewModel>(10);
+                var topRatedProducts = this.productsService.GetTopRated<ProductSidebarViewModel>(4);
+
+                var slides = this.homePageSlidesService.GetAll<SlideHomeViewModel>();
+
+                foreach (var product in topRatedProducts)
+                {
+                    product.Name = this.stringService.TruncateAtWord(product.Name, 30);
+                }
+
+                viewModel = new IndexViewModel
+                {
+                    MostBoughtProducts = mostBoughtProducts,
+                    NewestProducts = newestProducts,
+                    TopRatedProducts = topRatedProducts,
+                    Slides = slides,
+                };
+
+                await this.distributedCache.SetStringAsync(
+                    "IndexViewModel",
+                    JsonConvert.SerializeObject(viewModel),
+                    new DistributedCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10),
+                    });
             }
-
-            var viewModel = new IndexViewModel
+            else
             {
-                MostBoughtProducts = mostBoughtProducts,
-                NewestProducts = newestProducts,
-                TopRatedProducts = topRatedProducts,
-                Slides = slides,
-            };
+                viewModel = JsonConvert.DeserializeObject<IndexViewModel>(viewModelAsString);
+            }
 
             return this.View(viewModel);
         }
