@@ -12,6 +12,7 @@
 
     using XeMart.Data.Common.Repositories;
     using XeMart.Data.Models;
+    using XeMart.Data.Models.Enums;
     using XeMart.Web.ViewModels.Recommender;
 
     public class UpdateRecommenderModelJob
@@ -25,7 +26,10 @@
 
         public void Work(string webRootPath)
         {
-            var groupedOrders = this.orderProductsRepository.AllAsNoTracking().ToList()
+            var groupedOrders = this.orderProductsRepository
+                .AllAsNoTracking()
+                .Where(x => x.Order.Status == OrderStatus.Delivered || x.Order.PaymentStatus == PaymentStatus.Paid)
+                .ToList()
                 .GroupBy(x => x.OrderId)
                 .Select(x => x.ToList())
                 .ToList();
