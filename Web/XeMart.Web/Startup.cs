@@ -170,6 +170,7 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
 
                 recurringJobManager.AddOrUpdate<UpdateRecommenderModelJob>("Update Recommender", x => x.Work(env.WebRootPath), Cron.Daily);
+                recurringJobManager.AddOrUpdate<CancelOldProcessingOrdersJob>("Cancel Processing Orders", x => x.Work(), "*/5 * * * *");
             }
 
             if (env.IsDevelopment())
