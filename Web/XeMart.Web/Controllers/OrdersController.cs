@@ -134,7 +134,6 @@
 
             if (this.ordersService.GetPaymentTypeById(orderId) == PaymentType.CashOnDelivery)
             {
-                // TODO: send email
                 this.TempData["Alert"] = "Successfully registered order.";
             }
 
