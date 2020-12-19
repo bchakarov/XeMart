@@ -74,3 +74,6 @@ The data and the model are updated daily by a **Hangfire** job and the new model
 
 ### Admin Area
 ![Admin Area](https://i.imgur.com/eQDUS7l.png)
+
+### Order Details Email
+![Order Details Email](https://i.imgur.com/1nASuBc.png)
