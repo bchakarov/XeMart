@@ -53,7 +53,7 @@ The data and the model are updated daily by a **Hangfire** job and the new model
 ![DatabaseDiagram](https://i.imgur.com/aw0scJt.png)
 
 ### Home Page
-![HomePage](https://i.imgur.com/hAqRTjU.png)
+![HomePage](https://i.imgur.com/P4nAvSu.png)
 
 ### Subcategories
 ![Subcategories](https://i.imgur.com/0zebTuP.png)
@@ -71,4 +71,4 @@ The data and the model are updated daily by a **Hangfire** job and the new model
 ![Live Chat](https://i.imgur.com/d4h37xw.gif)
 
 ### Admin Area
-![Admin Area](https://i.imgur.com/HzW7mTs.png)
+![Admin Area](https://i.imgur.com/eQDUS7l.png)
