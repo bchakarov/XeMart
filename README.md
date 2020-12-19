@@ -42,6 +42,7 @@ The data and the model are updated daily by a **Hangfire** job and the new model
 * [ImageSharp](https://github.com/SixLabors/ImageSharp)
 * [Cloudinary](https://cloudinary.com/documentation/dotnet_integration)
 * [Azure Blob Storage](https://docs.microsoft.com/en-us/azure/storage/blobs/)
+* [Sendgrid](https://sendgrid.com/)
 * [Stripe](https://stripe.com/docs)
 * [SignalR](https://docs.microsoft.com/en-us/aspnet/signalr/overview/getting-started/introduction-to-signalr)
 * [CsvHelper](https://joshclose.github.io/CsvHelper/getting-started)
