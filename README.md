@@ -37,6 +37,7 @@ The data and the model are updated daily by a **Hangfire** job and the new model
 * [Google reCAPTCHA v3](https://developers.google.com/recaptcha/docs/v3)
 * [Charts.js](https://www.chartjs.org/)
 * [Moment.js](https://momentjs.com/)
+* [DataTables.js](https://datatables.net/)
 * [FontAwesome Icon Picker](https://github.com/itsjavi/fontawesome-iconpicker)
 * [ImageSharp](https://github.com/SixLabors/ImageSharp)
 * [Cloudinary](https://cloudinary.com/documentation/dotnet_integration)
