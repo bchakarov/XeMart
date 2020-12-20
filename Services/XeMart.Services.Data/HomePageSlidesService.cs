@@ -140,8 +140,17 @@
             this.homePageSlidesRepository.All()
             .FirstOrDefault(x => x.Position == position);
 
-        private int GetMaxPositionValue() =>
-            this.homePageSlidesRepository.AllAsNoTracking()
-            .Max(x => x.Position);
+        private int GetMaxPositionValue()
+        {
+            var slides = this.homePageSlidesRepository.AllAsNoTracking();
+            if (!slides.Any())
+            {
+                return 0;
+            }
+
+            var maxPosition = slides.Max(x => x.Position);
+
+            return maxPosition;
+        }
     }
 }
