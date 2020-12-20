@@ -4,6 +4,7 @@
 
     using XeMart.Data.Models;
     using XeMart.Services.Mapping;
+    using XeMart.Web.Infrastructure.ValidationAttributes;
 
     public class EditSlideViewModel : CreateSlideInputViewModel, IMapFrom<HomePageSlide>
     {
@@ -11,6 +12,7 @@
 
         public string ImageUrl { get; set; }
 
+        [Image]
         public new IFormFile Image { get; set; }
     }
 }
