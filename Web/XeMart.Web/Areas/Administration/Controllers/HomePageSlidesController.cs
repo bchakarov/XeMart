@@ -59,7 +59,14 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                var slide = this.homePageSlidesService.GetById<EditSlideViewModel>(model.Id);
+                if (slide == null)
+                {
+                    this.TempData["Error"] = "Slide not found.";
+                    return this.RedirectToAction(nameof(this.All));
+                }
+
+                return this.View(slide);
             }
 
             var editResult = await this.homePageSlidesService.EditAsync(model, model.Image);

@@ -87,7 +87,17 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                var mainCategories = this.mainCategoriesService.GetAll();
+                var subcategory = this.subcategoriesService.GetById<EditSubcategoryViewModel>(model.Id);
+                if (subcategory == null)
+                {
+                    this.TempData["Error"] = "Subcategory not found.";
+                    return this.RedirectToAction(nameof(this.All));
+                }
+
+                subcategory.MainCategories = mainCategories;
+
+                return this.View(subcategory);
             }
 
             var editResult = await this.subcategoriesService.EditAsync<EditSubcategoryViewModel>(model, model.Image, SubcategoriesImagesDirectoryPath, this.webHostEnvironment.WebRootPath);

@@ -91,7 +91,17 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                var subcategories = this.subcategoriesService.GetAll();
+                var product = this.productsService.GetById<EditProductViewModel>(model.Id);
+                if (product == null)
+                {
+                    this.TempData["Error"] = "Product not found.";
+                    return this.RedirectToAction(nameof(this.All));
+                }
+
+                product.Subcategories = subcategories;
+
+                return this.View(product);
             }
 
             var editResult = await this.productsService.EditAsync<EditProductViewModel>(model, model.UploadedImages, this.fullDirectoryPath, this.webHostEnvironment.WebRootPath);

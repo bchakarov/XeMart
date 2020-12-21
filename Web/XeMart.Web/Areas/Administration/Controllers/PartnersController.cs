@@ -82,7 +82,14 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(model);
+                var partner = this.partnersService.GetById<EditPartnerViewModel>(model.Id);
+                if (partner == null)
+                {
+                    this.TempData["Error"] = "Partner not found.";
+                    return this.RedirectToAction(nameof(this.Requests));
+                }
+
+                return this.View(partner);
             }
 
             var editResult = await this.partnersService.EditAsync<EditPartnerViewModel>(model, model.Logo);

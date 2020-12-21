@@ -82,7 +82,7 @@
 
             if (!this.ModelState.IsValid)
             {
-                return this.View(model);
+                return this.View(partner);
             }
 
             var editResult = await this.partnersService.EditAsync<EditPartnerViewModel>(model, model.Logo);
